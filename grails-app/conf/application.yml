@@ -1,0 +1,135 @@
+#grails:
+#    plugin:
+#        springsecurity:
+#            oauth2:
+#                active: true
+#                registration:
+#                    askToLinkOrCreateAccountUri: '/oauth2Github' # The URI that is called to aks the user to either create a new account or link to an existing account
+#                    roleNames: ['ROLE_USER'] #A list of role names that should be automatically granted to an OAuth User. The roles will be created if they do not exist
+#                providers:
+#                    github:
+#                        api_key: 'ed887af2fa06acc5255f'
+#                        api_secret: 'fad4bf206fc6224429f3d1edf79e6348c494f46d'
+#                        #callback: "/oauth/callback"
+#                        successUri: "/oauth2/github/success"    #optional
+#                        failureUri: "/oauth2/github/failure"    #optional
+#                        #callback: "/oauth2/github/callback"     #optional
+---
+grails:
+    profile: web
+    codegen:
+        defaultPackage: bethax
+    spring:
+        transactionManagement:
+            proxies: false
+    gorm:
+        autowire: true
+        reactor:
+            # Whether to translate GORM events into Reactor events
+            # Disabled by default for performance reasons
+            events: false
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    main:
+        banner-mode: "off"
+    groovy:
+        template:
+            check-template-location: false
+
+# Spring Actuator Endpoints are Disabled by Default
+endpoints:
+    enabled: false
+    jmx:
+        enabled: true
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            all: '*/*'
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            form: application/x-www-form-urlencoded
+            html:
+              - text/html
+              - application/xhtml+xml
+            js: text/javascript
+            json:
+              - application/json
+              - text/json
+            multipartForm: multipart/form-data
+            pdf: application/pdf
+            rss: application/rss+xml
+            text: text/plain
+            hal:
+              - application/hal+json
+              - application/hal+xml
+            xml:
+              - text/xml
+              - application/xml
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+    views:
+        default:
+            codec: html
+        gsp:
+            encoding: UTF-8
+            htmlcodec: xml
+            codecs:
+                expression: html
+                scriptlets: html
+                taglib: none
+                staticparts: none
+endpoints:
+    jmx:
+        unique-names: true
+
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: true
+        use_query_cache: false
+        region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+
+environments:
+    development:
+        grails:
+            serverURL: "https://localhost:8443"
+            mongodb:
+                host: "localhost"
+                port: 27017
+                username: "bethax"
+                password: "FdGNBg4jm2ptBsfL"
+                databaseName: "bethax"
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    production:
+        grails:
+            serverURL: "https://localhost:8443"
+            mongodb:
+                host: "localhost"
+                port: 27017
+                username: "bethax"
+                password: "FdGNBg4jm2ptBsfL"
+                databaseName: "bethax"
