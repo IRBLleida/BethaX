@@ -19,6 +19,7 @@ class BootStrap {
                 familyName: 'Vilaplana',
                 isFemale: false,
                 passwordExpired: false).save(flush: true)
+
     }
     def destroy = {
     }
