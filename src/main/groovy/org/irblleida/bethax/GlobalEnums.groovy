@@ -5,8 +5,6 @@ public enum InstitutionType {
     PUBLIC_EXTERNAL(2),
     PRIVATE_EXTERNAL(3)
 
-
-
     private final Integer value
 
     private InstitutionType(Integer value) {
@@ -38,11 +36,38 @@ public enum StudyType {
     NEW_PROJECT(4),
     OTHERS(5)
 
-
-
     private final Integer value
 
     private StudyType(Integer value) {
+        this.value = value
+    }
+
+    Integer value() { value }
+}
+
+public enum ResearchGroup {
+    OTHER_RESEARCH_LINES(1),
+    BIOLOGY_STATISTICS(2),
+    MOLECULAR_BIOLOGY(3),
+    BIOCHEMISTRY(4)
+
+    private final Integer value
+
+    private ResearchGroup(Integer value) {
+        this.value = value
+    }
+
+    Integer value() { value }
+}
+
+public enum NoWorkPlanReason {
+    SPORADIC_CONSULTATION(1),
+    REVIEWER_RESPONSE(2),
+    OTHERS(3)
+
+    private final Integer value
+
+    private NoWorkPlanReason(Integer value) {
         this.value = value
     }
 

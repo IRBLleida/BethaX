@@ -13,6 +13,6 @@ class HomeController {
             localeResolver.setLocale(request, response, new Locale(principal.lang));
         }
 
-        render "logged in"
+        redirect controller: "project", action: "index"
     }
 }

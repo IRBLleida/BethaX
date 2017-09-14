@@ -105,6 +105,10 @@
                     <div>
                         <input type="password" class="form-control" placeholder="${g.message(code: 'login.auth.password')}" required="" name="${passwordParameter ?: 'password'}" id="password" />
                     </div>
+                    <p>
+                        <label for="remember_me">Remember me</label>
+                        <input type="checkbox" class="chk" id="remember_me" name="remember-me"/>
+                    </p>
                     <div class="form-group">
                         <input type="submit" id="submit" class="btn btn-default submit" value="${g.message(code: 'springSecurity.login.button')}"/>
                         <a href="#password_reset" class="to_register" href="#"><g:message code="login.auth.lostPassword" /></a>

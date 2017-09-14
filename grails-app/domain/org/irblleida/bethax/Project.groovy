@@ -9,35 +9,29 @@ class Project {
     User createdBy
     User lastModifiedBy
 
-    Date entryDate
     String name
     String description
-    InstitutionType applicationType
-    Institution institution
-    String applicantName
-    String applicantPhone
-    String applicantEmail
-    Boolean isFromResearchProject
-    String rProjectHeadInvestigator
-    String rProjectName
-    ResearchProjectType rProjectType
+    Boolean isResearch
+    Person principalInvestigator
+    Boolean isFunded
+    FundingBody fundingBody
+    Boolean hasStatisticalFunding
     /** CREC: Clinical Research Ethics Committee */
     Boolean isCREC
-    StudyType studyType
-    String studyTypeOthers
 
-    Boolean isCompetitiveProject
-    Boolean isStudyDesign
-    Boolean isPaperWriting
-    Boolean isDatabaseDesign
-    Boolean isDataAnalysis
-    String otherInquiry
 
-    String comments
-    User headStatistician
-    User supportStatistician
-
+    static hasMany = [requests: ProjectApplication]
 
     static constraints = {
+        createdBy nullable: false
+        lastModifiedBy nullable: false
+        name nullable: false, blank: false, unique: true
+        description nullable: true, blank: true
+        isResearch nullable: false
+        principalInvestigator nullable: false
+        isFunded nullable: false
+        fundingBody nullable: true
+        hasStatisticalFunding nullable: true
+        isCREC nullable: false
     }
 }

@@ -2,7 +2,7 @@ package org.irblleida.bethax
 
 import org.bson.types.ObjectId
 
-class Institution {
+class Milestone {
     ObjectId id
     Date dateCreated
     Date lastUpdated
@@ -10,12 +10,16 @@ class Institution {
     User lastModifiedBy
 
     String name
-    InstitutionType institutionType
+    Date deadline
+    Date dateFinished
+
+    static belongsTo = [workPlan: WorkPlan]
 
     static constraints = {
         createdBy nullable: false
         lastModifiedBy nullable: false
-        name nullable: false, blank: false, unique: true
-        institutionType nullable: false
+        name nullable: false, blank: false
+        deadline nullable: false
+        dateFinished nullable: true
     }
 }
