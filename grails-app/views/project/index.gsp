@@ -6,7 +6,6 @@
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
-    <g:link controller="logout" action="index">Logout</g:link>
     <h1>Dashboard</h1>
 
     <section class="row text-center placeholders">

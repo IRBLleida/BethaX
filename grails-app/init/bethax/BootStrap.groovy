@@ -28,6 +28,16 @@ class BootStrap {
                 organization: Organization.findByName("UBiostat"),
                 passwordExpired: false).save(flush: true)
 
+        new User(
+                username: 'pbalaguer@irblleida.cat',
+                password: springSecurityService.encodePassword('changeme'),
+                authorities: [Role.findByAuthority('ROLE_USER'), Role.findByAuthority('ROLE_ADMIN')],
+                givenName: 'Pau',
+                familyName: 'Balaguer',
+                isFemale: false,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: false).save(flush: true)
+
         new TypeOfQuery(name: "Sol·licitud de projecte competitiu").save(flush: true)
         new TypeOfQuery(name: "Disseny d'estudi").save(flush: true)
         new TypeOfQuery(name: "Redacció d'articles").save(flush: true)

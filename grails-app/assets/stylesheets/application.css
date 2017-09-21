@@ -8,6 +8,8 @@
 * compiled file, but it's generally better to create a new file per style scope.
 *
 *= require font-awesome
+*= require bootstrap
+*= require bootstrap-reboot
 *= require main
 *= require_self
 */
