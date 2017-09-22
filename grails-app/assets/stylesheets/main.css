@@ -68,3 +68,39 @@ h1 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
 }
+.navbar-light .navbar-brand{
+    color: #17a2b8 !important;
+}
+
+.fixed-top{
+    background-color: white;
+    border-bottom: 1px solid rgba(127, 127, 127, 0.38)
+}
+
+.navbar-collapse .navbar-nav .nav-item{
+    margin-right: 40px;
+
+}
+
+span.user-dropwdown{
+    padding-left: 10px;
+}
+a.dropdown-item{
+    padding-bottom: 15px;
+    padding-top: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.sidebar .nav-pills .nav-item .nav-link{
+    color: #7f7f7f;
+}
+
+.sidebar .nav-pills .nav-item .active{
+    background-color: #17a2b8;
+    color: #FFFFFF;
+}
+
+.nav-item .nav-link .fa{
+    padding-right: 20px;
+}
