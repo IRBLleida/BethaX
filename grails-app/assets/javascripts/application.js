@@ -9,6 +9,9 @@
 //= require popper.min
 //= require bootstrap
 //= require core-ui
+//= require skel.min
+//= require util
+//= require mail
 //= require_tree .
 //= require_self
 
