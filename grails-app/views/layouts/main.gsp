@@ -50,6 +50,17 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" style="text-align: center">
+                        <img src="${resource(dir: 'images', file: 'user.png')}"  style="width:80px;height:80px;"/>
+                        <br/><br/>
+                        <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
+                    </a>
+                </li>
+            </ul>
+
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>

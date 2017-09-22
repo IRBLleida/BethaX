@@ -96,3 +96,11 @@ a.dropdown-item{
     padding-right: 30px;
 }
 
+.sidebar .nav-pills .nav-item .nav-link{
+    color: #7f7f7f;
+}
+
+.sidebar .nav-pills .nav-item .active{
+    background-color: #17a2b8;
+    color: #FFFFFF;
+}
