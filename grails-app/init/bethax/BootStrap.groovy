@@ -38,22 +38,24 @@ class BootStrap {
                 organization: Organization.findByName("UBiostat"),
                 passwordExpired: false).save(flush: true)
 
-        new TypeOfQuery(name: "Sol·licitud de projecte competitiu").save(flush: true)
-        new TypeOfQuery(name: "Disseny d'estudi").save(flush: true)
-        new TypeOfQuery(name: "Redacció d'articles").save(flush: true)
-        new TypeOfQuery(name: "Disseny de bases de dades").save(flush: true)
-        new TypeOfQuery(name: "Anàlisi de dades").save(flush: true)
+        def user = User.findByUsername('pbalaguer@irblleida.cat')
 
-        new Institution(name: "IRBLleida", institutionType: InstitutionType.INTERNAL).save(flush: true)
-        new Institution(name: "ICS Lleida", institutionType: InstitutionType.INTERNAL).save(flush: true)
-        new Institution(name: "GSS", institutionType: InstitutionType.INTERNAL).save(flush: true)
-        new Institution(name: "UdL", institutionType: InstitutionType.INTERNAL).save(flush: true)
+        new TypeOfQuery(createdBy: user, lastModifiedBy: user, name: "Sol·licitud de projecte competitiu").save(flush: true, failOnError: true)
+        new TypeOfQuery(createdBy: user, lastModifiedBy: user, name: "Disseny d'estudi").save(flush: true)
+        new TypeOfQuery(createdBy: user, lastModifiedBy: user, name: "Redacció d'articles").save(flush: true)
+        new TypeOfQuery(createdBy: user, lastModifiedBy: user, name: "Disseny de bases de dades").save(flush: true)
+        new TypeOfQuery(createdBy: user, lastModifiedBy: user, name: "Anàlisi de dades").save(flush: true)
 
-        new Institution(name: "CatSalut", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
-        new Institution(name: "HUGTP", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
-        new Institution(name: "Parc Taurí", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "IRBLleida", institutionType: InstitutionType.INTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "ICS Lleida", institutionType: InstitutionType.INTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "GSS", institutionType: InstitutionType.INTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "UdL", institutionType: InstitutionType.INTERNAL).save(flush: true)
 
-        new Institution(name: "GOC", institutionType: InstitutionType.PRIVATE_EXTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "CatSalut", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "HUGTP", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
+        new Institution(createdBy: user, lastModifiedBy: user, name: "Parc Taurí", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
+
+        new Institution(createdBy: user, lastModifiedBy: user, name: "GOC", institutionType: InstitutionType.PRIVATE_EXTERNAL).save(flush: true)
     }
 
     def destroy = {

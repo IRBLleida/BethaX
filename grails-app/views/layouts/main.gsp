@@ -65,7 +65,7 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
+                    <a class="nav-link" href="#">
                         <i class="fa fa-tachometer"></i>
                         Resum <span class="sr-only">(current)</span>
                     </a>
@@ -86,16 +86,16 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="project" action="index" class="nav-link ${controllerName == 'project' ? 'active' : ''}">
                         <i class="fa fa-archive"></i>
                         Projectes
-                    </a>
+                    </g:link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="institution" action="index" class="nav-link ${controllerName == 'institution' ? 'active' : ''}">
                         <i class="fa fa-building"></i>
                         Institucions
-                    </a>
+                    </g:link>
                 </li>
             </ul>
 
