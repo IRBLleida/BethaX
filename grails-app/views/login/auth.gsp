@@ -70,14 +70,11 @@
 
                 <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" autocomplete="on" class="login-form">
                     <div class="form-group">
-                        <input type="email" id="username" name="username" class="form-control" placeholder="Username">
-
+                        <input type="email" id="username" name="username" class="form-control" placeholder="Username" style="color:#ffffff">
                     </div>
                     <div class="form-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" style="color:#ffffff">
                     </div>
-
-
                     <div class="form-check">
                         <button type="submit" class="btn btn-login">Submit</button>
                     </div>
