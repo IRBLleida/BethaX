@@ -16,7 +16,9 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand">- Betha X -</a>
+    <a class="navbar-brand" style="text-align: center">
+        <img src="${resource(dir: 'images', file: 'logo.png')}"  style="width:40%;height:40%;"/>
+    </a>
 
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
@@ -63,43 +65,52 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="#">
+                        <i class="fa fa-tachometer"></i>
+                        Resum <span class="sr-only">(current)</span>
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Reports</a>
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-calendar"></i>
+                        Calendari
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Analytics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Export</a>
-                </li>
-            </ul>
-
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Nav item</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Nav item again</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">One more nav</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Another nav item</a>
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-users"></i>
+                        Activitat
+                    </a>
                 </li>
             </ul>
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nav item again</a>
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-archive"></i>
+                        Projectes
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">One more nav</a>
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-building"></i>
+                        Institucions
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-question-circle"></i>
+                        Ajuda
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Another nav item</a>
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-bug"></i>
+                        Reportar un problema
+                    </a>
                 </li>
             </ul>
         </nav>
