@@ -4,54 +4,37 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'institution.label', default: 'Institution')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <style>
+            .col-md-12 .pull-right{
+                margin-top: 10px;
+            }
+        </style>
     </head>
     <body>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
+
+        <div class="col-md-12" style="height: 50px;">
+            <g:link controller="institution" action="create" class="btn btn-outline-success pull-right">
+                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                Institució nova
+            </g:link>
         </div>
-        <div id="list-institution" class="content scaffold-list" role="main">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-                <div class="message" role="status">${flash.message}</div>
-            </g:if>
 
-            <div class="panel-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Institució</th>
-                        <th>Acció</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <g:each var="institution" in="${institutionList}">
-                        <tr>
-                            <td>
-                                <g:link action="show" id="${institution.id.toString()}">
-                                    ${institution.name}
-                                </g:link>
-                            </td>
-                            <td>
-                                <g:link controller="institution" action="edit" id="${institution?.id}" params="[institution: institution?.id]" class="btn btn-warning">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </g:link>
-                                <g:link controller="blooinstitutiondTest" action="delete" id="${institution?.id}" class="btn btn-danger delete">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </g:link>
-                            </td>
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
+        <nav class="nav nav-tabs" id="myTab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-expanded="true">Internes</a>
+            <div class="dropdown">
+                <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    Externes
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" id="nav-dropdown1-tab" href="#nav-dropdown1" role="tab" data-toggle="tab" aria-controls="nav-dropdown1">Públiques</a>
+                    <a class="dropdown-item" id="nav-dropdown2-tab" href="#nav-dropdown2" role="tab" data-toggle="tab" aria-controls="nav-dropdown2">Privades</a>
+                </div>
             </div>
-
-            <f:table collection="${institutionList}" />
-
-            <div class="pagination">
-                <g:paginate total="${institutionCount ?: 0}" />
-            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"><g:render template="table" model="[id:1]"/> </div>
+            <div class="tab-pane fade" id="nav-dropdown1" role="tabpanel" aria-labelledby="nav-dropdown1-tab"><g:render template="table" model="[id:2]"/></div>
+            <div class="tab-pane fade" id="nav-dropdown2" role="tabpanel" aria-labelledby="nav-dropdown2-tab"><g:render template="table" model="[id:3]"/></div>
         </div>
     </body>
 </html>
