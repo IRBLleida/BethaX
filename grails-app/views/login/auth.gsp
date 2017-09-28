@@ -54,7 +54,7 @@
 
 </form>
 -->
-<body>
+<body class="is-loading">
 <!-- Wrapper -->
 <div id="wrapper">
 
