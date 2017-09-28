@@ -92,9 +92,21 @@
                     </g:link>
                 </li>
                 <li class="nav-item">
+                    <g:link controller="projectApplication" action="index" class="nav-link ${controllerName == 'projectApplication' ? 'active' : ''}">
+                        <i class="fa fa-wpforms"></i>
+                        Sol·licituds
+                    </g:link>
+                </li>
+                <li class="nav-item">
                     <g:link controller="institution" action="index" class="nav-link ${controllerName == 'institution' ? 'active' : ''}">
                         <i class="fa fa-building"></i>
                         Institucions
+                    </g:link>
+                </li>
+                <li class="nav-item">
+                    <g:link controller="person" action="index" class="nav-link ${controllerName == 'person' ? 'active' : ''}">
+                        <i class="fa fa-user-circle-o "></i>
+                        Persones
                     </g:link>
                 </li>
             </ul>
