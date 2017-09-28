@@ -66,22 +66,22 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="home" action="summary" class="nav-link ${actionName == 'summary' ? 'active' : ''}">
                         <i class="fa fa-tachometer"></i>
                         Resum <span class="sr-only">(current)</span>
-                    </a>
+                    </g:link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="home" action="calendar" class="nav-link ${actionName == 'calendar' ? 'active' : ''}">
                         <i class="fa fa-calendar"></i>
                         Calendari
-                    </a>
+                    </g:link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="home" action="activity" class="nav-link ${actionName == 'activity' ? 'active' : ''}">
                         <i class="fa fa-users"></i>
                         Activitat
-                    </a>
+                    </g:link>
                 </li>
             </ul>
 

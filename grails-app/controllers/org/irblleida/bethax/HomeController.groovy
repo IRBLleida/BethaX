@@ -15,4 +15,16 @@ class HomeController {
 
         redirect controller: "project", action: "index"
     }
+
+    def summary(){
+        render view:'summary', model: []
+    }
+
+    def calendar(){
+        render view:'calendar', model: []
+    }
+
+    def activity(){
+        render view:'activity', model: []
+    }
 }
