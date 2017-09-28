@@ -22,7 +22,8 @@
 
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="#">Sol·licituds</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sol·licituds</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Fites</a></li>
             <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
         </ul>
@@ -55,11 +56,11 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="text-align: center">
+                    <g:link controller="user" action="index" id="" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
                         <img src="${resource(dir: 'images', file: 'user.png')}"  style="width:80px;height:80px;"/>
                         <br/><br/>
                         <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
-                    </a>
+                    </g:link>
                 </li>
             </ul>
 
