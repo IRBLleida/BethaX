@@ -22,7 +22,8 @@
 
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="#">Sol·licituds</a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Sol·licituds</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Fites</a></li>
             <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
         </ul>
@@ -55,32 +56,32 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" style="text-align: center">
+                    <g:link controller="user" action="index" id="" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
                         <img src="${resource(dir: 'images', file: 'user.png')}"  style="width:80px;height:80px;"/>
                         <br/><br/>
                         <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
-                    </a>
+                    </g:link>
                 </li>
             </ul>
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="home" action="summary" class="nav-link ${actionName == 'summary' ? 'active' : ''}">
                         <i class="fa fa-tachometer"></i>
                         Resum <span class="sr-only">(current)</span>
-                    </a>
+                    </g:link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="home" action="calendar" class="nav-link ${actionName == 'calendar' ? 'active' : ''}">
                         <i class="fa fa-calendar"></i>
                         Calendari
-                    </a>
+                    </g:link>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <g:link controller="home" action="activity" class="nav-link ${actionName == 'activity' ? 'active' : ''}">
                         <i class="fa fa-users"></i>
                         Activitat
-                    </a>
+                    </g:link>
                 </li>
             </ul>
 
@@ -92,9 +93,21 @@
                     </g:link>
                 </li>
                 <li class="nav-item">
+                    <g:link controller="projectApplication" action="index" class="nav-link ${controllerName == 'projectApplication' ? 'active' : ''}">
+                        <i class="fa fa-wpforms"></i>
+                        Sol·licituds
+                    </g:link>
+                </li>
+                <li class="nav-item">
                     <g:link controller="institution" action="index" class="nav-link ${controllerName == 'institution' ? 'active' : ''}">
                         <i class="fa fa-building"></i>
                         Institucions
+                    </g:link>
+                </li>
+                <li class="nav-item">
+                    <g:link controller="person" action="index" class="nav-link ${controllerName == 'person' ? 'active' : ''}">
+                        <i class="fa fa-user-circle-o "></i>
+                        Persones
                     </g:link>
                 </li>
             </ul>

@@ -101,6 +101,11 @@ a.dropdown-item{
     color: #FFFFFF;
 }
 
+.sidebar .nav-pills .nav-item .active2{
+    background-color: #f8f9fa;
+    color: #7f7f7f;
+}
+
 .nav-item .nav-link .fa{
     padding-right: 20px;
 }

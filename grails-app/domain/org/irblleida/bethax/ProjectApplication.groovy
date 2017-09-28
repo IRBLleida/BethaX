@@ -28,6 +28,19 @@ class ProjectApplication {
     Date invoiceDate
     Date invoicePaymentDate
 
+    ProjectApplicationState getState() {
+        Date today = new Date()
+        if(closingDate != null){
+            if (today.before(closingDate) && today.after(entryDate))  return ProjectApplicationState.ACTIVE
+            else if (today.after(closingDate))  return ProjectApplicationState.FINISHED
+        }else {
+            if (today.before(entryDate)) return ProjectApplicationState.WAITING
+            else return ProjectApplicationState.ACTIVE
+        }
+    }
+
+    static transients = ['state']
+
     static hasMany = [
             projects: Project,
             typeOfQueries: TypeOfQuery,
@@ -43,7 +56,7 @@ class ProjectApplication {
         linkedApplication nullable: true
         applicationType nullable: false
         applicant nullable: false
-        budget nullable: false, min: 0
+        budget nullable: false, min: new Float(0.0)
         isWorkPlanNeeded nullable: true
         noWorkPlanReason nullable: true
         workPlan nullable: true

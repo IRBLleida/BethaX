@@ -14,6 +14,20 @@ public enum InstitutionType {
     Integer value() { value }
 }
 
+public enum ProjectApplicationState {
+    WAITING( 1),
+    ACTIVE(2),
+    FINISHED(3)
+
+    private final Integer value
+
+    private ProjectApplicationState(Integer value){
+        this.value = value
+    }
+
+    Integer value() { value }
+}
+
 public enum ResearchProjectType {
     FIS(1),
     MINISTRY(2),
