@@ -133,5 +133,9 @@
     </div>
 </div>
 <asset:javascript src="application.js"/>
+<!-- Custom placeholder for page scripts -->
+<g:ifPageProperty name="page.footScripts">
+    <g:pageProperty name="page.footScripts" />
+</g:ifPageProperty>
 </body>
 </html>

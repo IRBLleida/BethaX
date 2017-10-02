@@ -1,5 +1,10 @@
 package org.irblleida.bethax
 
+import org.renjin.script.RenjinScriptEngineFactory
+import org.renjin.sexp.SEXP
+
+import javax.script.ScriptEngine
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -10,7 +15,8 @@ class ProjectController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond ProjectApplication.list(params), model:[projectCount: ProjectApplication.count()]
+        println params?.rresponse
+        respond ProjectApplication.list(params), model:[projectCount: ProjectApplication.count(), rresponse: params?.rresponse]
     }
 
     def show(ProjectApplication project) {
@@ -103,5 +109,20 @@ class ProjectController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+
+    def rtest() {
+        RenjinScriptEngineFactory factory = new RenjinScriptEngineFactory();
+        // create a Renjin engine:
+        ScriptEngine engine = factory.getScriptEngine();
+        def response = (SEXP)engine.eval(params?.rcode);
+
+        //engine.eval("df <- data.frame(x=1:10, y=(1:10)+rnorm(n=10))");
+        //SEXP res1 = (SEXP)engine.eval("print(df)");
+        //SEXP res2 = (SEXP)engine.eval("print(lm(y ~ x, df))");
+
+        println response
+        redirect action: "index", model: ['rresponse': response]
     }
 }

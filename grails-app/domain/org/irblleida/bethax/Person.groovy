@@ -15,7 +15,6 @@ class Person {
     Institution institution
     InstitutionSection section
 
-
     static constraints = {
         createdBy nullable: false
         lastModifiedBy nullable: false

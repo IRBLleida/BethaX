@@ -8,6 +8,11 @@
     <body>
     <h1>Llista de projectes</h1>
     <h2>Section title</h2>
+    <g:form action="rtest">
+        <g:textField name="rcode" value="" />
+        <g:submitButton name="go" value="Go" />
+    </g:form>
+    <div id="rresponse">${rresponse}</div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>

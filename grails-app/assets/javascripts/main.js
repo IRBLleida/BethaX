@@ -31,6 +31,7 @@
 
 			window.setTimeout(function() {
 				$body.removeClass('is-loading');
+				$('#username').focus();
 			}, 300);
 
 		// Fix: Placeholder polyfill.

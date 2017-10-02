@@ -7,6 +7,10 @@ body {
     padding-top: 3.5rem;
 }
 
+.navbar-dark .navbar-brand {
+    color: red;
+}
+
 /*
  * Typography
  */
