@@ -13,7 +13,8 @@ class UserController {
         respond User.list(params), model:[userCount: User.count()]
     }
 
-    def show(User user) {
+    def show() {
+        User user = User.get(((User) getAuthenticatedUser()).id)
         respond user
     }
 

@@ -56,7 +56,7 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <g:link controller="user" action="index" id="" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
+                    <g:link controller="user" action="show" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
                         <img src="${resource(dir: 'images', file: 'user.png')}"  style="width:80px;height:80px;"/>
                         <br/><br/>
                         <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
