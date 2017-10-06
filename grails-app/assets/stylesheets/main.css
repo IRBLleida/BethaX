@@ -290,3 +290,9 @@ a.dropdown-item{
 .nav-item .nav-link .fa{
     padding-right: 20px;
 }
+
+.dropdown-toggle#navbarDropdownMenuLink2::after{
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+}

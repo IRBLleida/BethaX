@@ -16,14 +16,27 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <a class="navbar-brand" style="text-align: center">
         <img src="${resource(dir: 'images', file: 'logo.png')}"  style="width:40%;height:40%;"/>
     </a>
 
+    <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown">
+                    Sol·licituds <span id="notificationsNumber" class="badge badge-secondary badge-info"> </span>
+                </a>
+                <div id="dropdownNotifications" class="dropdown-menu dropdown-menu-right">
+                </div>
+            </li>
+        </ul>
+    </div>
+
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
-            <li class="nav-item">
-                <a id="pendingApplications" class="nav-link" href="#">Sol·licituds</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Fites</a></li>
             <li class="nav-item"><a data-dialog="addSomethingDialog" class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
         </ul>
@@ -246,20 +259,31 @@
     })();
 </g:javascript>
 <g:javascript>
-    function a() {
-$.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
-            console.log(data.length);
+    var isClosed = true;
+    var dataset = [];
 
+    function a() {
+    $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
+            $( "#notificationsNumber" ).html(data.length)
+            dataset = data;
         });
     }
 
-    //setInterval(a, 30000);
+    a();
+    setInterval(a, 30000);
 
-    $('#pendingApplications').on("click", function() {
+    $('#navbarDropdownMenuLink2').on("click", function() {
         $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
-            console.log(data.length);
-            for(var d in data) {
-                console.log(data[d]);
+            if(isClosed){
+                $("#dropdownNotifications").html("")
+                for(var d in data) {
+                    $("#dropdownNotifications").append('<a class="dropdown-item" href="#"><span class="user-dropwdown">' + data[d] + '</span></a>')
+                }
+                isClosed = false;
+            }else{
+                isClosed = true;
+                dataset = [];
+                $( "#notificationsNumber" ).html(0)
             }
         });
     })
