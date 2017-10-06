@@ -16,19 +16,19 @@ class ProjectController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         println params?.rresponse
-        respond ProjectApplication.list(params), model:[projectCount: ProjectApplication.count(), rresponse: params?.rresponse]
+        respond Project.list(params), model:[projectCount: Project.count(), rresponse: params?.rresponse]
     }
 
-    def show(ProjectApplication project) {
+    def show(Project project) {
         respond project
     }
 
     def create() {
-        respond new ProjectApplication(params)
+        respond new Project(params)
     }
 
     @Transactional
-    def save(ProjectApplication project) {
+    def save(Project project) {
         if (project == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -45,19 +45,19 @@ class ProjectController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'project.label', default: 'ProjectApplication'), project.id])
+                flash.message = message(code: 'default.created.message', args: [message(code: 'project.label', default: 'Project'), project.id])
                 redirect project
             }
             '*' { respond project, [status: CREATED] }
         }
     }
 
-    def edit(ProjectApplication project) {
+    def edit(Project project) {
         respond project
     }
 
     @Transactional
-    def update(ProjectApplication project) {
+    def update(Project project) {
         if (project == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -74,7 +74,7 @@ class ProjectController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'project.label', default: 'ProjectApplication'), project.id])
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'project.label', default: 'Project'), project.id])
                 redirect project
             }
             '*'{ respond project, [status: OK] }
@@ -82,7 +82,7 @@ class ProjectController {
     }
 
     @Transactional
-    def delete(ProjectApplication project) {
+    def delete(Project project) {
 
         if (project == null) {
             transactionStatus.setRollbackOnly()
@@ -94,7 +94,7 @@ class ProjectController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'project.label', default: 'ProjectApplication'), project.id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'project.label', default: 'Project'), project.id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -104,7 +104,7 @@ class ProjectController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'ProjectApplication'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'project.label', default: 'Project'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }

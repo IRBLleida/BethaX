@@ -1,5 +1,5 @@
-grails.plugin.springsecurity.auth.forceHttps = true
-grails.plugin.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+//grails.plugin.springsecurity.auth.forceHttps = true
+//grails.plugin.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false

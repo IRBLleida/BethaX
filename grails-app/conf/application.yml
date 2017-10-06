@@ -126,7 +126,9 @@ environments:
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         grails:
-            serverURL: "https://localhost:8443"
+            serverURL: "http://84.88.14.139:8080/BethaX"
+            #assets:
+            #    url: "http://84.88.14.139:8080/assets/"
             mongodb:
                 host: "localhost"
                 port: 27017

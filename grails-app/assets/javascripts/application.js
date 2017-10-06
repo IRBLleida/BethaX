@@ -12,6 +12,9 @@
 //= require skel.min
 //= require util
 //= require mail
+//= require modernizr.custom
+//= require classie
+//= require dialog-box
 //= require_tree .
 //= require_self
 

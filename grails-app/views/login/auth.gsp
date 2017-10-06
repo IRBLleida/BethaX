@@ -19,15 +19,8 @@
     <asset:link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
     <asset:link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png"/>
     <asset:link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
-    <asset:stylesheet src="bootstrap.css"/>
-    <asset:stylesheet src="font-awesome.css"/>
-    <asset:stylesheet src="nprogress.css"/>
-    <asset:stylesheet src="animate.css"/>
-    <asset:stylesheet src="main.css"/>
-    <asset:stylesheet src="auth.css" />
-    <asset:javascript src="jquery-2.2.0.min.js" />
+    <asset:stylesheet src="application.css"/>
     <link href="https://fonts.googleapis.com/css?family=Bad+Script" rel="stylesheet">
-
     <asset:stylesheet src="mainLogIn.css" />
     <!--[if lte IE 9]><asset:stylesheet src="ie9.css" /><![endif]-->
 </head>

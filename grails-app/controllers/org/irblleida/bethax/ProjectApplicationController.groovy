@@ -1,5 +1,7 @@
 package org.irblleida.bethax
 
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -11,6 +13,11 @@ class ProjectApplicationController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ProjectApplication.list(params), model:[projectApplicationCount: ProjectApplication.count()]
+    }
+
+    def ajaxList() {
+        render (['a', 'b', 'c'] as JSON)
+        return
     }
 
     def show(ProjectApplication projectApplication) {

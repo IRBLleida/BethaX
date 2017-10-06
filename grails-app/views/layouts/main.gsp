@@ -23,9 +23,9 @@
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">Sol·licituds</a></li>
+                <a id="pendingApplications" class="nav-link" href="#">Sol·licituds</a></li>
             <li class="nav-item"><a class="nav-link" href="#">Fites</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
+            <li class="nav-item"><a data-dialog="addSomethingDialog" class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
         </ul>
     </div>
 
@@ -53,7 +53,6 @@
 <div class="container-fluid">
     <div class="row">
         <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <g:link controller="user" action="show" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
@@ -63,7 +62,6 @@
                     </g:link>
                 </li>
             </ul>
-
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <g:link controller="home" action="summary" class="nav-link ${actionName == 'summary' ? 'active' : ''}">
@@ -129,10 +127,71 @@
         </nav>
         <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
             <g:layoutBody/>
+            <div id="addSomethingDialog" class="dialog dialog--close">
+                <div class="dialog__overlay"></div>
+                <div class="dialog__content">
+                    <div class="morph-shape">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 560 280" preserveAspectRatio="none">
+                            <rect x="3" y="3" fill="none" width="556" height="276"></rect>
+                        </svg>
+                    </div>
+                    <div class="dialog-inner">
+                        <h2><strong>Hola</strong>, què vols afegir avui?</h2>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <g:link controller="project" action="create" class="btn btn-outline-primary">Projecte</g:link>
+                            </div>
+                            <div class="col-md-3">
+                                <g:link controller="projectApplication" action="create" class="btn btn-outline-info">Sol·licitud</g:link>
+                            </div>
+                            <div class="col-md-3">
+                                <g:link controller="institution" action="create" class="btn btn-outline-primary">Institució</g:link>
+                            </div>
+                            <div class="col-md-3">
+                                <g:link controller="person" action="create" class="btn btn-outline-info">Persona</g:link>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mt-5">
+                                <p>
+                                    <a href="#" class="btn btn-outline-secondary" data-dialog-close="a">Tancar</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </div>
-<asset:javascript src="application.js"/>
+<asset:javascript src="application.js" />
+<g:javascript>
+    (function() {
+        var dlgtrigger = document.querySelector( '[data-dialog]' ),
+            somedialog = document.getElementById( dlgtrigger.getAttribute( 'data-dialog' ) ),
+            dlg = new DialogFx( somedialog );
+        dlgtrigger.addEventListener( 'click', dlg.toggle.bind(dlg) );
+    })();
+</g:javascript>
+<g:javascript>
+    function a() {
+$.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
+            console.log(data.length);
+
+        });
+    }
+
+    //setInterval(a, 30000);
+
+    $('#pendingApplications').on("click", function() {
+        $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
+            console.log(data.length);
+            for(var d in data) {
+                console.log(data[d]);
+            }
+        });
+    })
+</g:javascript>
 <!-- Custom placeholder for page scripts -->
 <g:ifPageProperty name="page.footScripts">
     <g:pageProperty name="page.footScripts" />
