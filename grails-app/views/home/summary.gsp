@@ -40,24 +40,31 @@
     </div>
 </div>
 
-<div class="row" style="margin-top: 25px">
+<div class="row mt-2">
     <div class="col-md-6">
-        <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        <div class="card">
+            <div id="container" style="min-width: 310px; height: 400px;"></div>
+        </div>
     </div>
 
-    <div class="col-md-6">
-        <div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div class="col-md-6 ml-md-auto">
+        <div class="card">
+            <div id="container2" style="min-width: 310px; height: 400px;"></div>
+        </div>
     </div>
 </div>
-<div class="row" style="margin-top: 25px">
+<div class="row mt-4">
     <div class="col-md-4">
-        <div id="container3"></div>
+        <div class="card">
+            <div id="container3"></div>
+        </div>
     </div>
 
-    <div class="col-md-7" style="margin-left: 10px">
-        <span style="color:#333333;font-size:18px;fill:#333333;margin-bottom: 10px">Institucions amb major nombre de sol·licituds</span>
-
-        <nav class="nav nav-tabs" id="myTab" role="tablist" style="margin-top: 30px;">
+    <div class="col-md-7 ml-3">
+        <div style="text-align: center">
+            <span style="color:#333333;font-size:18px;fill:#333333;margin-bottom: 10px">Institucions amb major nombre de sol·licituds</span>
+        </div>
+        <nav class="nav nav-tabs mt-4" id="myTab" role="tablist">
             <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-expanded="true">Internes</a>
             <div class="dropdown">
                 <a class="nav-item nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -74,7 +81,6 @@
             <div class="tab-pane fade" id="nav-dropdown1" role="tabpanel" aria-labelledby="nav-dropdown1-tab"><g:render template="table" model="[id:2]"/></div>
             <div class="tab-pane fade" id="nav-dropdown2" role="tabpanel" aria-labelledby="nav-dropdown2-tab"><g:render template="table" model="[id:3]"/></div>
         </div>
-
     </div>
 </div>
 
@@ -194,7 +200,10 @@
                     ['Externes privades', 148.5, false]
                 ],
                 showInLegend: true
-            }]
+            }],
+            credits: {
+                enabled: false
+            },
         });
     </g:javascript>
 </content>
