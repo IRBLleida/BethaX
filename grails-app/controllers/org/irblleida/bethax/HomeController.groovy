@@ -17,7 +17,7 @@ class HomeController {
     }
 
     def summary(){
-        render view:'summary', model: []
+        render view:'summary', model: [institutionList: Institution.list()]
     }
 
     def calendar(){

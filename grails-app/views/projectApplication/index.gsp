@@ -21,8 +21,8 @@
 
 <nav class="nav nav-tabs" id="myTab" role="tablist">
     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-expanded="true">Actuals</a>
-    <a class="nav-item nav-link" id="nav-home-tab2" data-toggle="tab" href="#nav-home2" role="tab" aria-controls="nav-home" aria-expanded="true">No iniciades</a>
-    <a class="nav-item nav-link" id="nav-home-tab3" data-toggle="tab" href="#nav-home3" role="tab" aria-controls="nav-home" aria-expanded="true">En espera</a>
+    <a class="nav-item nav-link" id="nav-home-tab2" data-toggle="tab" href="#nav-home2" role="tab" aria-controls="nav-home" aria-expanded="true">En espera</a>
+    <a class="nav-item nav-link" id="nav-home-tab3" data-toggle="tab" href="#nav-home3" role="tab" aria-controls="nav-home" aria-expanded="true">Finalitzades</a>
 
 </nav>
 <div class="tab-content" id="nav-tabContent">
