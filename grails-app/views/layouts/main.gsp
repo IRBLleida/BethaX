@@ -282,8 +282,7 @@
                 isClosed = false;
             }else{
                 isClosed = true;
-                dataset = [];
-                $( "#notificationsNumber" ).html(0)
+
             }
         });
     })
