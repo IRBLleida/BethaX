@@ -10,3 +10,8 @@
 </g:hasErrors>
 <div class="row">
 </div>
+<content tag="footScripts">
+    <g:javascript>
+
+    </g:javascript>
+</content>

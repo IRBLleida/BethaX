@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <g:set var="entityName" value="\${message(code: '${propertyName}.label', default: '${className}')}" />
 </head>
 <body>
 <g:if test="\${flash.message}">
@@ -19,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <g:if test="\${${propertyName}List.size() > 0}">
+    <g:if test="\${${propertyName}List?.size() > 0}">
         <g:each var="${propertyName}" in="\${${propertyName}List}">
             <tr>
                 <th scope="row">
@@ -32,12 +31,15 @@
     </g:if>
     <g:else>
         <div class="jumbotron">
-            <h2 class="display-3">Casum l'òs pedrer, encara no hi ha cap <g:message code="${propertyName}.label" />!</h2>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <h1 class="display-3">
+                <asset:image src="open-box.png" />
+                Ups ...
+            </h1>
+            <p class="lead">Casum l'òs pedrer, encara no hi ha cap \${message(code: "${propertyName}.label")?.toLowerCase()}!</p>
             <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+            <p>Pots afegir-ne fent clic al botó de sota.</p>
             <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" /></g:link>
             </p>
         </div>
     </g:else>

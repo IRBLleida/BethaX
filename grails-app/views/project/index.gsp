@@ -2,23 +2,14 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <g:set var="entityName" value="${message(code: 'project.label', default: 'Project')}" />
 </head>
 <body>
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
 
-<h1><g:message code="default.list.label" args="[entityName]" /></h1>
-<div class="jumbotron">
-    <h1 class="display-3">Oops...</h1>
-    <p class="lead">Casum l'òs pedrer, encara no hi ha cap ${message(code: "project.label")?.toLowerCase()}!</p>
-    <hr class="my-4">
-    <p>Pots afegir-ne fent clic al botó de sota.</p>
-    <p class="lead">
-        <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" args="[entityName]" /></g:link>
-    </p>
-</div>
+<h2><g:message code="default.list.label" args="[entityName]" /></h2>
+
 <table class="table">
     <thead class="thead-inverse">
     <tr>
@@ -27,15 +18,31 @@
     </tr>
     </thead>
     <tbody>
-    <g:each var="project" in="${projectList}">
-        <tr>
-            <th scope="row">
-                <g:link action="show" id="${project.id.toString()}">
-                    ${project.id.toString().take(5)}</th>
-                </g:link>
-            <td></td>
-        </tr>
-    </g:each>
+    <g:if test="${projectList?.size() > 0}">
+        <g:each var="project" in="${projectList}">
+            <tr>
+                <th scope="row">
+                    <g:link action="show" id="${project.id.toString()}">
+                        ${project.id.toString().take(5)}</th>
+                    </g:link>
+                <td></td>
+            </tr>
+        </g:each>
+    </g:if>
+    <g:else>
+        <div class="jumbotron">
+            <h1 class="display-3">
+                <asset:image src="open-box.png" />
+                Ups ...
+            </h1>
+            <p class="lead">Casum l'òs pedrer, encara no hi ha cap ${message(code: "project.label")?.toLowerCase()}!</p>
+            <hr class="my-4">
+            <p>Pots afegir-ne fent clic al botó de sota.</p>
+            <p class="lead">
+                <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" /></g:link>
+            </p>
+        </div>
+    </g:else>
     </tbody>
 </table>
 </body>

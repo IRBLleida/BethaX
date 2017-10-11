@@ -24,4 +24,8 @@ class Person {
         institution nullable: false
         section nullable: true
     }
+
+    String toString() {
+        name + " (" + institution.name + ")"
+    }
 }
