@@ -273,18 +273,18 @@
     setInterval(a, 30000);
 
     $('#navbarDropdownMenuLink2').on("click", function() {
-        $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
-            if(isClosed){
-                $("#dropdownNotifications").html("")
+        if(isClosed){
+            $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
+                $("#dropdownNotifications").html("");
                 for(var d in data) {
-                    $("#dropdownNotifications").append('<a class="dropdown-item" href="#"><span class="user-dropwdown">' + data[d] + '</span></a>')
+                    //console.log(data[d].applicant.id)
+                    $("#dropdownNotifications").append('<a class="dropdown-item" href="#"><span class="user-dropwdown">' + data[d].name + '</span></a>');
                 }
                 isClosed = false;
-            }else{
-                isClosed = true;
-
-            }
-        });
+            });
+        }else{
+            isClosed = true;
+        }
     })
 </g:javascript>
 <g:javascript>
