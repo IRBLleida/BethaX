@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'project.label', default: 'Project')}" />
-        <title><g:message code="default.show.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <a href="#show-project" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
+<head>
+    <meta name="layout" content="main" />
+</head>
+<body>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-body crud">
+            <h4 class="card-title">Projecte <strong>${this.project}</strong></h4>
+            <hr class="brace">
+            <div class="row">
+                <bx:showField property="name" bean="${this.project}" />
+                <bx:showField property="description" bean="${this.project}" />
+                <bx:showField property="isResearch" bean="${this.project}" />
+                <bx:showField property="principalInvestigator" bean="${this.project}" />
+                <bx:showField property="principalInvestigator" bean="${this.project}" />
+                <bx:showField property="isFunded" bean="${this.project}" />
+                <bx:showField property="fundingBody" bean="${this.project}" />
+                <bx:showField property="hasStatisticalFunding" bean="${this.project}" />
+                <bx:showField property="isCREC" bean="${this.project}" />
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <dl class="animated fadeIn">
+                        <dt>
+                            <g:message code="project.requests.label" />
+                        </dt>
+                        <g:each var="projectApplication" in="${this.project.requests}">
+                            <dd class="sliding-middle-out">
+                                <g:link controller="projectApplication" action="show" id="${projectApplication.id.toString()}">${projectApplication}</g:link>
+                            </dd>
+                        </g:each>
+                    </dl>
+                </div>
+            </div>
         </div>
-        <div id="show-project" class="content scaffold-show" role="main">
-            <h1><g:message code="default.show.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message" role="status">${flash.message}</div>
-            </g:if>
-            <f:display bean="project" />
-            <g:form resource="${this.project}" method="DELETE">
-                <fieldset class="buttons">
-                    <g:link class="edit" action="edit" resource="${this.project}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-                    <input class="delete" type="submit" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-                </fieldset>
-            </g:form>
+        <div class="card-footer">
+            <g:link action="index" class="card-link btn btn-outline-primary"><i class="fa fa-list" aria-hidden="true"></i> Tornar al llistat</g:link>
+            <g:link action="edit" id="${this.project.id.toString()}" class="card-link btn btn-outline-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</g:link>
+            <g:link action="delete" id="${this.project.id.toString()}" class="card-link btn btn-outline-danger pull-right" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</g:link>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

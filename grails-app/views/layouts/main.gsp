@@ -16,10 +16,9 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" style="text-align: center">
+    <g:link controller="home" action="index" class="navbar-brand" style="text-align: center">
         <img src="${resource(dir: 'images', file: 'logo.png')}"  style="width:40%;height:40%;"/>
-    </a>
-
+    </g:link>
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
             <li class="nav-item">

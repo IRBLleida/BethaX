@@ -67,4 +67,8 @@ class ProjectApplication {
         invoiceDate nullable: true
         invoicePaymentDate nullable: true
     }
+
+    String toString() {
+        name
+    }
 }
