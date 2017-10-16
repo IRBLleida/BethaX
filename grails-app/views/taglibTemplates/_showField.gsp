@@ -39,6 +39,12 @@
                     </g:if>
                     <g:else>${raw(value)}</g:else>
                 </g:elseif>
+                <g:elseif test="${type == 'datetime'}">
+                    <g:if test="${value instanceof Date}">
+                        <g:formatDate date="${value}" format="dd/MM/yyyy HH:mm" />
+                    </g:if>
+                    <g:else>${raw(value)}</g:else>
+                </g:elseif>
                 <g:elseif test="${type == 'select'}">
                     <g:if test="${prefix}">
                         <g:if test="${rawValue != null}">

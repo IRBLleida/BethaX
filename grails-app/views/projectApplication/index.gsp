@@ -1,5 +1,71 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta name="layout" content="main" />
+</head>
+<body>
+<g:if test="${flash.message}">
+    <div class="message" role="status">${flash.message}</div>
+</g:if>
+<div class="card">
+    <div class="card-body crud">
+        <h4 class="card-title">Llista de sol·licituds</h4>
+        <hr class="brace">
+        <table class="table">
+            <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th><g:message code="projectApplication.name.label" /></th>
+                <th><g:message code="projectApplication.applicant.label" /></th>
+                <th><g:message code="projectApplication.projects.label" /></th>
+            </tr>
+            </thead>
+            <tbody>
+            <g:if test="${projectApplicationList?.size() > 0}">
+                <g:each var="projectApplication" in="${projectApplicationList}">
+                    <tr>
+                    <th scope="row">
+                        <g:link action="show" id="${projectApplication.id.toString()}">
+                            ${projectApplication.id.toString().take(5)}...</th>
+                        </g:link>
+                        <td>${projectApplication.name}</td>
+                        <td>${projectApplication.applicant}</td>
+                        <td>
+                            <g:each var="project" in="${projectApplication.projects}">
+                                <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>
+                            </g:each>
+                        </td>
+                    </tr>
+                </g:each>
+            </g:if>
+            <g:else>
+                <div class="jumbotron">
+                    <h1 class="display-3">
+                        <asset:image src="open-box.png" />
+                        Ups ...
+                    </h1>
+                    <p class="lead">Casum l'òs pedrer, encara no hi ha cap ${message(code: "projectApplication.label")?.toLowerCase()}!</p>
+                    <hr class="my-4">
+                    <p>Pots afegir-ne fent clic al botó de sota.</p>
+                    <p class="lead">
+                        <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" /></g:link>
+                    </p>
+                </div>
+            </g:else>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+
+
+<%--
+<!DOCTYPE html>
+<html>
     <head>
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'projectApplication.label', default: 'ProjectApplication')}" />
@@ -32,3 +98,4 @@
 </div>
 </body>
 </html>
+--%>

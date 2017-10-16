@@ -12,5 +12,6 @@
 *= require bootstrap-reboot
 *= require main
 *= require component
+*= require animate
 *= require_self
 */

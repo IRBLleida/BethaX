@@ -25,6 +25,10 @@ class BethaXTagLib {
                 case(java.lang.String):
                     attrs.type = 'text'
                     break
+                case(java.util.Date):
+                    if(attrs.property in ['dateCreated', 'lastUpdated']) attrs.type = 'datetime'
+                    else attrs.type = 'date'
+                    break
                 case(java.lang.Boolean):
                     attrs.type = 'select'
                     if(attrs.prefix == null) attrs.prefix = 'default.yesno'
@@ -32,6 +36,8 @@ class BethaXTagLib {
                 case(org.irblleida.bethax.Person):
                     attrs.type = 'select'
                     break
+                default:
+                    attrs.type = 'text'
             }
         }
 
@@ -59,7 +65,36 @@ class BethaXTagLib {
         attrs.domain = attrs.bean.getClass().getSimpleName().toLowerCase()
         attrs.name = attrs.property
         attrs.value = attrs.value ?: attrs.bean[attrs.property]
-        attrs.type = attrs.type ?: 'text'
+
+        if(!attrs.type) {
+            switch (attrs.bean.getClass().getDeclaredField(attrs.property)?.type) {
+                case(java.lang.String):
+                    attrs.type = 'text'
+                    break
+                case(java.util.Date):
+                    if(attrs.property in ['dateCreated', 'lastUpdated']) attrs.type = 'datetime'
+                    else attrs.type = 'date'
+                    break
+                case(java.lang.Boolean):
+                    attrs.type = 'select'
+                    if(attrs.prefix == null) attrs.prefix = 'default.yesno'
+                    break
+                case(org.irblleida.bethax.Person):
+                    attrs.type = 'select'
+                    break
+                case(org.irblleida.bethax.Institution):
+                    attrs.type = 'select'
+                    attrs.from = org.irblleida.bethax.Institution.list()
+                    break
+                case(org.irblleida.bethax.InstitutionSection):
+                    attrs.type = 'select'
+                    attrs.from = org.irblleida.bethax.InstitutionSection.findAllByInstitution(attrs.bean.institution)
+                    break
+                default:
+                    attrs.type = 'text'
+            }
+        }
+
         if(attrs.type == 'select') {
             if(attrs.value == null) attrs.value = ''
         }

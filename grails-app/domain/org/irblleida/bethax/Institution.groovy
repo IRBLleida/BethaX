@@ -18,4 +18,8 @@ class Institution {
         name nullable: false, blank: false, unique: true
         institutionType nullable: false
     }
+
+    String toString() {
+        name
+    }
 }

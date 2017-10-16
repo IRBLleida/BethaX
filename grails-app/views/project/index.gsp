@@ -7,8 +7,6 @@
 <g:if test="${flash.message}">
     <div class="message" role="status">${flash.message}</div>
 </g:if>
-
-
 <div class="card">
     <div class="card-body crud">
         <h4 class="card-title">Llista de projectes</h4>

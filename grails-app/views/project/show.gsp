@@ -2,6 +2,30 @@
 <html>
 <head>
     <meta name="layout" content="main" />
+    <style>
+        summary {
+            cursor: pointer;
+        }
+        details[open] summary {
+            border-bottom: 1px dashed black;
+            margin-bottom: 10px;
+        }
+        summary::-webkit-details-marker {
+            display: none
+        }
+        summary:after {
+            border-radius: 1px;
+            content: "+";
+            float: left;
+            font-weight: bold;
+            padding: 0;
+            text-align: center;
+            width: 20px;
+        }
+        details[open] summary:after {
+            content: "-";
+        }
+    </style>
 </head>
 <body>
 <div class="col-md-12">
@@ -28,10 +52,32 @@
                         </dt>
                         <g:each var="projectApplication" in="${this.project.requests}">
                             <dd class="sliding-middle-out">
-                                <g:link controller="projectApplication" action="show" id="${projectApplication.id.toString()}">${projectApplication}</g:link>
+                                - <g:link controller="projectApplication" action="show" id="${projectApplication.id.toString()}">${projectApplication}</g:link>
                             </dd>
                         </g:each>
+                        <dd class="sliding-middle-out">
+                            <g:link controller="projectApplication" action="create" params="[projects: [this.project.id.toString()]]">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Afegir sol·licitud
+                            </g:link>
+                        </dd>
                     </dl>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <details>
+                        <summary class="text-muted"><i class="fa fa-info-circle" aria-hidden="true"></i> Més detalls</summary>
+                        <div class="row">
+                            <bx:showField property="id" bean="${this.project}" />
+                            <bx:showField property="version" bean="${this.project}" />
+                            <bx:showField property="dateCreated" bean="${this.project}" />
+                            <bx:showField property="lastUpdated" bean="${this.project}" />
+                            <bx:showField property="createdBy" bean="${this.project}" />
+                            <bx:showField property="lastModifiedBy" bean="${this.project}" />
+                        </div>
+                    </details>
                 </div>
             </div>
         </div>
