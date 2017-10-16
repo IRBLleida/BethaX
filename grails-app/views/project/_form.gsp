@@ -10,11 +10,12 @@
     </div>
 </g:hasErrors>
 <div class="row">
-    <bx:formField domain="project" name="name" width="3" value="${this.project.name}" />
-    <bx:formField domain="project" name="isCREC" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" value="${this.project.isCREC}" />
-    <bx:formField domain="project" name="isFunded" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" value="${this.project.isFunded}" />
-    <bx:formField domain="project" name="isResearch" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" value="${this.project.isResearch}" />
-    <bx:formField domain="project" name="principalInvestigator" width="3" type="select" from="${org.irblleida.bethax.Person.list()}" optionKey="id" noSelection="['': message(code: 'default.noSelection')]" value="${this.project.principalInvestigator}" />
+    <bx:formField bean="${this.project}" property="name" width="3" />
+    <bx:formField bean="${this.project}" property="description" width="9" />
+    <bx:formField bean="${this.project}" property="isCREC" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" />
+    <bx:formField bean="${this.project}" property="isFunded" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" />
+    <bx:formField bean="${this.project}" property="isResearch" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" />
+    <bx:formField bean="${this.project}" property="principalInvestigator" width="3" type="select" from="${org.irblleida.bethax.Person.list()}" optionKey="id" noSelection="['': message(code: 'default.noSelection')]" value="${this.project.principalInvestigator?.id}" />
 </div>
 <content tag="footScripts">
     <g:javascript>

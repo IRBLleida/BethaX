@@ -15,7 +15,6 @@ class ProjectController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        println params?.rresponse
         respond Project.list(params), model:[projectCount: Project.count(), rresponse: params?.rresponse]
     }
 
@@ -34,6 +33,11 @@ class ProjectController {
             notFound()
             return
         }
+
+        project.createdBy = (User) getAuthenticatedUser()
+        project.lastModifiedBy = (User) getAuthenticatedUser()
+
+        project.validate()
 
         if (project.hasErrors()) {
             transactionStatus.setRollbackOnly()
@@ -63,6 +67,8 @@ class ProjectController {
             notFound()
             return
         }
+
+        project.lastModifiedBy = (User) getAuthenticatedUser()
 
         if (project.hasErrors()) {
             transactionStatus.setRollbackOnly()

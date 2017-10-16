@@ -34,4 +34,8 @@ class Project {
         hasStatisticalFunding nullable: true
         isCREC nullable: false
     }
+
+    String toString() {
+        name
+    }
 }

@@ -48,6 +48,10 @@ class ProjectApplicationController {
         }
 
         projectApplication.save flush:true
+        projectApplication.projects.each { project ->
+            project.addToRequests(projectApplication)
+            project.save flush: true
+        }
 
         request.withFormat {
             form multipartForm {
