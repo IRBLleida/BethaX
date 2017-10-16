@@ -44,7 +44,7 @@
             <hr class="my-4">
             <p>Pots afegir-ne fent clic al botó de sota.</p>
             <p class="lead">
-                <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" /></g:link>
+                <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" args="[message(code: 'milestone.label')]" /></g:link>
             </p>
         </div>
     </g:else>

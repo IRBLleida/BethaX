@@ -9,6 +9,10 @@
     </div>
 </g:hasErrors>
 <div class="row">
+    <bx:formField domain="milestone" name="name" value="${this.milestone.name}" width="4" />
+    <bx:formField domain="milestone" name="deadline" value="${this.milestone.deadline}" width="4" type="date"/>
+    <bx:formField domain="milestone" name="workPlan" type="select" from="${org.irblleida.bethax.WorkPlan.list()}" value="${this.milestone.workPlan}" width="4" />
+
 </div>
 <content tag="footScripts">
     <g:javascript>
