@@ -16,8 +16,13 @@ class ProjectApplicationController {
     }
 
     def ajaxList() {
-        render (['a', 'b', 'c'] as JSON)
+        // TODO: optimize search
+        render ProjectApplication.findAll().findAll{ it.state == ProjectApplicationState.WAITING } as JSON
         return
+    }
+
+    def ajaxApplicant(){
+
     }
 
     def show(ProjectApplication projectApplication) {
