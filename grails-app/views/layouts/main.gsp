@@ -9,6 +9,8 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:stylesheet src="application.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
+
     <g:layoutHead/>
 </head>
 <body>
@@ -252,6 +254,18 @@
     </div>
 </div>
 <asset:javascript src="application.js" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+<g:javascript>
+    $(function() {
+        $('.input-group.date').datepicker({
+            format: "dd/mm/yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            language: "ca",
+            autoclose: true
+        });
+    });
+</g:javascript>
 <g:javascript>
     (function() {
         var dlgtrigger = document.querySelector( '[data-dialog]' ),
@@ -346,6 +360,7 @@
         morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
     })();
 </g:javascript>
+
 <!-- Custom placeholder for page scripts -->
 <g:ifPageProperty name="page.footScripts">
     <g:pageProperty name="page.footScripts" />

@@ -15,7 +15,7 @@
         </label>
         <div class="input-group date">
             <input type="text" name="${name}" value="${value ? value.format('dd/MM/yyyy') : ''}" class="form-control" id="${name}" placeholder="dd/mm/aaaa" ${required != false ? 'required="required"' : ''} />
-            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
         </div>
     </div>
 </div>

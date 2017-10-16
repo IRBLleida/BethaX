@@ -56,6 +56,7 @@ class ProjectApplication {
         linkedApplication nullable: true
         applicationType nullable: false
         applicant nullable: false
+        headStatistician nullable: true
         budget nullable: false, min: new Float(0.0)
         isWorkPlanNeeded nullable: true
         noWorkPlanReason nullable: true

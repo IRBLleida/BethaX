@@ -21,24 +21,7 @@ class BethaXTagLib {
         if(attrs.width == null) attrs.width = 3
 
         if(!attrs.type) {
-            switch (attrs.bean.getClass().getDeclaredField(attrs.name)?.type) {
-                case(java.lang.String):
-                    attrs.type = 'text'
-                    break
-                case(java.util.Date):
-                    if(attrs.property in ['dateCreated', 'lastUpdated']) attrs.type = 'datetime'
-                    else attrs.type = 'date'
-                    break
-                case(java.lang.Boolean):
-                    attrs.type = 'select'
-                    if(attrs.prefix == null) attrs.prefix = 'default.yesno'
-                    break
-                case(org.irblleida.bethax.Person):
-                    attrs.type = 'select'
-                    break
-                default:
-                    attrs.type = 'text'
-            }
+            attrs = propertyClassToType(attrs)
         }
 
         attrs.domain = attrs.bean.getClass().getSimpleName().toLowerCase()
@@ -62,37 +45,13 @@ class BethaXTagLib {
     def formField = { attrs, body ->
         attrs.required = attrs.required ?: false
         attrs.prefix = attrs.prefix ?: null
-        attrs.domain = attrs.bean.getClass().getSimpleName().toLowerCase()
+        attrs.domain = attrs.bean.getClass().getSimpleName().uncapitalize()
         attrs.name = attrs.property
         attrs.value = attrs.value ?: attrs.bean[attrs.property]
+        if(attrs.width == null) attrs.width = 3
 
         if(!attrs.type) {
-            switch (attrs.bean.getClass().getDeclaredField(attrs.property)?.type) {
-                case(java.lang.String):
-                    attrs.type = 'text'
-                    break
-                case(java.util.Date):
-                    if(attrs.property in ['dateCreated', 'lastUpdated']) attrs.type = 'datetime'
-                    else attrs.type = 'date'
-                    break
-                case(java.lang.Boolean):
-                    attrs.type = 'select'
-                    if(attrs.prefix == null) attrs.prefix = 'default.yesno'
-                    break
-                case(org.irblleida.bethax.Person):
-                    attrs.type = 'select'
-                    break
-                case(org.irblleida.bethax.Institution):
-                    attrs.type = 'select'
-                    attrs.from = org.irblleida.bethax.Institution.list()
-                    break
-                case(org.irblleida.bethax.InstitutionSection):
-                    attrs.type = 'select'
-                    attrs.from = org.irblleida.bethax.InstitutionSection.findAllByInstitution(attrs.bean.institution)
-                    break
-                default:
-                    attrs.type = 'text'
-            }
+            attrs = propertyClassToType(attrs)
         }
 
         if(attrs.type == 'select') {
@@ -130,5 +89,44 @@ class BethaXTagLib {
         else if(type == 'time') {
             out << g.render(template: "/taglibTemplates/time", model: attrs)
         }
+    }
+
+    private def propertyClassToType(attrs) {
+            switch (attrs.bean.getClass().getDeclaredField(attrs.property)?.type) {
+            case(java.lang.String):
+                attrs.type = 'text'
+                break
+            case(java.util.Date):
+                if(attrs.property in ['dateCreated', 'lastUpdated']) attrs.type = 'datetime'
+                else attrs.type = 'date'
+                break
+            case(java.lang.Boolean):
+                attrs.type = 'select'
+                if(attrs.prefix == null) attrs.prefix = 'default.yesno'
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            case(org.irblleida.bethax.Person):
+                attrs.type = 'select'
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            case(org.irblleida.bethax.Institution):
+                attrs.type = 'select'
+                attrs.from = org.irblleida.bethax.Institution.list()
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            case(org.irblleida.bethax.InstitutionSection):
+                attrs.type = 'select'
+                attrs.from = org.irblleida.bethax.InstitutionSection.findAllByInstitution(attrs.bean.institution)
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            case(org.irblleida.bethax.ProjectApplication):
+                attrs.type = 'select'
+                attrs.from = org.irblleida.bethax.ProjectApplication.list()
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            default:
+                attrs.type = 'text'
+        }
+        return attrs
     }
 }
