@@ -37,7 +37,7 @@
 
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="#">Fites</a></li>
+            <li class="nav-item"><g:link class="nav-link" controller="milestone" action="index">Fites</g:link></li>
             <li class="nav-item"><a data-dialog="addSomethingDialog" class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
         </ul>
     </div>
@@ -264,7 +264,7 @@
 
     function a() {
     $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
-            $( "#notificationsNumber" ).html(data.length)
+            $( "#notificationsNumber" ).html(data.length);
             dataset = data;
         });
     }

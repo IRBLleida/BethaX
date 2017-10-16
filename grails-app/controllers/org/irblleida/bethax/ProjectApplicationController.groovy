@@ -16,6 +16,7 @@ class ProjectApplicationController {
     }
 
     def ajaxList() {
+        // TODO: optimize search
         render ProjectApplication.findAll().findAll{ it.state == ProjectApplicationState.WAITING } as JSON
         return
     }
