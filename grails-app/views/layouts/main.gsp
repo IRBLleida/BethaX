@@ -187,6 +187,12 @@
                     </g:link>
                 </li>
                 <li class="nav-item">
+                    <g:link controller="workPlan" action="index" class="nav-link ${controllerName == 'workPlan' ? 'active' : ''}">
+                        <i class="fa fa-book"></i>
+                        Plans de treball
+                    </g:link>
+                </li>
+                <li class="nav-item">
                     <g:link controller="institution" action="index" class="nav-link ${controllerName == 'institution' ? 'active' : ''}">
                         <i class="fa fa-building"></i>
                         Institucions

@@ -48,6 +48,10 @@ class WorkPlanController {
 
         workPlan.save flush:true
 
+        def projectApplication = workPlan.projectApplication
+        projectApplication.workPlan = workPlan
+        projectApplication.save flush:true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'workPlan.label', default: 'WorkPlan'), workPlan.id])
