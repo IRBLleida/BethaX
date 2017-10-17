@@ -9,11 +9,10 @@
     </div>
 </g:hasErrors>
 <div class="row">
-    <bx:formField bean="${this.workPlan}" property="projectApplication" />
+    <bx:formField bean="${this.workPlan}" property="projectApplication" value="${this.workPlan.projectApplication.id.toString()}"/>
     <bx:formField bean="${this.workPlan}" property="dateDone" />
     <bx:formField bean="${this.workPlan}" property="dateAccepted" />
     <bx:formField bean="${this.workPlan}" property="wpVersion" />
-
 </div>
 <content tag="footScripts">
     <g:javascript>
