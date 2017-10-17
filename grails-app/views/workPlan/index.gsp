@@ -27,7 +27,7 @@
                     <tr>
                         <th scope="row">
                             <g:link action="show" id="${workPlan.id.toString()}">
-                                ${workPlan.id.toString().take(5)}</th>
+                                ${workPlan.id.toString().take(5)}...</th>
                             </g:link>
                         <td>
                             <g:link controller="projectApplication" action="show" id="${workPlan.projectApplication.id.toString()}">
