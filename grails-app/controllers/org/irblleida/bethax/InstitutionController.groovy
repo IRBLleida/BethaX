@@ -29,6 +29,17 @@ class InstitutionController {
             return
         }
 
+        institution.createdBy = (User) getAuthenticatedUser()
+        institution.lastModifiedBy = (User) getAuthenticatedUser()
+
+        Institution.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) institution.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) institution.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) institution.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        institution.validate()
+
         if (institution.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond institution.errors, view:'create'
@@ -57,6 +68,16 @@ class InstitutionController {
             notFound()
             return
         }
+
+        institution.lastModifiedBy = (User) getAuthenticatedUser()
+
+        Institution.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) institution.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) institution.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) institution.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        institution.validate()
 
         if (institution.hasErrors()) {
             transactionStatus.setRollbackOnly()

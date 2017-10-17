@@ -29,6 +29,17 @@ class PersonController {
             return
         }
 
+        person.createdBy = (User) getAuthenticatedUser()
+        person.lastModifiedBy = (User) getAuthenticatedUser()
+
+        Person.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) person.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) person.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) person.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        person.validate()
+
         if (person.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond person.errors, view:'create'
@@ -57,6 +68,16 @@ class PersonController {
             notFound()
             return
         }
+
+        person.lastModifiedBy = (User) getAuthenticatedUser()
+
+        Person.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) person.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) person.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) person.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        person.validate()
 
         if (person.hasErrors()) {
             transactionStatus.setRollbackOnly()

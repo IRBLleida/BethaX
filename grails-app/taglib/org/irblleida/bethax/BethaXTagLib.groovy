@@ -24,7 +24,7 @@ class BethaXTagLib {
             attrs = propertyClassToType(attrs)
         }
 
-        attrs.domain = attrs.bean.getClass().getSimpleName().toLowerCase()
+        attrs.domain = attrs.bean.getClass().getSimpleName().uncapitalize()
         attrs.rawValue = attrs.bean[attrs.property]
         attrs.value = attrs.bean ? (attrs.bean[attrs.name] ?: '<i class="fa fa-minus red" aria-hidden="true"></i>') : (attrs.value ?: '<i class="fa fa-minus red" aria-hidden="true"></i>')
         attrs.offset = attrs.offset ? 'col-md-offset-' + attrs.offset : ''
@@ -103,15 +103,25 @@ class BethaXTagLib {
             case(java.lang.Boolean):
                 attrs.type = 'select'
                 if(attrs.prefix == null) attrs.prefix = 'default.yesno'
+                attrs.from = [true, false]
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             case(org.irblleida.bethax.Person):
                 attrs.type = 'select'
+                attrs.from = Person.list()
+                attrs.optionKey = 'id'
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            case(org.irblleida.bethax.User):
+                attrs.type = 'select'
+                attrs.from = User.list()
+                attrs.optionKey = 'id'
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             case(org.irblleida.bethax.Institution):
                 attrs.type = 'select'
                 attrs.from = org.irblleida.bethax.Institution.list()
+                attrs.optionKey = 'id'
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             case(org.irblleida.bethax.InstitutionSection):
@@ -122,6 +132,18 @@ class BethaXTagLib {
             case(org.irblleida.bethax.ProjectApplication):
                 attrs.type = 'select'
                 attrs.from = org.irblleida.bethax.ProjectApplication.list()
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
+            case(org.irblleida.bethax.InstitutionType):
+                attrs.type = 'select'
+                attrs.from = InstitutionType.values()
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                attrs.prefix = 'enum.institutionType.value'
+                break
+            case(org.irblleida.bethax.WorkPlan):
+                attrs.type = 'select'
+                attrs.from = WorkPlan.list()
+                attrs.optionKey = 'id'
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             default:

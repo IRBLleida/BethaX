@@ -41,6 +41,17 @@ class ProjectApplicationController {
             return
         }
 
+        projectApplication.createdBy = (User) getAuthenticatedUser()
+        projectApplication.lastModifiedBy = (User) getAuthenticatedUser()
+
+        ProjectApplication.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) projectApplication.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) projectApplication.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) projectApplication.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        projectApplication.validate()
+
         if (projectApplication.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond projectApplication.errors, view:'create'

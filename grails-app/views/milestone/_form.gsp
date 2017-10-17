@@ -1,3 +1,4 @@
+<%@ page import="org.irblleida.bethax.Person" %>
 <g:if test="${flash.message}">
     <div class="alert alert-info" role="alert">${flash.message}</div>
 </g:if>
@@ -9,13 +10,48 @@
     </div>
 </g:hasErrors>
 <div class="row">
-    <bx:formField domain="milestone" name="name" value="${this.milestone.name}" width="4" />
-    <bx:formField domain="milestone" name="deadline" value="${this.milestone.deadline}" width="4" type="date"/>
-    <bx:formField domain="milestone" name="workPlan" type="select" from="${org.irblleida.bethax.WorkPlan.list()}" value="${this.milestone.workPlan}" width="4" />
-
+    <bx:formField bean="${this.milestone}" property="name" />
+    <bx:formField bean="${this.milestone}" property="deadline" />
+    <bx:formField bean="${this.milestone}" property="dateFinished" />
+    <bx:formField bean="${this.milestone}" property="workPlan" />
+</div>
+<!-- Modal -->
+<div class="modal fade" id="createPrincipalInvestigatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nou Investigador Principal</h5>
+                <g:set var="person" value="${new org.irblleida.bethax.Person()}" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <bx:formField property="name" bean="${person}" />
+                <bx:formField property="phone" bean="${person}" />
+                <bx:formField property="email" bean="${person}" />
+                <bx:formField property="institution" bean="${person}" />
+                <bx:formField property="section" bean="${person}" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 <content tag="footScripts">
     <g:javascript>
+        $('#principalInvestigator')
+                .append($("<option></option>")
+                .attr("value", 'newPrincipalInvestigator')
+                .text('+ Afegir nou'));
 
+        $('#principalInvestigator').change(function() {
+            if ($(this).val() === 'newPrincipalInvestigator') {
+                $('#createPrincipalInvestigatorModal').modal();
+                $(this).val('');
+            }
+        });
     </g:javascript>
 </content>

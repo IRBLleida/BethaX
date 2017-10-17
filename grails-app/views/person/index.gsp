@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <a href="#list-person" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-        <div class="nav" role="navigation">
-            <ul>
-                <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-                <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-            </ul>
-        </div>
-        <div id="list-person" class="content scaffold-list" role="main">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-                <div class="message" role="status">${flash.message}</div>
+<head>
+    <meta name="layout" content="main" />
+</head>
+<body>
+<g:if test="${flash.message}">
+    <div class="message" role="status">${flash.message}</div>
+</g:if>
+<div class="card">
+    <div class="card-body crud">
+        <h4 class="card-title">Llista de persones</h4>
+        <hr class="brace">
+        <table class="table">
+            <thead class="thead-inverse">
+            <tr>
+                <th>#</th>
+                <th><g:message code="person.name.label" /></th>
+                <th><g:message code="person.phone.label" /></th>
+                <th><g:message code="person.email.label" /></th>
+                <th><g:message code="person.institution.label" /></th>
+                <th><g:message code="person.section.label" /></th>
+            </tr>
+            </thead>
+            <tbody>
+            <g:if test="${personList?.size() > 0}">
+                <g:each var="person" in="${personList}">
+                    <tr>
+                    <th scope="row">
+                        <g:link action="show" id="${person.id.toString()}">
+                            ${person.id.toString().take(5)}...</th>
+                        </g:link>
+                        <td>${person.name}</td>
+                        <td>${person.phone}</td>
+                        <td>${person.email}</td>
+                        <td>${person.institution}</td>
+                        <td>${person.section}</td>
+                    </tr>
+                </g:each>
             </g:if>
-            <f:table collection="${personList}" />
-
-            <div class="pagination">
-                <g:paginate total="${personCount ?: 0}" />
-            </div>
-        </div>
-    </body>
+            <g:else>
+                <div class="jumbotron">
+                    <h1 class="display-3">
+                        <asset:image src="open-box.png" />
+                        Ups ...
+                    </h1>
+                    <p class="lead">Casum l'òs pedrer, encara no hi ha cap ${message(code: "person.label")?.toLowerCase()}!</p>
+                    <hr class="my-4">
+                    <p>Pots afegir-ne fent clic al botó de sota.</p>
+                    <p class="lead">
+                        <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" args="[message(code: 'person.label')?.toLowerCase()]" /></g:link>
+                    </p>
+                </div>
+            </g:else>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
 </html>

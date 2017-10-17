@@ -14,7 +14,7 @@
             <g:if test="${pre}"><pre>${raw(value)}</pre></g:if>
             <g:else>
                 <g:if test="${type == 'text'}">
-                    ${raw(value)}
+                    ${raw(value)} ${addon}
                 </g:if>
                 <g:elseif test="${type == 'number'}">
                     <g:if test="${rawValue != null && rawValue instanceof Number}">

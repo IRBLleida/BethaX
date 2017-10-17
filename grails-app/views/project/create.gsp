@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-body crud">
                 <h4 class="card-title">Nou Projecte</h4>
-                    <hr class="brace">
+                <hr class="brace">
                 <g:form action="save">
                     <g:render template="form"/>
                     <div class="row">

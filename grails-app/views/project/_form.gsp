@@ -10,13 +10,14 @@
     </div>
 </g:hasErrors>
 <div class="row">
-    <bx:formField bean="${this.project}" property="name" width="3" />
+    <bx:formField bean="${this.project}" property="name" />
     <bx:formField bean="${this.project}" property="description" width="9" />
-    <bx:formField bean="${this.project}" property="isCREC" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" />
-    <bx:formField bean="${this.project}" property="isFunded" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" />
-    <bx:formField bean="${this.project}" property="isResearch" width="3" type="select" from="${[true, false]}" prefix="default.yesno" noSelection="['': message(code: 'default.noSelection')]" />
-    <bx:formField bean="${this.project}" property="principalInvestigator" width="3" type="select" from="${org.irblleida.bethax.Person.list()}" optionKey="id" noSelection="['': message(code: 'default.noSelection')]" value="${this.project.principalInvestigator?.id}" />
+    <bx:formField bean="${this.project}" property="isCREC" />
+    <bx:formField bean="${this.project}" property="isFunded" />
+    <bx:formField bean="${this.project}" property="isResearch" />
+    <bx:formField bean="${this.project}" property="principalInvestigator" />
 </div>
+<%--
 <!-- Modal -->
 <div class="modal fade" id="createPrincipalInvestigatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -42,8 +43,10 @@
         </div>
     </div>
 </div>
+--%>
 <content tag="footScripts">
     <g:javascript>
+        <%--
         $('#principalInvestigator')
                 .append($("<option></option>")
                 .attr("value", 'newPrincipalInvestigator')
@@ -55,5 +58,6 @@
                 $(this).val('');
             }
         });
+        --%>
     </g:javascript>
 </content>

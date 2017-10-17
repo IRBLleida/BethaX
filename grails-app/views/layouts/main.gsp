@@ -52,48 +52,49 @@
         <div class="container">
             <div id="morphsearch" class="morphsearch">
                 <form class="morphsearch-form">
-                    <input class="morphsearch-input" type="search" placeholder="Buscar..."/>
+                    <input class="morphsearch-input" id="search" type="search" placeholder="Cercar ..." autocomplete="off" />
                     <button class="morphsearch-submit" type="submit">Buscar</button>
                 </form>
                 <div class="morphsearch-content">
                     <div class="dummy-column">
                         <h2>Fites</h2>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Acabar blabla</h3>
-                        </a>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Anàlisi A</h3>
-                        </a>
+                        <div id="search-milestone">
+                            <a class="dummy-media-object" href="#">
+                                <h3>Acabar blabla</h3>
+                            </a>
+                            <a class="dummy-media-object" href="#">
+                                <h3>Anàlisi A</h3>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="dummy-column">
                         <h2>Sol·licituds</h2>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Blabla</h3>
-                        </a>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Bleble</h3>
-                        </a>
+                        <div id="search-projectApplication">
+                            <a class="dummy-media-object" href="#">
+                                <h3>Blabla</h3>
+                            </a>
+                            <a class="dummy-media-object" href="#">
+                                <h3>Bleble</h3>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="dummy-column">
                         <h2>Projectes</h2>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Projecte A</h3>
-                        </a>
-                        <a class="dummy-media-object" href="">
-                            <h3>Projecte B</h3>
-                        </a>
+                        <div id="search-project">
+                            <a class="dummy-media-object" href="#">
+                                <h3>Projecte A</h3>
+                            </a>
+                            <a class="dummy-media-object" href="">
+                                <h3>Projecte B</h3>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="dummy-column">
                         <h2>Persones</h2>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Persona 1</h3>
-                        </a>
-                        <a class="dummy-media-object" href="">
-                            <h3>Persona 2</h3>
-                        </a>
+                        <asset:image src="waiting_person.gif" class="dummy-media-object" width="100" />
                     </div>
 
                     <div class="dummy-column">
@@ -358,6 +359,47 @@
 
         /***** for demo purposes only: don't allow to submit the form *****/
         morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+
+
+        var delay = (function() {
+            var timer = 0;
+            return function(callback, ms){
+                clearTimeout (timer);
+                timer = setTimeout(callback, ms);
+            };
+        })();
+
+        $('#search').keyup(function() {
+            delay(function() {
+                if($('#search').val() == '') {
+                    $('#search-projectApplication').html("Sense resultats ...");
+                    return;
+                }
+                var searchField = $('#search').val();
+                $.getJSON('<g:createLink controller="home" action="search" />', {
+                    query: searchField
+                }).done(function(data) {
+                    if(data.length == 0) {
+                        $('#search-projectApplication').html('<div style="color:#5A738E;">Sense resultats ...</div>');
+                    }
+                    else {
+                        var output = '';
+                        $.each(data.requests, function(key, val) {
+                            output +=   '<a class="dummy-media-object" href="<g:createLink controller="projectApplication" action="show"/>/' + val.id +
+                                        '" class="list-group-item">' + '<h3>' + val.name + ' (' + val.projects + ')</h3></a>';
+                        });
+                        $('#search-projectApplication').html(output);
+
+                        output = '';
+                        $.each(data.projects, function(key, val) {
+                            output +=   '<a class="dummy-media-object" href="<g:createLink controller="project" action="show"/>/' + val.id +
+                                        '" class="list-group-item">' + '<h3>' + val.name +'</h3></a>';
+                        });
+                        $('#search-project').html(output);
+                    }
+                });
+            }, 500);
+         });
     })();
 </g:javascript>
 

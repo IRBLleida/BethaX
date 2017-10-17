@@ -1,3 +1,26 @@
+summary {
+    cursor: pointer;
+}
+details[open] summary {
+    border-bottom: 1px dashed black;
+    margin-bottom: 10px;
+}
+summary::-webkit-details-marker {
+    display: none
+}
+summary:after {
+    border-radius: 1px;
+    content: "+";
+    float: left;
+    font-weight: bold;
+    padding: 0;
+    text-align: center;
+    width: 20px;
+}
+details[open] summary:after {
+    content: "-";
+}
+
 .crud > h4 {
     text-align: center;
     text-transform: uppercase;

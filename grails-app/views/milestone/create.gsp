@@ -7,8 +7,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Crear <g:message code="milestone.label" /></h4>
+            <div class="card-body crud">
+                <h4 class="card-title">Nova fita</h4>
+                <hr class="brace">
                 <g:form action="save">
                     <g:render template="form"/>
                     <div class="row">

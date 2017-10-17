@@ -17,11 +17,9 @@
     <bx:formField bean="${this.projectApplication}" property="applicationType" />
     <bx:formField bean="${this.projectApplication}" property="applicant" />
     <bx:formField bean="${this.projectApplication}" property="headStatistician" />
-    <bx:formField bean="${this.projectApplication}" property="budget" />
+    <bx:formField bean="${this.projectApplication}" property="budget" addon="€" />
     <bx:formField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
     <bx:formField bean="${this.projectApplication}" property="noWorkPlanReason" />
-    <bx:formField bean="${this.projectApplication}" property="workPlan" />
-    <bx:formField bean="${this.projectApplication}" property="applicant" width="3" type="select" from="${org.irblleida.bethax.Person.list()}" optionKey="id" noSelection="['': message(code: 'default.noSelection')]" value="${this.projectApplication.applicant?.id}" />
 </div>
 <!-- Modal -->
 <div class="modal fade" id="createPrincipalInvestigatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
