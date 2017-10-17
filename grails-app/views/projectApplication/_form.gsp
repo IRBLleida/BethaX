@@ -20,6 +20,10 @@
     <bx:formField bean="${this.projectApplication}" property="budget" addon="€" />
     <bx:formField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
     <bx:formField bean="${this.projectApplication}" property="noWorkPlanReason" />
+    <div class="col-md-3">
+        <label for="projects">Projectes</label>
+        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects}" class="form-control" />
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="createPrincipalInvestigatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
