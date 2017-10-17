@@ -13,7 +13,6 @@ class WorkPlan {
     Date dateDone
     Date dateAccepted
     Float wpVersion
-    Float budget
 
     static belongsTo = [application: ProjectApplication]
 
@@ -30,6 +29,5 @@ class WorkPlan {
         dateDone nullable: false
         dateAccepted nullable: true
         wpVersion nullable: false
-        budget nullable: true, min: 0
     }
 }
