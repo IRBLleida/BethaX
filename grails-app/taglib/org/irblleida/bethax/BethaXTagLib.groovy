@@ -132,6 +132,7 @@ class BethaXTagLib {
             case(org.irblleida.bethax.ProjectApplication):
                 attrs.type = 'select'
                 attrs.from = org.irblleida.bethax.ProjectApplication.list()
+                attrs.optionKey = 'id'
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             case(org.irblleida.bethax.InstitutionType):

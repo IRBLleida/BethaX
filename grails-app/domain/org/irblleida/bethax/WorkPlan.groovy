@@ -9,12 +9,12 @@ class WorkPlan {
     User createdBy
     User lastModifiedBy
 
-    ProjectApplication application
+    ProjectApplication projectApplication
     Date dateDone
     Date dateAccepted
     Float wpVersion
 
-    static belongsTo = [application: ProjectApplication]
+    static belongsTo = [projectApplication: ProjectApplication]
 
     static hasMany = [
             documents: WorkPlanDocument,
@@ -25,9 +25,13 @@ class WorkPlan {
     static constraints = {
         createdBy nullable: false
         lastModifiedBy nullable: false
-        application nullable: false
+        projectApplication nullable: false
         dateDone nullable: false
         dateAccepted nullable: true
         wpVersion nullable: false
+    }
+
+    String toString() {
+        "v" + wpVersion + " [" + projectApplication.name + "]"
     }
 }
