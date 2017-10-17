@@ -29,6 +29,17 @@ class WorkPlanController {
             return
         }
 
+        workPlan.createdBy = (User) getAuthenticatedUser()
+        workPlan.lastModifiedBy = (User) getAuthenticatedUser()
+
+        WorkPlan.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) workPlan.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) workPlan.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) workPlan.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        workPlan.validate()
+
         if (workPlan.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond workPlan.errors, view:'create'
@@ -57,6 +68,16 @@ class WorkPlanController {
             notFound()
             return
         }
+
+        workPlan.lastModifiedBy = (User) getAuthenticatedUser()
+
+        WorkPlan.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) workPlan.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) workPlan.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) workPlan.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        workPlan.validate()
 
         if (workPlan.hasErrors()) {
             transactionStatus.setRollbackOnly()

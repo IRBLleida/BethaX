@@ -8,26 +8,39 @@
     <div class="message" role="status">${flash.message}</div>
 </g:if>
 
-<h2><g:message code="default.list.label" args="[entityName]" /></h2>
+<h2><g:message code="default.list.label" args="[message(code: 'workPlan.label')?.toLowerCase()]" /></h2>
 
-<table class="table">
-    <thead class="thead-inverse">
-    <tr>
-        <th>#</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
+
     <g:if test="${workPlanList?.size() > 0}">
-        <g:each var="workPlan" in="${workPlanList}">
+        <table class="table">
+            <thead class="thead-inverse">
             <tr>
-                <th scope="row">
-                    <g:link action="show" id="${workPlan.id.toString()}">
-                        ${workPlan.id.toString().take(5)}</th>
-                    </g:link>
-                <td></td>
+                <th>#</th>
+                <th><g:message code="workPlan.projectApplication.label" /></th>
+                <th><g:message code="workPlan.dateDone.label" /></th>
+                <th><g:message code="workPlan.dateAccepted.label" /></th>
+                <th><g:message code="workPlan.wpVersion.label" /></th>
             </tr>
-        </g:each>
+            </thead>
+            <tbody>
+                <g:each var="workPlan" in="${workPlanList}">
+                    <tr>
+                        <th scope="row">
+                            <g:link action="show" id="${workPlan.id.toString()}">
+                                ${workPlan.id.toString().take(5)}</th>
+                            </g:link>
+                        <td>
+                            <g:link controller="projectApplication" action="show" id="${workPlan.projectApplication.id.toString()}">
+                                ${workPlan.projectApplication.name}
+                            </g:link>
+                        </td>
+                        <td>${workPlan.dateDone}</td>
+                        <td>${workPlan.dateAccepted}</td>
+                        <td>${workPlan.wpVersion}</td>
+                    </tr>
+                </g:each>
+            </tbody>
+        </table>
     </g:if>
     <g:else>
         <div class="jumbotron">
@@ -39,11 +52,10 @@
             <hr class="my-4">
             <p>Pots afegir-ne fent clic al botó de sota.</p>
             <p class="lead">
-                <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" /></g:link>
+                <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" args="[message(code: 'workPlan.label')?.toLowerCase()]"/></g:link>
             </p>
         </div>
     </g:else>
-    </tbody>
-</table>
+
 </body>
 </html>

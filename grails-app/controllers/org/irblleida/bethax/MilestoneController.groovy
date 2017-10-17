@@ -29,6 +29,10 @@ class MilestoneController {
             return
         }
 
+        milestone.createdBy = (User) getAuthenticatedUser()
+        milestone.lastModifiedBy = (User) getAuthenticatedUser()
+        milestone.validate()
+
         if (milestone.hasErrors()) {
             transactionStatus.setRollbackOnly()
             respond milestone.errors, view:'create'
@@ -57,6 +61,8 @@ class MilestoneController {
             notFound()
             return
         }
+
+        milestone.lastModifiedBy = (User) getAuthenticatedUser()
 
         if (milestone.hasErrors()) {
             transactionStatus.setRollbackOnly()
