@@ -147,6 +147,11 @@ class BethaXTagLib {
                 attrs.optionKey = 'id'
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
+            case(org.irblleida.bethax.NoWorkPlanReason):
+                attrs.type = 'select'
+                attrs.from = NoWorkPlanReason.values()
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                break
             default:
                 attrs.type = 'text'
         }
