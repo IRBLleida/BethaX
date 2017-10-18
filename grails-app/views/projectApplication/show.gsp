@@ -49,13 +49,20 @@
                 <div class="col-md-12">
                     <dl class="animated fadeIn">
                         <dt>
-                            <g:message code="project.requests.label" />
+                            <g:message code="projectApplication.workPlan.label" />
                         </dt>
-                        <g:each var="project" in="${this.projectApplication.projects}">
-                            <dd class="sliding-middle-out">
-                                - <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>
-                            </dd>
-                        </g:each>
+                        <g:if test="${projectApplication.workPlan != null}">
+                        <dd class="sliding-middle-out">
+                            <g:link controller="workPlan" action="show" id="${projectApplication.workPlan.id.toString()}">${projectApplication.workPlan}</g:link>
+                        </dd>
+                        </g:if><g:else>
+                        <dd class="sliding-middle-out">
+                            <g:link controller="workPlan" action="create" params="[projectApplication: this.projectApplication.id.toString()]">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Afegir pla de treball
+                            </g:link>
+                        </dd>
+                        </g:else>
                     </dl>
                 </div>
             </div>
