@@ -58,7 +58,9 @@ class ProjectApplication {
         applicant nullable: false
         headStatistician nullable: true
         budget nullable: false, min: new Float(0.0)
-        isWorkPlanNeeded nullable: true
+        isWorkPlanNeeded nullable: true, validator: {  val, obj, errors ->
+            val || (!val && obj.workPlan == null)
+        }
         noWorkPlanReason nullable: true
         workPlan nullable: true
         closingDate nullable: true
