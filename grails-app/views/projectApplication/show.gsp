@@ -29,6 +29,14 @@
 </head>
 <body>
 <div class="col-md-12">
+    <g:if test="${projectApplication.isWorkPlanNeeded && projectApplication.workPlan == null}">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <i class="fa fa-exclamation-triangle"></i> No hi ha pla de treball! <g:link class="alert-link" controller="workPlan" action="create" params="[projectApplication: this.projectApplication.id.toString()]"> Afegeix-ne un. </g:link>
+        </div>
+    </g:if>
     <div class="card">
         <div class="card-body crud">
             <h4 class="card-title">Sol·licitud <strong>${this.projectApplication}</strong></h4>
@@ -45,6 +53,7 @@
                 <bx:showField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
                 <bx:showField bean="${this.projectApplication}" property="noWorkPlanReason" />
             </div>
+            <g:if test="${projectApplication.isWorkPlanNeeded}">
             <div class="row">
                 <div class="col-md-12">
                     <dl class="animated fadeIn">
@@ -66,6 +75,7 @@
                     </dl>
                 </div>
             </div>
+            </g:if>
             <hr />
             <div class="row">
                 <div class="col-md-12">
