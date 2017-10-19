@@ -1,3 +1,4 @@
+<%@ page import="org.irblleida.bethax.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -225,27 +226,21 @@
             <div class="col l6 s12">
                 <h5 class="white-text">Equip</h5>
                 <div class="carousel carousel-slider center" data-indicators="true">
-                    <div class="carousel-item mrue white-text" href="#one!">
-                        <h2><span class="yellow-text lighten-5">Dra.</span> Montserrat Rué</h2>
-                        <p class="white-text">
-                            <a class="white-text aligned" href="mailto:mrue@irblleida.cat">
-                                <i class="material-icons">email</i> montse.rue@cmb.udl.cat
-                            </a>
-                        </p>
-                        <p>ResearcherID: http://www.researcherid.com/rid/B-5663-2009</p>
-                    </div>
-                    <div class="carousel-item white-text" href="#two!">
-                        <h2>Second Panel</h2>
-                        <p class="white-text">This is your second panel</p>
-                    </div>
-                    <div class="carousel-item green white-text" href="#three!">
-                        <h2>Third Panel</h2>
-                        <p class="white-text">This is your third panel</p>
-                    </div>
-                    <div class="carousel-item blue white-text" href="#four!">
-                        <h2>Fourth Panel</h2>
-                        <p class="white-text">This is your fourth panel</p>
-                    </div>
+                    <g:each var="user" in="${org.irblleida.bethax.User.list()}">
+                        <div class="carousel-item mrue white-text" href="#mrue">
+                            <h2><span class="yellow-text lighten-5">Dr.</span> ${user}</h2>
+                            <p class="white-text">
+                                <a class="white-text aligned" href="mailto:mrue@irblleida.cat">
+                                    <i class="material-icons">email</i> ${user.username}
+                                </a>
+                            </p>
+                            <p class="white-text">
+                                <a class="white-text aligned" href="http://www.researcherid.com/rid/B-5663-2009" target="_blank">
+                                    <i class="material-icons">subtitles</i> ResearcherID
+                                </a>
+                            </p>
+                        </div>
+                    </g:each>
                 </div>
             </div>
         </div>
