@@ -5,6 +5,7 @@ import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class ServiceRequestController {
+    def mailService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -23,6 +24,7 @@ class ServiceRequestController {
 
     @Transactional
     def save(ServiceRequest serviceRequest) {
+        println "HOLA"
         if (serviceRequest == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -30,6 +32,7 @@ class ServiceRequestController {
         }
 
         if (serviceRequest.hasErrors()) {
+            println serviceRequest.errors
             transactionStatus.setRollbackOnly()
             respond serviceRequest.errors, view:'create'
             return
@@ -37,12 +40,16 @@ class ServiceRequestController {
 
         serviceRequest.save flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'serviceRequest.label', default: 'ServiceRequest'), serviceRequest.id])
-                redirect serviceRequest
-            }
-            '*' { respond serviceRequest, [status: CREATED] }
+        flash.message = message(code: 'default.created.message', args: [message(code: 'serviceRequest.label', default: 'ServiceRequest'), serviceRequest.id])
+        redirect action: 'success', id: serviceRequest.id
+    }
+
+    def success(ServiceRequest serviceRequest) {
+        sendMail {
+            to serviceRequest.email
+            from "UBiostat <no-reply@bethax.com>"
+            subject "Sol·licitud de serveis rebuda correctament"
+            html view: "/email/serviceRequestSuccess", model: [serviceRequest: serviceRequest]
         }
     }
 

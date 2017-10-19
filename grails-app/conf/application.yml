@@ -132,6 +132,6 @@ environments:
             mongodb:
                 host: "localhost"
                 port: 27017
-                username: "bethax"
-                password: "FdGNBg4jm2ptBsfL"
+                username: "bethaxUser"
+                password: "T582q8SM5ijzHAcf"
                 databaseName: "bethax"

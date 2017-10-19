@@ -6,7 +6,6 @@ class ServiceRequest {
     ObjectId id
     Date dateCreated
     Date lastUpdated
-    User createdBy
     User lastModifiedBy
 
     String name
@@ -19,6 +18,7 @@ class ServiceRequest {
     /** CREC: Clinical Research Ethics Committee */
     Boolean isCREC
     StudyType studyType
+    String otherStudyType
     String studyObjective
     Boolean isCompetitiveProject
     Boolean isStudyDesign
@@ -34,6 +34,7 @@ class ServiceRequest {
     ProjectApplication projectApplication
 
     static constraints = {
+        lastModifiedBy nullable: true
         name nullable: false, blank: false
         department nullable: true, blank: true
         institution nullable: false
@@ -43,6 +44,7 @@ class ServiceRequest {
         principalResearcher nullable: true
         isCREC nullable: true
         studyType nullable: true
+        otherStudyType nullable: true
         studyObjective nullable: true
         isCompetitiveProject nullable: true
         isStudyDesign nullable: true

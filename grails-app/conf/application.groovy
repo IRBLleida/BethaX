@@ -50,3 +50,15 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 //grails.plugin.springsecurity.oauth2.domainClass = 'org.irblleida.bethax.OAuthID'
 
 
+grails {
+	mail {
+		host = "smtp.gmail.com"
+		port = 465
+		username = "bethax.ubiostat@gmail.com"
+		password = "XVwu89s7AjUzfxkh"
+		props = ["mail.smtp.auth":"true",
+				 "mail.smtp.socketFactory.port":"465",
+				 "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+				 "mail.smtp.socketFactory.fallback":"false"]
+	}
+}

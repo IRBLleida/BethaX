@@ -7,10 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         .mrue {
+            /*
             background-image: url("${assetPath(src: '/mrue.png')}");
             background-repeat: no-repeat;
             background-size: cover;
             border-radius: 10%;
+            */
         }
         .aligned {
             display: inline-flex;
@@ -37,6 +39,13 @@
 </nav>
 <div class="section no-pad-bot" id="index-banner">
     <div class="container">
+        <g:hasErrors bean="${this.project}">
+            <div class="alert alert-warning" role="alert">
+                <g:eachError bean="${this.project}" var="error">
+                    <p <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></p>
+                </g:eachError>
+            </div>
+        </g:hasErrors>
         <div class="row">
         <g:form action="save" class="col s12">
             <div class="row">
@@ -101,32 +110,32 @@
             </div>
             <div class="row">
                 <div class="col s6">
-                    <g:radio name="studyType" value="1" id="studyType1" required="required" />
+                    <g:radio name="studyType" value="FUNDED_WITH_SUPPORT" id="studyType1" required="required" />
                     <label for="studyType1">Amb finançament-Suport estadístic inclòs</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <g:radio name="studyType" value="2" class="mdl-radio__button" id="studyType2" />
+                    <g:radio name="studyType" value="FUNDED_WITHOUT_SUPPORT" class="mdl-radio__button" id="studyType2" />
                     <label for="studyType2">Amb finançament-Suport estadístic no inclòs</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <g:radio name="studyType" value="3" class="mdl-radio__button" id="studyType3" />
+                    <g:radio name="studyType" value="NOT_FUNDED" class="mdl-radio__button" id="studyType3" />
                     <label for="studyType3">Sense finançament</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col s6">
-                    <g:radio name="studyType" value="4" class="mdl-radio__button" id="studyType4" />
+                    <g:radio name="studyType" value="NEW_PROJECT" class="mdl-radio__button" id="studyType4" />
                     <label for="studyType4">Sol·licitud denou projecte</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col s6">
-                    <g:radio name="studyType" value="5" class="mdl-radio__button" id="studyType5" />
+                    <g:radio name="studyType" value="OTHERS" class="mdl-radio__button" id="studyType5" />
                     <label for="studyType5">Altres (especificar)</label>
                 </div>
             </div>
@@ -143,8 +152,8 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="objective" class="materialize-textarea" data-length="500"></textarea>
-                    <label for="objective">Especifiqueu quina pregunta pretén respondre l’estudi</label>
+                    <textarea id="studyObjective" name="studyObjective" class="materialize-textarea" data-length="500"></textarea>
+                    <label for="studyObjective">Especifiqueu quina pregunta pretén respondre l’estudi</label>
                 </div>
             </div>
             <div class="row">
@@ -201,11 +210,11 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <textarea id="comments" class="materialize-textarea" data-length="500"></textarea>
+                    <textarea id="comments" name="comments" class="materialize-textarea" data-length="500"></textarea>
                     <label for="comments">Altres comentaris</label>
                 </div>
             </div>
-            <button class="btn-large waves-effect waves-light" type="submit" name="action">Envia
+            <button class="btn-large waves-effect waves-light pulse" type="submit" name="action">Envia
                 <i class="material-icons right">send</i>
             </button>
         </g:form>
@@ -220,25 +229,30 @@
                 <p class="grey-text text-lighten-4">
                     La Unitat de Bioestadística (UBiostat), ubicada a la quarta planta de l’edifici Biomedicina II, té la missió de contribuir a generar coneixement per millorar la salut. Els mètodes estadístics són essencials per dissenyar estudis, analitzar dades i interpretar els resultats. A la UBiostat es treballa amb els Investigadors per convertir les dades en informació útil per fer avançar la recerca. La UBiostat depèn de la direcció de l'IRBLLEIDA.
                 </p>
-
-
             </div>
             <div class="col l6 s12">
                 <h5 class="white-text">Equip</h5>
-                <div class="carousel carousel-slider center" data-indicators="true">
+                <div class="carousel carousel-slider" data-indicators="true">
                     <g:each var="user" in="${org.irblleida.bethax.User.list()}">
                         <div class="carousel-item mrue white-text" href="#mrue">
-                            <h2><span class="yellow-text lighten-5">Dr.</span> ${user}</h2>
-                            <p class="white-text">
-                                <a class="white-text aligned" href="mailto:mrue@irblleida.cat">
-                                    <i class="material-icons">email</i> ${user.username}
-                                </a>
-                            </p>
-                            <p class="white-text">
-                                <a class="white-text aligned" href="http://www.researcherid.com/rid/B-5663-2009" target="_blank">
-                                    <i class="material-icons">subtitles</i> ResearcherID
-                                </a>
-                            </p>
+                            <div class="row">
+                                <div class="col offset-l1 l3 s12">
+                                    <asset:image src="mrue.png" width="100%" class="circle" style="" />
+                                </div>
+                                <div class="col l8 s12">
+                                    <h2><span class="yellow-text lighten-5">Dr.</span> ${user}</h2>
+                                    <p class="white-text">
+                                        <a class="white-text aligned" href="mailto:mrue@irblleida.cat">
+                                            <i class="material-icons">email</i> ${user.username}
+                                        </a>
+                                    </p>
+                                    <p class="white-text">
+                                        <a class="white-text aligned" href="http://www.researcherid.com/rid/B-5663-2009" target="_blank">
+                                            <i class="material-icons">subtitles</i> ResearcherID
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </g:each>
                 </div>
@@ -256,6 +270,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script>
+
     $(document).ready(function(){
         $('.carousel').carousel({fullWidth: true});
         var carouselAutoplay = setInterval(function(){
@@ -264,7 +279,6 @@
         setInterval(function() {
             $('.carousel').carousel('next');
         }, 10000); // every 2 seconds
-
         $('input.autocomplete').autocomplete({
             data: {
                 "IRBLleida": 'http://www.irblleida.org/arxius/imatges/logos/300-IRBok.jpg',
