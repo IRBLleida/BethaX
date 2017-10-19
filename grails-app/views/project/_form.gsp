@@ -1,4 +1,4 @@
-<%@ page import="org.irblleida.bethax.Person" %>
+<%@ page import="org.irblleida.bethax.Project; org.irblleida.bethax.Person" %>
 <g:if test="${flash.message}">
     <div class="alert alert-info" role="alert">${flash.message}</div>
 </g:if>
