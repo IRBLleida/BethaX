@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:stylesheet src="application.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <g:layoutHead/>
 </head>
 <body>
@@ -132,7 +132,7 @@
                     <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="#"><i class="fa fa-user"></i> <span class="user-dropwdown">Perfil</span></a>
+                    <g:link controller="user" action="profile" class="dropdown-item"><i class="fa fa-user"></i> <span class="user-dropwdown">Perfil</span></g:link>
                     <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> <span class="user-dropwdown">Configuració</span></a>
                     <g:link class="dropdown-item" controller="logout" action="index"><i class="fa fa-sign-out"></i> <span class="user-dropwdown">Tancar sessió</span></g:link>
                 </div>

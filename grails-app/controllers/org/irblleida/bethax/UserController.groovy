@@ -18,6 +18,11 @@ class UserController {
         respond user
     }
 
+    def profile(User user) {
+        User currentUser = User.get(((User) getAuthenticatedUser()).id)
+        respond user ?: currentUser, model: [currentUser: currentUser]
+    }
+
     def create() {
         respond new User(params)
     }
@@ -48,7 +53,7 @@ class UserController {
     }
 
     def edit(User user) {
-        respond user
+        respond user ?: User.get(((User) getAuthenticatedUser()).id)
     }
 
     @Transactional

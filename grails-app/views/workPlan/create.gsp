@@ -10,7 +10,7 @@
             <div class="card-body crud">
                 <h4 class="card-title">Nou pla de treball</h4>
                 <hr class="brace">
-                <g:form action="save">
+                <g:uploadForm action="save">
                     <g:render template="form"/>
                     <div class="row">
                         <div class="col-md-12">
@@ -25,7 +25,7 @@
                             </g:link>
                         </div>
                     </div>
-                </g:form>
+                </g:uploadForm>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 package org.irblleida.bethax
 
+
 public enum InstitutionType {
     INTERNAL(1),
     PUBLIC_EXTERNAL(2),
