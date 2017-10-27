@@ -15,7 +15,8 @@ class UserController {
 
     def show() {
         User user = User.get(((User) getAuthenticatedUser()).id)
-        respond user
+        def milestones = Milestone.findAllByCreatedByAndDateFinishedIsNull(user,  [sort: "deadline", order: "desc"])
+        respond user, model: [milestoneList: milestones]
     }
 
     def create() {
