@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
 
     <g:layoutHead/>
+
+    <style>
+    .input-group .form-control {
+        z-index: 0;
+    }
+    </style>
 </head>
 <body>
 <nav class="navbar fixed-top navbar-light navbar-expand-lg navbar-template">
@@ -231,7 +237,7 @@
                             <rect x="3" y="3" fill="none" width="556" height="276"></rect>
                         </svg>
                     </div>
-                    <div class="dialog-inner">
+                    <div class="dialog-inner" style="z-index: 5;">
                         <h2><strong>Hola</strong>, què vols afegir avui?</h2>
                         <div class="row">
                             <div class="col-md-3">
