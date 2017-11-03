@@ -110,6 +110,7 @@ class BethaXTagLib {
                 attrs.type = 'select'
                 attrs.from = Person.list()
                 attrs.optionKey = 'id'
+                attrs.value = attrs.value?.id?.toString()
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             case(org.irblleida.bethax.User):
@@ -122,6 +123,7 @@ class BethaXTagLib {
                 attrs.type = 'select'
                 attrs.from = org.irblleida.bethax.Institution.list()
                 attrs.optionKey = 'id'
+                attrs.value = attrs.value?.id?.toString()
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 break
             case(org.irblleida.bethax.InstitutionSection):
@@ -151,6 +153,7 @@ class BethaXTagLib {
                 attrs.type = 'select'
                 attrs.from = NoWorkPlanReason.values()
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
+                attrs.prefix = 'enum.noWorkPlanReason.value'
                 break
             default:
                 attrs.type = 'text'

@@ -10,12 +10,19 @@
     </div>
 </g:hasErrors>
 <div class="row">
+    <bx:formField bean="${this.project}" property="principalInvestigator" required="required" />
+    <div class="col-md-3">
+        <label>&nbsp;</label>
+        <g:link controller="person" action="create" class="btn btn-outline-success form-control"><i class="fa fa-user-plus" aria-hidden="true"></i> Nova investigadora</g:link>
+    </div>
+</div>
+<div class="row">
     <bx:formField bean="${this.project}" property="name" />
     <bx:formField bean="${this.project}" property="description" width="9" />
     <bx:formField bean="${this.project}" property="isCREC" />
     <bx:formField bean="${this.project}" property="isFunded" />
     <bx:formField bean="${this.project}" property="isResearch" />
-    <bx:formField bean="${this.project}" property="principalInvestigator" />
+
 </div>
 <%--
 <!-- Modal -->

@@ -13,6 +13,26 @@
                 <bx:showField property="name" bean="${this.institution}" />
                 <bx:showField property="institutionType" bean="${this.institution}" />
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <dl class="animated fadeIn">
+                        <dt>
+                            <g:message code="institution.sections.label" />
+                        </dt>
+                        <g:each var="section" in="${this.institution.sections}">
+                            <dd class="sliding-middle-out">
+                                - <g:link controller="institutionSection" action="show" id="${section.id.toString()}">${section}</g:link>
+                            </dd>
+                        </g:each>
+                        <dd class="sliding-middle-out">
+                            <g:link controller="institutionSection" action="create" params="[institution: [this.institution.id.toString()]]">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Afegir secció
+                            </g:link>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
             <hr />
             <div class="row">
                 <div class="col-md-12">

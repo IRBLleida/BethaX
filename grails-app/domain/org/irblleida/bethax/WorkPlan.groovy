@@ -13,6 +13,7 @@ class WorkPlan {
     Date dateDone
     Date dateAccepted
     Float wpVersion
+    String filename
 
     static belongsTo = [projectApplication: ProjectApplication]
 
@@ -29,6 +30,7 @@ class WorkPlan {
         dateDone nullable: false
         dateAccepted nullable: true
         wpVersion nullable: false
+        filename nullable: false
     }
 
     String toString() {

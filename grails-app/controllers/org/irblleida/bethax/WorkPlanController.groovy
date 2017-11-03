@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class WorkPlanController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -14,7 +14,8 @@ class WorkPlanController {
     }
 
     def show(WorkPlan workPlan) {
-        respond workPlan
+        def workPlanFile = new File("/opt/bethax/workPlan/${workPlan.id.toString()}" as String)
+        respond workPlan, model: [workPlanFile: workPlanFile]
     }
 
     def create() {
@@ -38,6 +39,8 @@ class WorkPlanController {
             if(it.type == Double && params[it.name]) workPlan.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
         }
 
+        workPlan.filename = params.workPlanFile.getOriginalFilename()
+
         workPlan.validate()
 
         if (workPlan.hasErrors()) {
@@ -52,12 +55,38 @@ class WorkPlanController {
         projectApplication.workPlan = workPlan
         projectApplication.save flush:true
 
+
+        def folderPath = "/opt/bethax/workPlan/" as String
+        def folder = new File(folderPath)
+        if(!folder.exists()) {
+            folder.mkdirs()
+        }
+        def path = "${folderPath}/${workPlan.id}" as String
+        def extension = params.workPlanFile.getOriginalFilename().split('\\.').last()
+        params.workPlanFile.transferTo(new File(path + "." + extension))
+        workPlan.filename = "${workPlan.id}.${extension}"
+        println workPlan.filename
+        workPlan.save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'workPlan.label', default: 'WorkPlan'), workPlan.id])
                 redirect workPlan
             }
             '*' { respond workPlan, [status: CREATED] }
+        }
+    }
+
+    def download(WorkPlan workPlan) {
+        if(!workPlan) return
+
+        println workPlan.filename
+
+        def workPlanFile = new File("/opt/bethax/workPlan/${workPlan.filename}" as String)
+        if ( workPlanFile.exists() ) {
+            response.setContentType("application/octet-stream")
+            response.setHeader("Content-disposition", "attachment;filename=\"${workPlan.filename}\"")
+            response.outputStream << workPlanFile.bytes
         }
     }
 
@@ -109,15 +138,14 @@ class WorkPlanController {
             return
         }
 
+        ProjectApplication projectApplication = workPlan.projectApplication
+        projectApplication.workPlan = null
+        projectApplication.save flush: true
+
         workPlan.delete flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'workPlan.label', default: 'WorkPlan'), workPlan.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        flash.message = message(code: 'default.deleted.message', args: [message(code: 'workPlan.label'), workPlan.id])
+        redirect controller: "projectApplication", action:"show", id: projectApplication.id, method:"GET"
     }
 
     protected void notFound() {

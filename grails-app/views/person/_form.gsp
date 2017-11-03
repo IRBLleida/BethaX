@@ -10,12 +10,46 @@
     </div>
 </g:hasErrors>
 <div class="row">
+    <bx:formField bean="${this.person}" property="institution" required="required" />
+    <div class="col-md-3">
+        <label>&nbsp;</label>
+        <g:link controller="institution" action="create" class="btn btn-outline-success form-control"><i class="fa fa-building" aria-hidden="true"></i> Nova institució</g:link>
+    </div>
+    <bx:formField bean="${this.person}" property="section" />
+    <div class="col-md-3">
+        <label>&nbsp;</label>
+        <g:link controller="institutionSection" action="create" class="btn btn-outline-success form-control"><i class="fa fa-users" aria-hidden="true"></i> Nova secció</g:link>
+    </div>
+</div>
+<div class="row">
     <bx:formField bean="${this.person}" property="name" />
     <bx:formField bean="${this.person}" property="phone" />
     <bx:formField bean="${this.person}" property="email" />
-    <bx:formField bean="${this.person}" property="institution" />
-    <bx:formField bean="${this.person}" property="section" />
 </div>
 <content tag="footScripts">
+    <g:javascript>
+        $('#institution').on('change', function() {
+            console.log('wo');
+            $.ajax({
+                url: "${g.createLink(controller: 'institutionSection', action: 'findByInstitution')}",
+                data: { id: $('#institution').val() },
+                dataType: "json",
+                success: function(sections) {
+                    console.log(sections);
+                    var name, select, option;
 
+                    // Get the raw DOM object for the select box
+                    select = document.getElementById('section');
+
+                    // Clear the old options
+                    select.options.length = 0;
+
+                    // Load the new options
+                    $.each(sections, function(index, section) {
+                        select.options.add(new Option(section.name, section.id));
+                    });
+                }
+            });
+        });
+    </g:javascript>
 </content>
