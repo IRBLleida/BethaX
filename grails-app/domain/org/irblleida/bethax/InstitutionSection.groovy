@@ -21,4 +21,8 @@ class InstitutionSection {
         institution nullable: false
         name nullable: false, blank: false, unique: 'institution'
     }
+
+    String toString() {
+        name
+    }
 }

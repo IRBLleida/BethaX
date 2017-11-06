@@ -16,7 +16,7 @@
         <g:if test="${addon != null}">
             <div class="input-group">
         </g:if>
-        <input type="text" name="${name}" value="${value}" class="form-control" id="${name}" placeholder="${message(code: domain + '.' + name + '.label')}" />
+        <input type="text" name="${name}" value="${value}" class="form-control" id="${name}" placeholder="${message(code: domain + '.' + name + '.label')}" ${required ? 'required="required"' : ''} />
         <g:if test="${addon != null}">
             <div class="input-group-addon">${addon}</div>
             </div>

@@ -12,6 +12,8 @@ class Institution {
     String name
     InstitutionType institutionType
 
+    static hasMany = [sections: InstitutionSection]
+
     static constraints = {
         createdBy nullable: false
         lastModifiedBy nullable: false

@@ -7,10 +7,10 @@ grails.plugin.springsecurity.apf.storeLastUsername = true
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.irblleida.bethax.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.irblleida.bethax.UserRole'
 grails.plugin.springsecurity.authority.className = 'org.irblleida.bethax.Role'
-grails.plugin.springsecurity.rememberMe.persistent = true
-grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'org.irblleida.bethax.PersistentLogin'
-grails.plugin.springsecurity.rememberMe.alwaysRemember = true
-grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = 2419200
+//grails.plugin.springsecurity.rememberMe.persistent = true
+//grails.plugin.springsecurity.rememberMe.persistentToken.domainClassName = 'org.irblleida.bethax.PersistentLogin'
+//grails.plugin.springsecurity.rememberMe.alwaysRemember = true
+//grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = 2419200
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	//[pattern: '/oauth/authorize',access: "isFullyAuthenticated() and (request.getMethod().equals('GET') or request.getMethod().equals('POST'))"],
 	//[pattern: '/oauth/token',    access: "isFullyAuthenticated() and request.getMethod().equals('POST')"],
@@ -44,7 +44,15 @@ grails.plugin.springsecurity.filterChain.chainMap = [
     //[pattern: '/**',             filters: 'JOINED_FILTERS,-statelessSecurityContextPersistenceFilter,-oauth2ProviderFilter,-clientCredentialsTokenEndpointFilter,-oauth2BasicAuthenticationFilter,-oauth2ExceptionTranslationFilter']
 ]
 
-
+grails.plugin.springsecurity.useSecurityEventListener = true
+grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
+	org.irblleida.bethax.User.withTransaction {
+		def user = org.irblleida.bethax.User.findByUsername(e.authentication.name)
+		user.lastLogin = new Date()
+		user.loginCount++
+		user.save(flush: true)
+	}
+}
 
 // Added by the Spring Security OAuth2 Google Plugin:
 //grails.plugin.springsecurity.oauth2.domainClass = 'org.irblleida.bethax.OAuthID'

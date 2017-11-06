@@ -39,6 +39,11 @@
                 <bx:showField property="dateAccepted" bean="${this.workPlan}" />
                 <bx:showField property="wpVersion" bean="${this.workPlan}" />
             </div>
+            <div class="row">
+                <g:if test="${workPlanFile}">
+                    <g:link action="download" id="${this.workPlan.id.toString()}">Descarregar document</g:link>
+                </g:if>
+            </div>
             <hr />
             <div class="row">
                 <div class="col-md-12">

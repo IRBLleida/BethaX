@@ -13,9 +13,22 @@
     <bx:formField bean="${this.workPlan}" property="dateDone" />
     <bx:formField bean="${this.workPlan}" property="dateAccepted" />
     <bx:formField bean="${this.workPlan}" property="wpVersion" />
+    <div class="col-md-12">
+        <div class="form-group">
+            <label>Document del pla de treball</label>
+            <label class="custom-file form-control">
+                <input type="file" id="workPlanFile" name="workPlanFile" class="custom-file-input">
+                <span class="custom-file-control form-control-file"></span>
+            </label>
+        </div>
+    </div>
 </div>
 <content tag="footScripts">
     <g:javascript>
-
+        $('.custom-file-input').on('change',function(){
+            var fileName = $(this).val();
+            if(fileName.length > 30) fileName = '... ' + fileName.substr(fileName.length - 27);
+            $(this).next('.form-control-file').addClass("selected").html(fileName);
+        });
     </g:javascript>
 </content>
