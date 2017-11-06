@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <g:submitButton name="create" value="${message(code: 'default.button.create.label')}" class="btn btn-outline-primary" />
-                            <g:link action="index" class="btn btn-outline-secondary">
+                            <g:link controller="workPlan" action="show" id="${this.milestone.workPlan.id.toString()}" class="btn btn-outline-secondary">
                                 <g:message code="default.button.cancel" />
                             </g:link>
                         </div>

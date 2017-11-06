@@ -40,11 +40,131 @@
                 <bx:showField property="wpVersion" bean="${this.workPlan}" />
             </div>
             <div class="row">
-                <g:if test="${workPlanFile}">
-                    <g:link action="download" id="${this.workPlan.id.toString()}">Descarregar document</g:link>
-                </g:if>
+                <div class="col-md-12">
+                    <hr />
+                    <g:if test="${workPlanFile}">
+                        <g:link action="download" id="${this.workPlan.id.toString()}" target="_blank" class="border border-primary m-1 p-2">
+                            <i class="fa fa-file-o" aria-hidden="true"></i>
+                            Descarregar document pla de treball [${this.workPlan.filename}]
+                        </g:link>
+                    </g:if>
+                    <g:else>
+                        Aquest pla de treball no té cap document associat.
+                    </g:else>
+                </div>
             </div>
             <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Fites
+                                <span class="pull-right">
+                                    <g:link controller="milestone" action="create" params="[workPlan: this.workPlan.id]">
+                                        <i class="fa fa-calendar-plus-o" aria-hidden="true"></i> Nova fita
+                                    </g:link>
+                                </span>
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <g:if test="${this.workPlan.milestones}">
+                                        <div class="list-group">
+                                            <g:each var="milestone" in="${openMilestones.sort { it.deadline }}">
+                                                <g:if test="${milestone.dte <= 0}"><g:set var="milestoneStyle" value="list-group-item-danger" /></g:if>
+                                                <g:elseif test="${milestone.dte <= 5}"><g:set var="milestoneStyle" value="list-group-item-warning" /></g:elseif>
+                                                <g:elseif test="${milestone.dte > 5}"><g:set var="milestoneStyle" value="list-group-item-primary" /></g:elseif>
+                                                <g:link controller="milestone" action="edit" id="${milestone.id.toString()}" class="list-group-item list-group-item-action flex-column align-items-start ${milestoneStyle}">
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <h5 class="mb-1">${milestone}</h5>
+                                                    <small>
+                                                        <g:if test="${milestone.dte <= 0}">
+                                                            Va expirar fa ${milestone.dte * -1} dies!
+                                                        </g:if>
+                                                        <g:else>
+                                                            Expira en ${milestone.dte} dies.
+                                                        </g:else>
+                                                    </small>
+                                                </div>
+                                                <p class="mb-1">${milestone.description}</p>
+                                                <small>Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></small>
+                                                </g:link>
+                                            </g:each>
+                                        </div>
+                                        <hr />
+                                        <div class="list-group">
+                                            <g:each var="milestone" in="${closedMilestones.sort { it.dateFinished }}">
+                                                <g:link controller="milestone" action="edit" id="${milestone.id.toString()}" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-success">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1">
+                                                            <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                                                            ${milestone}
+                                                        </h5>
+                                                        <small>
+                                                            Finalitzada en <g:formatDate date="${milestone.dateFinished}" format="dd/MM/yyyy" />
+                                                        </small>
+                                                    </div>
+                                                    <p class="mb-1">${milestone.description}</p>
+                                                    <small>Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></small>
+                                                </g:link>
+                                            </g:each>
+                                        </div>
+                                    </g:if>
+                                    <g:else>
+                                        <p>No s'ha definit cap fita, <g:link controller="milestone" action="create" params="[workPlan: this.workPlan.id]"> <i class="fa fa-map-signs" aria-hidden="true"></i>
+                                            afegeix-ne una</g:link>.</p>
+                                    </g:else>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Actualitzacions
+                                <span class="pull-right">
+                                    <g:link controller="workPlanUpdate" action="create" params="[workPlan: this.workPlan.id]">
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i> Nova actualització
+                                    </g:link>
+                                </span>
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <g:if test="${this.workPlan.updates}">
+                                        <div class="list-group">
+                                            <g:each var="update" in="${this.workPlan.updates.sort { it.updateDate }}">
+                                                <div class="list-group-item list-group-item-action flex-column align-items-start list-group-item-secondary">
+                                                    <div class="d-flex w-100 justify-content-between">
+                                                        <h5 class="mb-1"><g:link controller="workPlanUpdate" action="edit" id="${update.id.toString()}">${update}</g:link></h5>
+                                                        <small>
+                                                            <g:if test="${update.filename}">
+                                                                <g:link controller="workPlanUpdate" action="download" id="${update.id.toString()}" target="_blank">
+                                                                    <i class="fa fa-file" aria-hidden="true"></i>
+                                                                    Document
+                                                                </g:link>
+                                                            </g:if>
+                                                            <g:else>
+                                                                Sense document associat.
+                                                            </g:else>
+                                                        </small>
+                                                    </div>
+                                                    <p class="mb-1"></p>
+                                                    <small>Data de l'actualització: <g:formatDate date="${update.updateDate}" format="dd/MM/yyyy" /></small>
+                                                </div>
+                                            </g:each>
+                                        </div>
+                                    </g:if>
+                                    <g:else>
+                                        <p>Aquest pla de treball no té cap actualització, <g:link controller="workPlanUpdate" action="create" params="[workPlan: this.workPlan.id]">afegeix-ne una</g:link>.</p>
+                                    </g:else>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <details>

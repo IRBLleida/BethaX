@@ -15,6 +15,7 @@
 //= require modernizr.custom
 //= require classie
 //= require dialog-box
+//= require bootstrap-maxlength
 //= require_tree .
 //= require_self
 

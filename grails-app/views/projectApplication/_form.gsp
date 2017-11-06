@@ -25,14 +25,24 @@
     <bx:formField bean="${this.projectApplication}" property="headStatistician" />
     <bx:formField bean="${this.projectApplication}" property="budget" addon="€" />
     <bx:formField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
-    <bx:formField bean="${this.projectApplication}" property="noWorkPlanReason" />
+    <bx:formField bean="${this.projectApplication}" property="noWorkPlanReason" cssClass="isWorkPlanNeeded-only" />
     <div class="col-md-3">
         <label for="projects">Projectes</label>
-        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects}" class="form-control" />
+        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects}" optionKey="id" class="form-control" />
     </div>
 </div>
 <content tag="footScripts">
     <g:javascript>
+        $('#isWorkPlanNeeded').on("change", function() {
+            if($(this).val() === 'true') {
+                $('.isWorkPlanNeeded-only').hide();
+                $('#noWorkPlanReason').removeAttr("selected");
+            }
+            else if($(this).val() === 'false') {
+                $('.isWorkPlanNeeded-only').show();
+            }
+        });
 
+        $('#isWorkPlanNeeded').change();
     </g:javascript>
 </content>
