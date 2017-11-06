@@ -1,5 +1,6 @@
 package org.irblleida.bethax
 
+import grails.plugin.springsecurity.annotation.Secured
 import org.renjin.script.RenjinScriptEngineFactory
 import org.renjin.sexp.SEXP
 
@@ -8,6 +9,7 @@ import javax.script.ScriptEngine
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class ProjectController {
 

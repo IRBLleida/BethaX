@@ -1,10 +1,12 @@
 package org.irblleida.bethax
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class InstitutionSectionController {
 

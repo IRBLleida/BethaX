@@ -1,8 +1,11 @@
 package org.irblleida.bethax
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class MilestoneController {
 
@@ -14,11 +17,8 @@ class MilestoneController {
         def myClosedMilestones = []
 
         myProjectApplications.each { application ->
-            println "application"
             if(application.workPlan) {
-                println "wp"
                 application.workPlan.milestones.each { milestone ->
-                    println "milestone"
                     if(!milestone.dateFinished) myOpenMilestones.add(milestone)
                     else myClosedMilestones.add(milestone)
                 }

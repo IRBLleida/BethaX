@@ -16,6 +16,8 @@
 //= require classie
 //= require dialog-box
 //= require bootstrap-maxlength
+//= require popper
+//= require jquery.searchable-1.1.0.min
 //= require_tree .
 //= require_self
 
