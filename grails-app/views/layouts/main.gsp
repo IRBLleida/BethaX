@@ -237,7 +237,7 @@
                             <rect x="3" y="3" fill="none" width="556" height="276"></rect>
                         </svg>
                     </div>
-                    <div class="dialog-inner" style="z-index: 5;">
+                    <div class="dialog-inner">
                         <h2><strong>Hola</strong>, què vols afegir avui?</h2>
                         <div class="row">
                             <div class="col-md-3">
