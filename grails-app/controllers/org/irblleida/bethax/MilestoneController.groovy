@@ -31,6 +31,13 @@ class MilestoneController {
 
         milestone.createdBy = (User) getAuthenticatedUser()
         milestone.lastModifiedBy = (User) getAuthenticatedUser()
+
+        Milestone.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) milestone.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) milestone.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) milestone.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
         milestone.validate()
 
         if (milestone.hasErrors()) {

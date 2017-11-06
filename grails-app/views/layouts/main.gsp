@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <g:layoutHead/>
+
+    <style>
+    .input-group .form-control {
+        z-index: 0;
+    }
+    </style>
 </head>
 <body>
 <nav class="navbar fixed-top navbar-light navbar-expand-lg navbar-template">
