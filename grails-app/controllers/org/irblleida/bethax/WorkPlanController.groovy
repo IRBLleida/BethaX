@@ -60,6 +60,14 @@ class WorkPlanController {
 
         workPlan.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "pla de treball",
+                objectId: workPlan.id.toString(),
+                objectName: workPlan.toString()
+        ).save flush: true
+
         def projectApplication = workPlan.projectApplication
         projectApplication.workPlan = workPlan
         projectApplication.save flush:true
@@ -132,6 +140,14 @@ class WorkPlanController {
 
         workPlan.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "pla de treball",
+                objectId: workPlan.id.toString(),
+                objectName: workPlan.toString()
+        ).save flush: true
+
         if(params.workPlanFile) {
             def folderPath = "/opt/bethax/workPlan/" as String
             def folder = new File(folderPath)
@@ -162,6 +178,14 @@ class WorkPlanController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "pla de treball",
+                objectId: workPlan.id.toString(),
+                objectName: workPlan.toString()
+        ).save flush: true
 
         ProjectApplication projectApplication = workPlan.projectApplication
         projectApplication.workPlan = null

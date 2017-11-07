@@ -67,6 +67,14 @@ class WorkPlanUpdateController {
             params.document.transferTo(new File(path))
         }
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "actualització del pla de treball",
+                objectId: workPlanUpdate.id.toString(),
+                objectName: workPlanUpdate.toString()
+        ).save flush: true
+
         flash.message = message(code: 'default.created.message', args: [message(code: 'workPlanUpdate.label'), workPlanUpdate.id])
         redirect controller: "workPlan", action: "show", id: workPlan.id
     }
@@ -118,6 +126,14 @@ class WorkPlanUpdateController {
 
         workPlanUpdate.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "actualització del pla de treball",
+                objectId: workPlanUpdate.id.toString(),
+                objectName: workPlanUpdate.toString()
+        ).save flush: true
+
         if(params.document) {
             def folderPath = "/opt/bethax/workPlanUpdate/" as String
             def folder = new File(folderPath)
@@ -148,6 +164,14 @@ class WorkPlanUpdateController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "actualització del pla de treball",
+                objectId: workPlanUpdate.id.toString(),
+                objectName: workPlanUpdate.toString()
+        ).save flush: true
 
         if(workPlanUpdate.filename) {
             def folderPath = "/opt/bethax/workPlanUpdate/" as String

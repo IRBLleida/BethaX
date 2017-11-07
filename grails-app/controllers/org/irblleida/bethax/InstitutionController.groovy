@@ -9,7 +9,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class InstitutionController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -51,6 +51,14 @@ class InstitutionController {
 
         institution.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "institució",
+                objectId: institution.id.toString(),
+                objectName: institution.name
+        ).save flush: true
+        
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'institution.label', default: 'Institution'), institution.id])
@@ -90,6 +98,14 @@ class InstitutionController {
 
         institution.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "institució",
+                objectId: institution.id.toString(),
+                objectName: institution.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'institution.label', default: 'Institution'), institution.id])
@@ -107,6 +123,14 @@ class InstitutionController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "institució",
+                objectId: institution.id.toString(),
+                objectName: institution.name
+        ).save flush: true
 
         institution.delete flush:true
 
