@@ -15,6 +15,14 @@
         <label>&nbsp;</label>
         <g:link controller="person" action="create" class="btn btn-outline-success form-control"><i class="fa fa-user-plus" aria-hidden="true"></i> Nova investigadora</g:link>
     </div>
+    <div class="col-md-3">
+        <label for="projects">Projectes</label>
+        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects}" optionKey="id" class="form-control" />
+    </div>
+    <div class="col-md-3">
+        <label>&nbsp;</label>
+        <g:link controller="project" action="create" class="btn btn-outline-success form-control"><i class="fa fa-user-plus" aria-hidden="true"></i> Nou projecte</g:link>
+    </div>
 </div>
 <div class="row">
     <bx:formField bean="${this.projectApplication}" property="entryDate" />
@@ -26,10 +34,6 @@
     <bx:formField bean="${this.projectApplication}" property="budget" addon="€" />
     <bx:formField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
     <bx:formField bean="${this.projectApplication}" property="noWorkPlanReason" cssClass="isWorkPlanNeeded-only" />
-    <div class="col-md-3">
-        <label for="projects">Projectes</label>
-        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects}" optionKey="id" class="form-control" />
-    </div>
 </div>
 <content tag="footScripts">
     <g:javascript>

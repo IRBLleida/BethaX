@@ -35,6 +35,10 @@ class ProjectApplicationController {
         respond new ProjectApplication(params)
     }
 
+    def createFromRequest(ServiceRequest serviceRequest) {
+        respond new ProjectApplication(params), model: [serviceRequest: serviceRequest]
+    }
+
     @Transactional
     def save(ProjectApplication projectApplication) {
         if (projectApplication == null) {
@@ -73,6 +77,60 @@ class ProjectApplicationController {
                 objectId: projectApplication.id.toString(),
                 objectName: projectApplication.name
         ).save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'projectApplication.label', default: 'ProjectApplication'), projectApplication.id])
+                redirect projectApplication
+            }
+            '*' { respond projectApplication, [status: CREATED] }
+        }
+    }
+
+    @Transactional
+    def saveFromRequest(ProjectApplication projectApplication) {
+        if (projectApplication == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        projectApplication.createdBy = (User) getAuthenticatedUser()
+        projectApplication.lastModifiedBy = (User) getAuthenticatedUser()
+
+        ProjectApplication.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) projectApplication.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) projectApplication.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) projectApplication.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        projectApplication.validate()
+
+        if (projectApplication.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond projectApplication.errors, view:'create'
+            return
+        }
+
+        projectApplication.save flush:true
+        projectApplication.projects.each { project ->
+            project.addToRequests(projectApplication)
+            project.save flush: true
+        }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "sol·licitud",
+                objectId: projectApplication.id.toString(),
+                objectName: projectApplication.name
+        ).save flush: true
+
+        def serviceRequest = ServiceRequest.get(params.serviceRequest)
+        serviceRequest.isApproved = true
+        serviceRequest.projectApplication = projectApplication
+        serviceRequest.approvedBy = (User) getAuthenticatedUser()
+        serviceRequest.save flush: true
 
         request.withFormat {
             form multipartForm {

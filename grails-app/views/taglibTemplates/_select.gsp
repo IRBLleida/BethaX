@@ -25,5 +25,11 @@
         <g:else>
             <g:select name="${name}" from="${from}" optionKey="${optionKey}" optionValue="${optionValue}" value="${value}" class="form-control ${inputClass}" valueMessagePrefix="${prefix}" />
         </g:else>
+        <g:if test="${helpText}">
+            <small class="form-text text-info">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                ${helpText}
+            </small>
+        </g:if>
     </div>
 </div>

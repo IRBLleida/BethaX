@@ -77,7 +77,7 @@
                         </g:link>
                         <td>${projectApplication.name}</td>
                         <td>${projectApplication.applicant}</td>
-                        <td>${projectApplication.headStatistician}</td>
+                        <td><g:link controller="user" action="show" id="${projectApplication.headStatistician?.id?.toString()}">${projectApplication.headStatistician}</g:link></td>
                         <td>
                             <g:each var="project" in="${projectApplication.projects}">
                                 <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>

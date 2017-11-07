@@ -12,8 +12,6 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class UserController {
 
-    //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userCount: User.count()]
@@ -39,7 +37,7 @@ class UserController {
         def i = 0
 
 
-        use(TimeCategory) {
+        use(groovy.time.TimeCategory) {
             for (i = 0; i<10 ;i++){
                 tenMonthsAgo.setTime(new Date() - i.months)
                 def mo = months[tenMonthsAgo.get(Calendar.MONTH)].replace('de ', '').replace("d’" , "")
@@ -97,6 +95,14 @@ class UserController {
         }
     }
 
+    def photo(User user) {
+        if(!user) user = (User) getAuthenticatedUser()
+        File img = new File("/opt/bethax/user/" + user?.id?.toString())
+        if(!img.exists()) img = new File("/opt/bethax/user/no_photo")
+        render file: img.newInputStream(), contentType: 'image/png'
+        return
+    }
+
     def edit(User user) {
         respond user ?: User.get(((User) getAuthenticatedUser()).id)
     }
@@ -116,6 +122,14 @@ class UserController {
         }
 
         user.save flush:true
+
+        if(params.photo) {
+            def folderPath = "/opt/bethax/user/" as String
+            def path = "${folderPath}/${user.id}" as String
+            def currentPhoto = new File(path)
+            if(currentPhoto.exists()) currentPhoto.delete()
+            params.photo.transferTo(new File(path))
+        }
 
         request.withFormat {
             form multipartForm {

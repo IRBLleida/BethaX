@@ -40,7 +40,7 @@
                 <bx:showField property="phone" bean="${this.serviceRequest}" />
                 <bx:showField property="email" bean="${this.serviceRequest}" />
                 <bx:showField property="researchProject" bean="${this.serviceRequest}" />
-                <bx:showField property="principalResearcher" bean="${this.serviceRequest}" />
+                <bx:showField property="primaryResearcher" bean="${this.serviceRequest}" />
                 <bx:showField property="isCREC" bean="${this.serviceRequest}" />
                 <bx:showField property="studyType" bean="${this.serviceRequest}" />
                 <bx:showField property="otherStudyType" bean="${this.serviceRequest}" />
@@ -71,8 +71,28 @@
             </div>
         </div>
         <div class="card-footer">
-            <g:link action="index" class="card-link btn btn-outline-primary"><i class="fa fa-list" aria-hidden="true"></i> Tornar al llistat</g:link>
-            <g:link action="edit" id="${this.serviceRequest.id.toString()}" class="card-link btn btn-outline-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</g:link>
+            <g:if test="${this.serviceRequest.isApproved == null}">
+                <g:link action="approve" id="${this.serviceRequest.id.toString()}" class="card-link btn btn-outline-success"><i class="fa fa-check" aria-hidden="true"></i> Aprovar</g:link>
+                <g:link action="approveAndLink" id="${this.serviceRequest.id.toString()}" class="card-link btn btn-outline-primary"><i class="fa fa-link" aria-hidden="true"></i> Vincular a sol·licitud</g:link>
+                <g:link action="reject" id="${this.serviceRequest.id.toString()}" class="card-link btn btn-outline-warning" onclick="return confirm('${message(code: 'default.button.refuse.confirm.message')}');"><i class="fa fa-times" aria-hidden="true"></i> Refusar</g:link>
+            </g:if>
+            <g:else>
+                <g:if test="${this.serviceRequest.isApproved == false}">
+                    <div class="alert alert-danger">
+                        Aquesta petició està refusada, <g:link action="unrefuse" id="${this.serviceRequest.id.toString()}">fes clic aquí per tornar a obrir-li el cor <i class="fa fa-heart-o" aria-hidden="true"></i></g:link>.
+                    </div>
+                </g:if>
+                <g:if test="${this.serviceRequest.isApproved == true && !this.serviceRequest.projectApplication}">
+                    <div class="alert alert-success">
+                        Aquesta petició està acceptada, <g:link action="unrefuse" id="${this.serviceRequest.id.toString()}">fes clic aquí per revocar la seva aprovació</g:link>.
+                    </div>
+                </g:if>
+                <g:elseif test="${this.serviceRequest.isApproved == true && this.serviceRequest.projectApplication}">
+                    <div class="alert alert-primary">
+                        Aquesta petició està acceptada i vinculada a la sol·licitud <g:link controller="projectApplication" action="show" id="${this.serviceRequest.projectApplication.id.toString()}">${this.serviceRequest.projectApplication}</g:link>.
+                    </div>
+                </g:elseif>
+            </g:else>
             <g:link action="delete" id="${this.serviceRequest.id.toString()}" class="card-link btn btn-outline-danger pull-right" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</g:link>
         </div>
     </div>

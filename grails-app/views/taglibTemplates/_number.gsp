@@ -32,5 +32,11 @@
         <g:if test="${help}">
             <p class="help-block">${help}</p>
         </g:if>
+        <g:if test="${helpText}">
+            <small class="form-text text-info">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                ${helpText}
+            </small>
+        </g:if>
     </div>
 </div>

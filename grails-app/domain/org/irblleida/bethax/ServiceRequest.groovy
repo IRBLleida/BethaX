@@ -14,7 +14,7 @@ class ServiceRequest {
     String phone
     String email
     String researchProject
-    String principalResearcher
+    String primaryResearcher
     /** CREC: Clinical Research Ethics Committee */
     Boolean isCREC
     StudyType studyType
@@ -41,7 +41,7 @@ class ServiceRequest {
         phone nullable: true
         email nullable: true
         researchProject nullable: true
-        principalResearcher nullable: true
+        primaryResearcher nullable: true
         isCREC nullable: true
         studyType nullable: true
         otherStudyType nullable: true

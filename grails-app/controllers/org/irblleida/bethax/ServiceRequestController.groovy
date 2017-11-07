@@ -1,6 +1,9 @@
 package org.irblleida.bethax
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
+
+import javax.xml.ws.Service
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -11,11 +14,16 @@ class ServiceRequestController {
 
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond ServiceRequest.list(params), model:[serviceRequestCount: ServiceRequest.count()]
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def index() {
+        render view: 'index', model:[
+                pendingServiceRequestList: ServiceRequest.findAllByIsApprovedIsNull(),
+                approvedServiceRequestList: ServiceRequest.findAllByIsApproved(true),
+                refusedServiceRequestList: ServiceRequest.findAllByIsApproved(false),
+        ]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def ajaxList() {
         def serviceRequestList = ServiceRequest.findAllByIsApprovedIsNull()
         def result = []
@@ -26,8 +34,37 @@ class ServiceRequestController {
         return
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show(ServiceRequest serviceRequest) {
         respond serviceRequest
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def approve(ServiceRequest serviceRequest) {
+        serviceRequest.isApproved = true
+        serviceRequest.save flush: true
+        redirect action: 'show', id: serviceRequest.id
+        return
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def approveAndLink(ServiceRequest serviceRequest) {
+        redirect controller: 'projectApplication', action: 'createFromRequest', id: serviceRequest.id
+        return
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def reject(ServiceRequest serviceRequest) {
+        serviceRequest.isApproved = false
+        serviceRequest.save flush: true
+        redirect action: 'show', id: serviceRequest.id
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
+    def unrefuse(ServiceRequest serviceRequest) {
+        serviceRequest.isApproved = null
+        serviceRequest.save flush: true
+        redirect action: 'show', id: serviceRequest.id
     }
 
     def create() {
@@ -64,10 +101,12 @@ class ServiceRequestController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def edit(ServiceRequest serviceRequest) {
         respond serviceRequest
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     @Transactional
     def update(ServiceRequest serviceRequest) {
         if (serviceRequest == null) {
@@ -93,6 +132,7 @@ class ServiceRequestController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     @Transactional
     def delete(ServiceRequest serviceRequest) {
 

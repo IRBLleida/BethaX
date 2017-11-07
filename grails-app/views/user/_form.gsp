@@ -15,6 +15,18 @@
     <bx:formField bean="${this.user}" property="position" />
     <bx:formField bean="${this.user}" property="website" />
     <bx:formField bean="${this.user}" property="biography" />
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Foto</label>
+            <label class="custom-file form-control">
+                <input type="file" id="photo" name="photo" class="custom-file-input" aria-describedby="photoHelpBlock">
+                <span class="custom-file-control form-control-file"></span>
+            </label>
+            <small id="photoHelpBlock" class="form-text text-muted">
+                Mida recomanda: 128 x 128 píxels.
+            </small>
+        </div>
+    </div>
 </div>
 <%--
 <!-- Modal -->

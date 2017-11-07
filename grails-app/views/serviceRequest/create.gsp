@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>UBiostat - Nova petició de servei / consulta</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -28,11 +29,11 @@
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">UBiostat</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">IRBLleida</a></li>
+            <li><a href="http://www.irblleida.org" target="_blank">IRBLleida</a></li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            <li><a href="#">IRBLleida</a></li>
+            <li><a href="http://www.irblleida.org" target="_blank">IRBLleida</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
@@ -130,7 +131,7 @@
             <div class="row">
                 <div class="col s6">
                     <g:radio name="studyType" value="NEW_PROJECT" class="mdl-radio__button" id="studyType4" />
-                    <label for="studyType4">Sol·licitud denou projecte</label>
+                    <label for="studyType4">Sol·licitud de nou projecte</label>
                 </div>
             </div>
             <div class="row">

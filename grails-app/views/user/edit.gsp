@@ -10,7 +10,7 @@
             <div class="card-body crud">
                 <h4 class="card-title">Modificar perfil</h4>
                 <hr class="brace">
-                <g:form resource="${this.user}" method="PUT">
+                <g:uploadForm action="update">
                     <g:hiddenField name="id" value="${this.user?.id.toString()}" />
                     <g:hiddenField name="version" value="${this.user?.version}" />
                     <g:render template="form"/>
@@ -27,7 +27,7 @@
                             </g:link>
                         </div>
                     </div>
-                </g:form>
+                </g:uploadForm>
             </div>
         </div>
     </div>

@@ -161,6 +161,12 @@ class BethaXTagLib {
                 attrs.noSelection = ['': message(code: 'default.noSelection')]
                 attrs.prefix = 'enum.noWorkPlanReason.value'
                 break
+            case(org.irblleida.bethax.StudyType):
+                attrs.type = 'select'
+                attrs.from = StudyType.values()
+                attrs.noSelection = ['': message(code: 'default.noSelection')]
+                attrs.prefix = 'enum.studyType.value'
+                break
             default:
                 attrs.type = 'text'
         }

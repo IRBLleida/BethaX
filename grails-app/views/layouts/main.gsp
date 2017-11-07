@@ -36,9 +36,9 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown">
-                    Sol·licituds <span id="notificationsNumber" class="badge badge-secondary badge-info"> </span>
+                    Peticions <span id="notificationsNumber" class="badge badge-secondary badge-info"> </span>
                 </a>
-                <div id="dropdownNotifications" class="dropdown-menu dropdown-menu-right">
+                <div id="dropdownNotifications" class="dropdown-menu ">
                 </div>
             </li>
         </ul>
@@ -151,7 +151,7 @@
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <g:link controller="user" action="show" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
-                        <img src="${resource(dir: 'images', file: 'user.png')}"  style="width:80px;height:80px;"/>
+                        <img src="${createLink(controller: 'user', action: 'photo')}"  style="width:80px;height:80px;"/>
                         <br/><br/>
                         <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
                     </g:link>
@@ -304,9 +304,11 @@
         if(isClosed){
             $.post("${createLink(controller: 'serviceRequest', action: 'ajaxList')}", function(data) {
                 $("#dropdownNotifications").html("");
+                $("#dropdownNotifications").append('<h6 class="dropdown-header">Pendents</h6>');
                 for(var d in data) {
-                    $("#dropdownNotifications").append('<a class="dropdown-item" href="${createLink(controller: 'serviceRequest', action: 'show')}/' + data[d].id + '"><span class="user-dropwdown">' + data[d].name + ' (' + data[d].institution + ')</span></a>');
+                    $("#dropdownNotifications").append('<a class="dropdown-item" href="${createLink(controller: 'serviceRequest', action: 'show')}/' + data[d].id + '"><span class="user-dropwdown text-danger">' + data[d].name + ' (' + data[d].institution + ')</span></a>');
                 }
+                $("#dropdownNotifications").append('<div class="dropdown-divider"></div><a class="dropdown-item" href="${createLink(controller: 'serviceRequest', action: 'index')}"><span class="user-dropwdown text-info"><i class="fa fa-archive" aria-hidden="true"></i> Mostrar totes</span></a>');
                 isClosed = false;
             });
         }else{

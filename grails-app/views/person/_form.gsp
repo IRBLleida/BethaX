@@ -29,7 +29,7 @@
         <div class="form-group">
             <label>Foto</label>
             <label class="custom-file form-control">
-                <input type="file" id="photo" name="photo" class="custom-file-input" required="required" aria-describedby="photoHelpBlock">
+                <input type="file" id="photo" name="photo" class="custom-file-input" aria-describedby="photoHelpBlock">
                 <span class="custom-file-control form-control-file"></span>
             </label>
             <small id="photoHelpBlock" class="form-text text-muted">
