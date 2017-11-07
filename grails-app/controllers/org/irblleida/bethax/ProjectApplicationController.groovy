@@ -13,8 +13,8 @@ class ProjectApplicationController {
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond ProjectApplication.list(params), model:[projectApplicationCount: ProjectApplication.count()]
+        def currentUser = (User) getAuthenticatedUser()
+        respond ProjectApplication.findAllByHeadStatistician(currentUser), model:[projectApplicationOthers: ProjectApplication.findAllByHeadStatisticianNotEqual(currentUser)]
     }
 
     def ajaxList() {

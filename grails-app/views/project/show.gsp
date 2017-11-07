@@ -28,6 +28,11 @@
     </style>
 </head>
 <body>
+<g:if test="${flash.message}">
+    <div class="alert alert-warning" role="alert">
+        ${flash.message}
+    </div>
+</g:if>
 <div class="col-md-12">
     <div class="card">
         <div class="card-body crud">

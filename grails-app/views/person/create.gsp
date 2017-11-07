@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Crear Persona</h4>
-                <g:form action="save">
+                <g:uploadForm action="save">
                     <g:render template="form"/>
                     <div class="row">
                         <div class="col-md-12">
@@ -24,7 +24,7 @@
                             </g:link>
                         </div>
                     </div>
-                </g:form>
+                </g:uploadForm>
             </div>
         </div>
     </div>

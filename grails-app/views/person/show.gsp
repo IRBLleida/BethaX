@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-body crud">
             <g:if test="${flash.message}">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
                     ${flash.message}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -44,11 +44,18 @@
             <h4 class="card-title"><strong>${this.person}</strong></h4>
             <hr class="brace">
             <div class="row">
-                <bx:showField property="name" bean="${this.person}" />
-                <bx:showField property="phone" bean="${this.person}" />
-                <bx:showField property="email" bean="${this.person}" />
-                <bx:showField property="institution" bean="${this.person}" />
-                <bx:showField property="section" bean="${this.person}" />
+                <div class="col-md-3">
+                    <img src="${createLink(action: 'photo', id: this.person.id.toString())}" width="128" height="128" alt="${this.person.name}" class="rounded-circle animated pulse" />
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <bx:showField property="name" bean="${this.person}" />
+                        <bx:showField property="phone" bean="${this.person}" />
+                        <bx:showField property="email" bean="${this.person}" />
+                        <bx:showField property="institution" bean="${this.person}" />
+                        <bx:showField property="section" bean="${this.person}" />
+                    </div>
+                </div>
             </div>
             <hr />
             <div class="row">

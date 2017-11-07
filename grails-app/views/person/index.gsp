@@ -98,7 +98,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4 col-md-4">
                                     <g:link action="show" id="${person.id.toString()}">
-                                        <asset:image src="no_photo.png" alt="${person.name}" class="rounded-circle animated pulse" />
+                                        <img src="${createLink(action: 'photo', id: person.id.toString())}" width="128" height="128" alt="${person.name}" class="rounded-circle animated pulse" />
                                     </g:link>
                                 </div>
                                 <div class="col-xs-12 col-sm-8 col-md-8">
@@ -115,7 +115,7 @@
                                     <br />
                                     <span class="c-info text-muted searchable">
                                         <i class="fa fa-comments" aria-hidden="true"></i>
-                                        ${person.email}
+                                        <a href="mailto:${person.email}">${person.email}</a>
                                     </span>
                                     <br />
                                 </div>

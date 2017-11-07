@@ -291,7 +291,7 @@
     var dataset = [];
 
     function a() {
-    $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
+    $.post("${createLink(controller: 'serviceRequest', action: 'ajaxList')}", function(data) {
             $( "#notificationsNumber" ).html(data.length);
             dataset = data;
         });
@@ -302,11 +302,10 @@
 
     $('#navbarDropdownMenuLink2').on("click", function() {
         if(isClosed){
-            $.post("${createLink(controller: 'projectApplication', action: 'ajaxList')}", function(data) {
+            $.post("${createLink(controller: 'serviceRequest', action: 'ajaxList')}", function(data) {
                 $("#dropdownNotifications").html("");
                 for(var d in data) {
-                    //console.log(data[d].applicant.id)
-                    $("#dropdownNotifications").append('<a class="dropdown-item" href="#"><span class="user-dropwdown">' + data[d].name + '</span></a>');
+                    $("#dropdownNotifications").append('<a class="dropdown-item" href="${createLink(controller: 'serviceRequest', action: 'show')}/' + data[d].id + '"><span class="user-dropwdown">' + data[d].name + ' (' + data[d].institution + ')</span></a>');
                 }
                 isClosed = false;
             });

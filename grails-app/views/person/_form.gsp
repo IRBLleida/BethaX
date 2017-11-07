@@ -25,9 +25,27 @@
     <bx:formField bean="${this.person}" property="name" />
     <bx:formField bean="${this.person}" property="phone" />
     <bx:formField bean="${this.person}" property="email" />
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>Foto</label>
+            <label class="custom-file form-control">
+                <input type="file" id="photo" name="photo" class="custom-file-input" required="required" aria-describedby="photoHelpBlock">
+                <span class="custom-file-control form-control-file"></span>
+            </label>
+            <small id="photoHelpBlock" class="form-text text-muted">
+                Mida recomanda: 128 x 128 píxels.
+            </small>
+        </div>
+    </div>
 </div>
 <content tag="footScripts">
     <g:javascript>
+        $('.custom-file-input').on('change',function(){
+            var fileName = $(this).val();
+            if(fileName.length > 30) fileName = '... ' + fileName.substr(fileName.length - 27);
+            $(this).next('.form-control-file').addClass("selected").html(fileName);
+        });
+
         $('#institution').on('change', function() {
             console.log('wo');
             $.ajax({

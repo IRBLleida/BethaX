@@ -50,9 +50,9 @@
                 </h1>
                 <p class="lead">Casum l'òs pedrer, encara no hi ha cap ${message(code: "workPlan.label")?.toLowerCase()}!</p>
                 <hr class="my-4">
-                <p>Pots afegir-ne fent clic al botó de sota.</p>
+                <p>Pots afegir-ne des d'una sol·licitud fent clic al botó de sota.</p>
                 <p class="lead">
-                    <g:link action="create" class="btn btn-outline-primary btn-lg"><g:message code="default.create.label" args="[message(code: 'workPlan.label')?.toLowerCase()]" /></g:link>
+                    <g:link controller="projectApplication" action="index" class="btn btn-outline-primary btn-lg">Anar a les sol·licituds</g:link>
                 </p>
             </div>
         </g:else>

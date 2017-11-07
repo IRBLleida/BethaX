@@ -134,12 +134,7 @@ class WorkPlanController {
 
         if(params.workPlanFile) {
             def folderPath = "/opt/bethax/workPlan/" as String
-            def folder = new File(folderPath)
-            if(!folder.exists()) {
-                folder.mkdirs()
-            }
             def path = "${folderPath}/${workPlan.id}" as String
-
             def currentWorkPlan = new File(path)
             if(currentWorkPlan.exists()) currentWorkPlan.delete()
             params.workPlanFile.transferTo(new File(path))

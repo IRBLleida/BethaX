@@ -13,8 +13,6 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ProjectController {
 
-    static allowedMethods = [save: "POST", update: "PUT"]
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Project.list(params), model:[projectCount: Project.count(), rresponse: params?.rresponse]
@@ -98,15 +96,15 @@ class ProjectController {
             return
         }
 
-        project.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'project.label', default: 'Project'), project.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
+        if(project.requests) {
+            flash.message = message(code: 'default.not.deleted.message', args: [message(code: 'project.label', default: 'Project'), project.toString()])
+            redirect action: 'show', id: project.id
+            return
         }
+
+        project.delete flush:true
+        flash.message = message(code: 'default.deleted.message', args: [message(code: 'project.label', default: 'Project'), project.id])
+        redirect action: 'index'
     }
 
     protected void notFound() {

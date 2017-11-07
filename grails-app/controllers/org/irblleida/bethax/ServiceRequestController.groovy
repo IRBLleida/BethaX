@@ -1,5 +1,7 @@
 package org.irblleida.bethax
 
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -12,6 +14,16 @@ class ServiceRequestController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond ServiceRequest.list(params), model:[serviceRequestCount: ServiceRequest.count()]
+    }
+
+    def ajaxList() {
+        def serviceRequestList = ServiceRequest.findAllByIsApprovedIsNull()
+        def result = []
+        serviceRequestList.each { serviceRequest ->
+            result.add([id: serviceRequest.id.toString(), name: serviceRequest.name, institution: serviceRequest.institution])
+        }
+        render result as JSON
+        return
     }
 
     def show(ServiceRequest serviceRequest) {

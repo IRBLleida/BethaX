@@ -22,7 +22,7 @@
     <bx:formField bean="${this.projectApplication}" property="description" width="6" />
     <bx:formField bean="${this.projectApplication}" property="linkedApplication" />
     <bx:formField bean="${this.projectApplication}" property="applicationType" />
-    <bx:formField bean="${this.projectApplication}" property="headStatistician" />
+    <bx:formField bean="${this.projectApplication}" property="headStatistician" value="${this.projectApplication?.headStatistician?.id?.toString()}" />
     <bx:formField bean="${this.projectApplication}" property="budget" addon="€" />
     <bx:formField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
     <bx:formField bean="${this.projectApplication}" property="noWorkPlanReason" cssClass="isWorkPlanNeeded-only" />

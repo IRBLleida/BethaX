@@ -75,8 +75,8 @@
             <div class="row">
                 <div class="input-field col s6">
                     <i class="material-icons prefix">phone</i>
-                    <g:textField name="name" value="${name}" class="validate" required="required" />
-                    <label for="name">Telèfon de contacte</label>
+                    <g:textField name="phone" value="${phone}" class="validate" required="required" />
+                    <label for="phone">Telèfon de contacte</label>
                 </div>
                 <div class="input-field col s6">
                     <i class="material-icons prefix">email</i>

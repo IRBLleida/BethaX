@@ -49,6 +49,14 @@ class PersonController {
 
         person.save flush:true
 
+        if(params.photo) {
+            def folderPath = "/opt/bethax/person/" as String
+            def folder = new File(folderPath)
+            if(!folder.exists()) folder.mkdirs()
+            def path = "${folderPath}/${person.id}" as String
+            params.photo.transferTo(new File(path))
+        }
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'person.label', default: 'Person'), person.id])
@@ -56,6 +64,13 @@ class PersonController {
             }
             '*' { respond person, [status: CREATED] }
         }
+    }
+
+    def photo(Person person) {
+        File img = new File("/opt/bethax/person/" + person?.id?.toString())
+        if(!img.exists()) img = new File("/opt/bethax/person/no_photo")
+        render file: img.newInputStream(), contentType: 'image/png'
+        return
     }
 
     def edit(Person person) {
@@ -87,6 +102,14 @@ class PersonController {
         }
 
         person.save flush:true
+
+        if(params.photo) {
+            def folderPath = "/opt/bethax/person/" as String
+            def path = "${folderPath}/${person.id}" as String
+            def currentPhoto = new File(path)
+            if(currentPhoto.exists()) currentPhoto.delete()
+            params.photo.transferTo(new File(path))
+        }
 
         request.withFormat {
             form multipartForm {
