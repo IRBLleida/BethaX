@@ -7,7 +7,41 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-body crud">
-            <h4 class="card-title">Persona <strong>${this.person}</strong></h4>
+            <g:if test="${flash.message}">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ${flash.message}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </g:if>
+            <g:if test="${this.projects}">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Aquesta persona és investigadora principal dels següents projectes:
+                    <g:each var="project" in="${projects}">
+                        <span class="badge badge-light">
+                            <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>
+                        </span>
+                    </g:each>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </g:if>
+            <g:if test="${this.requests}">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    Aquesta persona és investigadora principal de les següents sol·licituds:
+                    <g:each var="request" in="${requests}">
+                        <span class="badge badge-light">
+                            <g:link controller="projectApplication" action="show" id="${request.id.toString()}">${request}</g:link>
+                        </span>
+                    </g:each>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </g:if>
+            <h4 class="card-title"><strong>${this.person}</strong></h4>
             <hr class="brace">
             <div class="row">
                 <bx:showField property="name" bean="${this.person}" />

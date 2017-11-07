@@ -10,48 +10,22 @@
     </div>
 </g:hasErrors>
 <div class="row">
-    <bx:formField bean="${this.milestone}" property="name" />
-    <bx:formField bean="${this.milestone}" property="deadline" />
+    <bx:formField bean="${this.milestone}" property="name" required="required" maxlength="30" tooltip="Aaaa" />
+    <bx:formField bean="${this.milestone}" property="deadline" required="required" />
     <bx:formField bean="${this.milestone}" property="dateFinished" />
-    <bx:formField bean="${this.milestone}" property="workPlan" />
-</div>
-<!-- Modal -->
-<div class="modal fade" id="createPrincipalInvestigatorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Nou Investigador Principal</h5>
-                <g:set var="person" value="${new org.irblleida.bethax.Person()}" />
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <bx:formField property="name" bean="${person}" />
-                <bx:formField property="phone" bean="${person}" />
-                <bx:formField property="email" bean="${person}" />
-                <bx:formField property="institution" bean="${person}" />
-                <bx:formField property="section" bean="${person}" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
+    <bx:formField bean="${this.milestone}" type="textarea" property="description" width="12" maxlength="500" />
+    <g:hiddenField name="workPlan" value="${this.milestone?.workPlan?.id?.toString()}" />
+    <%--<bx:formField bean="${this.milestone}" property="workPlan" value="${this.milestone?.workPlan?.id?.toString()}" />--%>
 </div>
 <content tag="footScripts">
     <g:javascript>
-        $('#principalInvestigator')
-                .append($("<option></option>")
-                .attr("value", 'newPrincipalInvestigator')
-                .text('+ Afegir nou'));
-
-        $('#principalInvestigator').change(function() {
-            if ($(this).val() === 'newPrincipalInvestigator') {
-                $('#createPrincipalInvestigatorModal').modal();
-                $(this).val('');
-            }
+        $('#name').maxlength({
+            warningClass: "badge badge-success",
+            limitReachedClass: "badge badge-danger"
+        });
+        $('#description').maxlength({
+            warningClass: "badge badge-success",
+            limitReachedClass: "badge badge-danger"
         });
     </g:javascript>
 </content>

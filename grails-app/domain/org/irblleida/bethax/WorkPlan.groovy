@@ -18,7 +18,6 @@ class WorkPlan {
     static belongsTo = [projectApplication: ProjectApplication]
 
     static hasMany = [
-            documents: WorkPlanDocument,
             updates: WorkPlanUpdate,
             milestones: Milestone
     ]
@@ -31,6 +30,10 @@ class WorkPlan {
         dateAccepted nullable: true
         wpVersion nullable: false
         filename nullable: false
+    }
+
+    static mapping = {
+        milestones sort: 'deadline', order: 'desc'
     }
 
     String toString() {

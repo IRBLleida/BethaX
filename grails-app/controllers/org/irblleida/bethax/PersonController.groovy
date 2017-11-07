@@ -1,12 +1,13 @@
 package org.irblleida.bethax
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class PersonController {
-
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -98,22 +99,25 @@ class PersonController {
 
     @Transactional
     def delete(Person person) {
-
         if (person == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
+        def projects = Project.findAllByPrincipalInvestigator(person)
+        def requests = ProjectApplication.findAllByApplicant(person)
+
+        if(projects || requests) {
+            flash.message = message(code: 'person.not.deleted')
+            println projects
+            render view: 'show', model: [person: person, projects: projects, requests: requests]
+            return
+        }
+
         person.delete flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'person.label', default: 'Person'), person.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        redirect action: 'index'
     }
 
     protected void notFound() {

@@ -1,12 +1,15 @@
 package org.irblleida.bethax
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class WorkPlanController {
 
-    static allowedMethods = [save: "POST", update: "PUT"]
+    //static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -15,7 +18,11 @@ class WorkPlanController {
 
     def show(WorkPlan workPlan) {
         def workPlanFile = new File("/opt/bethax/workPlan/${workPlan.id.toString()}" as String)
-        respond workPlan, model: [workPlanFile: workPlanFile]
+
+        def openMilestones = Milestone.findAllByWorkPlanAndDateFinishedIsNull(workPlan)
+        def closedMilestones = Milestone.findAllByWorkPlanAndDateFinishedIsNotNull(workPlan)
+
+        respond workPlan, model: [workPlanFile: workPlanFile, openMilestones: openMilestones, closedMilestones: closedMilestones]
     }
 
     def create() {
@@ -39,7 +46,9 @@ class WorkPlanController {
             if(it.type == Double && params[it.name]) workPlan.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
         }
 
-        workPlan.filename = params.workPlanFile.getOriginalFilename()
+        if(params.workPlanFile) {
+            workPlan.filename = params.workPlanFile?.getOriginalFilename()
+        }
 
         workPlan.validate()
 
@@ -55,18 +64,15 @@ class WorkPlanController {
         projectApplication.workPlan = workPlan
         projectApplication.save flush:true
 
-
-        def folderPath = "/opt/bethax/workPlan/" as String
-        def folder = new File(folderPath)
-        if(!folder.exists()) {
-            folder.mkdirs()
+        if(params.workPlanFile) {
+            def folderPath = "/opt/bethax/workPlan/" as String
+            def folder = new File(folderPath)
+            if(!folder.exists()) {
+                folder.mkdirs()
+            }
+            def path = "${folderPath}/${workPlan.id}" as String
+            params.workPlanFile.transferTo(new File(path))
         }
-        def path = "${folderPath}/${workPlan.id}" as String
-        def extension = params.workPlanFile.getOriginalFilename().split('\\.').last()
-        params.workPlanFile.transferTo(new File(path + "." + extension))
-        workPlan.filename = "${workPlan.id}.${extension}"
-        println workPlan.filename
-        workPlan.save flush: true
 
         request.withFormat {
             form multipartForm {
@@ -80,12 +86,14 @@ class WorkPlanController {
     def download(WorkPlan workPlan) {
         if(!workPlan) return
 
-        println workPlan.filename
+        def workPlanFile = new File("/opt/bethax/workPlan/${workPlan.id}" as String)
+        if(workPlanFile.exists()) {
+            if(workPlan.filename.split('\\.').last().equals('pdf')) {
+                response.setContentType("application/pdf")
+            }
+            else response.setContentType("application/octet-stream")
 
-        def workPlanFile = new File("/opt/bethax/workPlan/${workPlan.filename}" as String)
-        if ( workPlanFile.exists() ) {
-            response.setContentType("application/octet-stream")
-            response.setHeader("Content-disposition", "attachment;filename=\"${workPlan.filename}\"")
+            response.setHeader("Content-disposition", "inline;filename=\"${workPlan.filename}\"")
             response.outputStream << workPlanFile.bytes
         }
     }
@@ -110,6 +118,10 @@ class WorkPlanController {
             if(it.type == Double && params[it.name]) workPlan.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
         }
 
+        if(params.workPlanFile) {
+            workPlan.filename = params.workPlanFile?.getOriginalFilename()
+        }
+
         workPlan.validate()
 
         if (workPlan.hasErrors()) {
@@ -119,6 +131,19 @@ class WorkPlanController {
         }
 
         workPlan.save flush:true
+
+        if(params.workPlanFile) {
+            def folderPath = "/opt/bethax/workPlan/" as String
+            def folder = new File(folderPath)
+            if(!folder.exists()) {
+                folder.mkdirs()
+            }
+            def path = "${folderPath}/${workPlan.id}" as String
+
+            def currentWorkPlan = new File(path)
+            if(currentWorkPlan.exists()) currentWorkPlan.delete()
+            params.workPlanFile.transferTo(new File(path))
+        }
 
         request.withFormat {
             form multipartForm {
@@ -141,6 +166,22 @@ class WorkPlanController {
         ProjectApplication projectApplication = workPlan.projectApplication
         projectApplication.workPlan = null
         projectApplication.save flush: true
+
+        if(workPlan.filename) {
+            def folderPath = "/opt/bethax/workPlan/" as String
+            def path = "${folderPath}/${workPlan.id}" as String
+            def currentWorkPlan = new File(path)
+            if(currentWorkPlan.exists()) currentWorkPlan.delete()
+        }
+
+        workPlan.updates.each { update ->
+            if(update.filename) {
+                def folderPath = "/opt/bethax/workPlanUpdate/" as String
+                def path = "${folderPath}/${workPlan.id}" as String
+                def currentWorkPlanUpdate = new File(path)
+                if(currentWorkPlanUpdate.exists()) currentWorkPlanUpdate.delete()
+            }
+        }
 
         workPlan.delete flush:true
 

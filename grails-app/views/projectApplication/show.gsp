@@ -51,11 +51,13 @@
                 <bx:showField bean="${this.projectApplication}" property="headStatistician" />
                 <bx:showField bean="${this.projectApplication}" property="budget" addon="€" />
                 <bx:showField bean="${this.projectApplication}" property="isWorkPlanNeeded" />
-                <bx:showField bean="${this.projectApplication}" property="noWorkPlanReason" />
+                <g:if test="${this.projectApplication.isWorkPlanNeeded == false}">
+                    <bx:showField bean="${this.projectApplication}" property="noWorkPlanReason" />
+                </g:if>
             </div>
             <g:if test="${projectApplication.isWorkPlanNeeded}">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <dl class="animated fadeIn">
                         <dt>
                             <g:message code="projectApplication.workPlan.label" />
@@ -72,6 +74,18 @@
                             </g:link>
                         </dd>
                         </g:else>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="animated fadeIn">
+                        <dt>
+                            <g:message code="projectApplication.projects.label" />
+                        </dt>
+                        <g:each var="project" in="${projectApplication.projects}">
+                            <dd class="sliding-middle-out">
+                                <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>
+                            </dd>
+                        </g:each>
                     </dl>
                 </div>
             </div>

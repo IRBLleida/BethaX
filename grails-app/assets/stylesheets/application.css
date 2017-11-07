@@ -13,5 +13,6 @@
 *= require main
 *= require component
 *= require animate
+*= require bootstrap-datepicker3
 *= require_self
 */

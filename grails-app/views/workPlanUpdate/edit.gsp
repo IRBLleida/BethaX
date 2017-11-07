@@ -8,11 +8,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body crud">
-                <h4 class="card-title">Modificar sol·licitud</h4>
+                <h4 class="card-title">Actualització de pla de treball</h4>
                 <hr class="brace">
-                <g:form action="update">
-                    <g:hiddenField name="id" value="${this.projectApplication?.id.toString()}" />
-                    <g:hiddenField name="version" value="${this.projectApplication?.version}" />
+                <g:form resource="${this.workPlanUpdate}" method="PUT">
+                    <g:hiddenField name="version" value="${this.workPlanUpdate?.version}" />
                     <g:render template="form"/>
                     <div class="row">
                         <div class="col-md-12">
@@ -22,9 +21,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <g:submitButton name="update" value="${message(code: 'default.button.update.label')}" class="btn btn-outline-primary" />
-                            <g:link action="show" id="${this.projectApplication.id.toString()}" class="btn btn-outline-secondary">
+                            <g:link controller="workPlan" action="show" id="${this.workPlanUpdate.workPlan.id.toString()}" class="btn btn-outline-secondary">
                                 <g:message code="default.button.cancel" />
                             </g:link>
+                            <g:link action="delete" id="${this.workPlanUpdate.id.toString()}" class="card-link btn btn-outline-danger pull-right" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</g:link>
                         </div>
                     </div>
                 </g:form>

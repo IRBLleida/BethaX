@@ -12,7 +12,7 @@ class WorkPlanUpdate {
     WorkPlan workPlan
     Date updateDate
     String reasons
-    WorkPlanDocument document
+    String filename
 
     static belongsTo = [workPlan: WorkPlan]
 
@@ -22,6 +22,8 @@ class WorkPlanUpdate {
         workPlan nullable: false
         updateDate nullable: false
         reasons nullable: false, blank: false
-        document nullable: true
+        filename nullable: true
     }
+
+    String toString() { reasons }
 }

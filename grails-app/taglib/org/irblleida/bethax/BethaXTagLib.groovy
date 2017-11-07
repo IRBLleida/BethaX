@@ -96,6 +96,12 @@ class BethaXTagLib {
             case(java.lang.String):
                 attrs.type = 'text'
                 break
+            case(java.lang.Integer):
+                attrs.type = 'number'
+                break
+            case(java.lang.Float):
+                attrs.type = 'number'
+                break
             case(java.util.Date):
                 if(attrs.property in ['dateCreated', 'lastUpdated']) attrs.type = 'datetime'
                 else attrs.type = 'date'

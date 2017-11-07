@@ -19,7 +19,7 @@
         <g:if test="${addon != null}">
             <div class="input-group">
         </g:if>
-        <g:textArea name="${name}" value="${value}" class="form-control" placeholder="${g.message(code: domain + '.' + name + '.label')}" rows="${rows}" />
+        <g:textArea name="${name}" value="${value}" class="form-control" placeholder="${g.message(code: domain + '.' + name + '.label')}" rows="${rows}" maxlength="${maxlength}"  />
         <g:if test="${addon != null}">
             <div class="input-group-addon">${raw(addon)}</div>
             </div>

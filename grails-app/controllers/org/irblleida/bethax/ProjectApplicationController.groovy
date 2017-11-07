@@ -1,14 +1,16 @@
 package org.irblleida.bethax
 
 import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class ProjectApplicationController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -84,6 +86,16 @@ class ProjectApplicationController {
             notFound()
             return
         }
+
+        projectApplication.lastModifiedBy = (User) getAuthenticatedUser()
+
+        ProjectApplication.getDeclaredFields().each {
+            if(it.type == Date && params[it.name]) projectApplication.properties[it.name] = Date.parse("dd/MM/yyyy", params[it.name])
+            if(it.type == Float && params[it.name]) projectApplication.properties[it.name] = Float.parseFloat(params[it.name].replace(',', '.'))
+            if(it.type == Double && params[it.name]) projectApplication.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
+        }
+
+        projectApplication.validate()
 
         if (projectApplication.hasErrors()) {
             transactionStatus.setRollbackOnly()
