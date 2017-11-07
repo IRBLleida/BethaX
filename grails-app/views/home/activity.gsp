@@ -22,31 +22,13 @@
             </div>
         </div>
         <div class="activity-feed">
-            <div class="feed-item">
-                <div class="date">25 Set 2017</div>
-                <div class="text">Ha finalitzat la fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Jordi Vilanova</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">24 Set 2017</div>
-                <div class="text">Ha creat una nova fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">10 Set 2017</div>
-                <div class="text">Ha creat un nou projecte <a href="#">[NOM PROJECTE]</a></div>
-                <div class="person">Montse Rué</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">29 Ago 2017</div>
-                <div class="text">Ha creat una nova fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">15 Ago 2017</div>
-                <div class="text">Ha finalitzat una nova fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Jordi Vilanova</div>
-            </div>
+            <g:each var="event" in="${applicationEventList}">
+                <div class="feed-item">
+                    <div class="date">${event.dateCreated}</div>
+                    <div class="text"><g:message code="home.activity.layout" args="[event.action, event.domainObject]"/> [${event.objectName}]</div>
+                    <div class="person">${event.triggeredBy.givenName} ${event.triggeredBy.familyName}</div>
+                </div>
+            </g:each>
         </div>
     </div>
 
@@ -57,41 +39,13 @@
             </div>
         </div>
         <div class="activity-feed">
-            <div class="feed-item">
-                <div class="date">24 Set 2017</div>
-                <div class="text">Ha creat una nova fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">10 Set 2017</div>
-                <div class="text">Ha creat un nou projecte <a href="#">[NOM PROJECTE]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">29 Ago 2017</div>
-                <div class="text">Ha creat una nova fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">15 Ago 2017</div>
-                <div class="text">Ha finalitzat una nova fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">2 Ago 2017</div>
-                <div class="text">Ha finalitzat la fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">22 Jul 2017</div>
-                <div class="text">Ha finalitzat la fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
-            <div class="feed-item">
-                <div class="date">21 Jul 2017</div>
-                <div class="text">Ha finalitzat la fita <a href="#">[NOM FITA]</a></div>
-                <div class="person">Pau Balaguer</div>
-            </div>
+            <g:each var="event" in="${applicationEventListUser}">
+                <div class="feed-item">
+                    <div class="date">${event.dateCreated}</div>
+                    <div class="text"><g:message code="home.activity.layout" args="[event.action, event.domainObject]"/> [${event.objectName}]</div>
+                    <div class="person">${event.triggeredBy.givenName} ${event.triggeredBy.familyName}</div>
+                </div>
+            </g:each>
         </div>
     </div>
 </div>

@@ -9,7 +9,7 @@ import grails.transaction.Transactional
 class ServiceRequestController {
     def mailService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -36,7 +36,6 @@ class ServiceRequestController {
 
     @Transactional
     def save(ServiceRequest serviceRequest) {
-        println "HOLA"
         if (serviceRequest == null) {
             transactionStatus.setRollbackOnly()
             notFound()

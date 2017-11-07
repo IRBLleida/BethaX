@@ -16,25 +16,25 @@
     <div class="col-md-2"></div>
     <div class="card border-info mb-3 col-md-2" style="max-width: 20rem; margin-left: 15px">
         <div class="card-body text-info">
-            <h2 class="card-title">5</h2>
+            <h2 class="card-title">${pendingMilestones}</h2>
             <p class="card-text">Fites pendents</p>
         </div>
     </div>
     <div class="card border-info mb-3 col-md-2" style="max-width: 20rem; margin-left: 15px">
         <div class="card-body text-info">
-            <h2 class="card-title">133</h2>
+            <h2 class="card-title">${finishedMilestones}</h2>
             <p class="card-text">Fites finalitzades</p>
         </div>
     </div>
     <div class="card border-info mb-3 col-md-2" style="max-width: 20rem; margin-left: 15px">
         <div class="card-body text-info">
-            <h2 class="card-title">98</h2>
+            <h2 class="card-title">${projectApplications}</h2>
             <p class="card-text">Sol·licituds</p>
         </div>
     </div>
     <div class="card border-info mb-3 col-md-2" style="max-width: 20rem; margin-left: 15px">
         <div class="card-body text-info">
-            <h2 class="card-title">15</h2>
+            <h2 class="card-title">${projects}</h2>
             <p class="card-text">Projectes</p>
         </div>
     </div>
@@ -86,6 +86,11 @@
 
 <content tag="footScripts">
     <g:javascript>
+        var data = []
+        <g:each var="user" in="${usersMap}">
+            data.push({'name' : "${user?.key}", 'y': ${user?.value}})
+        </g:each>
+
         // Create the chart
         Highcharts.chart('container', {
             chart: {
@@ -102,7 +107,7 @@
             },
             yAxis: {
                 title: {
-                    text: 'Percentatge'
+                    text: 'Número de fites'
                 }
 
             },
@@ -114,40 +119,20 @@
                     borderWidth: 0,
                     dataLabels: {
                         enabled: true,
-                        format: '{point.y:.1f}%'
+                        format: '{point.y}'
                     }
                 }
             },
 
             tooltip: {
                 headerFormat: '',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> del total ({point.n})<br/>'
+                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b>'
             },
 
             series: [{
                 name: 'Brands',
                 colorByPoint: true,
-                data: [{
-                    name: 'Pau Balaguer',
-                    y: 9.33,
-                    n: 5,
-                }, {
-                    name: 'Jordi Vilaplana',
-                    y: 24.03,
-                    n: 4,
-                }, {
-                    name: 'Montse Rué',
-                    y: 15.38,
-                    n: 6,
-                }, {
-                    name: 'Hèctor Perpiñán',
-                    y: 4.77,
-                    n: 8,
-                }, {
-                    name: 'Carles Forné',
-                    y: 7.91,
-                    n: 8,
-                }]
+                data: data
             }],
             credits: {
                 enabled: false
@@ -156,6 +141,19 @@
     </g:javascript>
 
     <g:javascript>
+        var months = []
+        <g:each var="m" in="${monthString}">
+            months.push("${m}");
+        </g:each>
+        var created = []
+        <g:each var="m" in="${createdMilestones}">
+            created.push(${m});
+        </g:each>
+        var finished = []
+        <g:each var="m" in="${closedMilestones}">
+            finished.push(${m});
+        </g:each>
+
         Highcharts.chart('container2', {
             chart: {
                 type: 'line'
@@ -164,7 +162,7 @@
                 text: 'Relació fites afegides i finalitzades'
             },
             xAxis: {
-                categories: ['Gen', 'Feb', 'Mar', 'Abr', 'Maig', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Des']
+                categories: months
             },
             yAxis: {
                 title: {
@@ -172,11 +170,11 @@
                 }
             },
             series: [{
-                name: 'Finalitzades',
-                data: [3, 4, 5, 12, 8, 3, 24, 6, 8, 12, 3, 22]
-            }, {
                 name: 'Creades',
-                data: [5, 9, 12 , 3, 7, 13, 5, 7, 10, 12, 6, 9]
+                data: created
+            }, {
+                name: 'Finalitzades',
+                data: finished
             }],
             credits: {
               enabled: false
@@ -195,9 +193,9 @@
                 allowPointSelect: true,
                 keys: ['name', 'y', 'selected', 'sliced'],
                 data: [
-                    ['Internes', 126.0, false],
-                    ['Externes públiques', 135.6, false],
-                    ['Externes privades', 148.5, false]
+                    ['Internes', ${internal}, false],
+                    ['Externes públiques', ${externalPub}, false],
+                    ['Externes privades', ${externalPriv}, false]
                 ],
                 showInLegend: true
             }],

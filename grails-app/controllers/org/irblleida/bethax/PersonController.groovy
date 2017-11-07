@@ -49,6 +49,14 @@ class PersonController {
 
         person.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "persona",
+                objectId: person.id.toString(),
+                objectName: person.name
+        ).save flush: true
+
         if(params.photo) {
             def folderPath = "/opt/bethax/person/" as String
             def folder = new File(folderPath)
@@ -101,6 +109,14 @@ class PersonController {
             return
         }
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "persona",
+                objectId: person.id.toString(),
+                objectName: person.name
+        ).save flush: true
+
         person.save flush:true
 
         if(params.photo) {
@@ -127,6 +143,14 @@ class PersonController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "persona",
+                objectId: person.id.toString(),
+                objectName: person.name
+        ).save flush: true
 
         def projects = Project.findAllByPrincipalInvestigator(person)
         def requests = ProjectApplication.findAllByApplicant(person)

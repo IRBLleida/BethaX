@@ -10,14 +10,14 @@ class ApplicationEvent {
     User triggeredBy
     String action
     String domainObject
+    String objectName
     String objectId
-    String description
 
     static constraints = {
         triggeredBy nullable: false
         action nullable: false, blank: true
         domainObject nullable: false, blank: false
         objectId nullable: false, blank: false
-        description nullable: false
+        objectName nullable: false
     }
 }

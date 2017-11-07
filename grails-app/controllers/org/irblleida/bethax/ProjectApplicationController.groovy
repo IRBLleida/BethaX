@@ -66,6 +66,14 @@ class ProjectApplicationController {
             project.save flush: true
         }
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "sol·licitud",
+                objectId: projectApplication.id.toString(),
+                objectName: projectApplication.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'projectApplication.label', default: 'ProjectApplication'), projectApplication.id])
@@ -103,7 +111,32 @@ class ProjectApplicationController {
             return
         }
 
+        def isFinished = false
+        if(projectApplication.isDirty('closingDate')){
+            def currentProjectApplicationDate = projectApplication.getPersistentValue('closingDate')
+            if(currentProjectApplicationDate == null && projectApplication.closingDate != null){
+                new ApplicationEvent(
+                        triggeredBy: (User) getAuthenticatedUser(),
+                        action: "finalitzat",
+                        domainObject: "sol·licitud",
+                        objectId: projectApplication.id.toString(),
+                        objectName: projectApplication.name
+                ).save flush: true
+                isFinished = true
+            }
+        }
+
         projectApplication.save flush:true
+
+        if(!isFinished){
+            new ApplicationEvent(
+                    triggeredBy: (User) getAuthenticatedUser(),
+                    action: "editat",
+                    domainObject: "sol·licitud",
+                    objectId: projectApplication.id.toString(),
+                    objectName: projectApplication.name
+            ).save flush: true
+        }
 
         request.withFormat {
             form multipartForm {
@@ -123,6 +156,14 @@ class ProjectApplicationController {
             return
         }
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "sol·licitud",
+                objectId: projectApplication.id.toString(),
+                objectName: projectApplication.name
+        ).save flush: true
+        
         projectApplication.delete flush:true
 
         request.withFormat {
