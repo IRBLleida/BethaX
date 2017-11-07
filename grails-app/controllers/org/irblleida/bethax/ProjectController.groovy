@@ -13,7 +13,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ProjectController {
 
-    static allowedMethods = [save: "POST", update: "PUT"]
+    //static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -49,6 +49,14 @@ class ProjectController {
 
         project.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "projecte",
+                objectId: project.id.toString(),
+                objectName: project.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'project.label', default: 'Project'), project.id])
@@ -80,6 +88,14 @@ class ProjectController {
 
         project.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "projecte",
+                objectId: project.id.toString(),
+                objectName: project.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'project.label', default: 'Project'), project.id])
@@ -97,6 +113,14 @@ class ProjectController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "projecte",
+                objectId: project.id.toString(),
+                objectName: project.name
+        ).save flush: true
 
         project.delete flush:true
 

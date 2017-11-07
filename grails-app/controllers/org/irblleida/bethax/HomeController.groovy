@@ -104,7 +104,10 @@ class HomeController {
     }
 
     def activity(){
-        render view:'activity', model: []
+        def applicationEventList = ApplicationEvent.findAll(max: 10, sort: "dateCreated", order: "desc")
+        def applicationEventListUser = ApplicationEvent.findAllByTriggeredBy((User) getAuthenticatedUser(), [max: 10, sort: "dateCreated", order: "desc"])
+
+        render view:'activity', model: [applicationEventList: applicationEventList, applicationEventListUser: applicationEventListUser]
     }
 
     def search() {

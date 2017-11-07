@@ -65,6 +65,14 @@ class MilestoneController {
         workPlan.addToMilestones(milestone)
         workPlan.save flush: true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "fita",
+                objectId: milestone.id.toString(),
+                objectName: milestone.name
+        ).save flush: true
+
         flash.message = message(code: 'default.created.message', args: [message(code: 'milestone.label'), milestone.id])
         redirect controller: "workPlan", action: "show", id: workPlan.id
     }
@@ -90,6 +98,23 @@ class MilestoneController {
         }
 
         milestone.validate()
+        def isFinished = false
+
+        if(milestone.isDirty('dateFinished')){
+            def currentMilestoneDate = milestone.getPersistentValue('dateFinished')
+            if(currentMilestoneDate == null && milestone.dateFinished != null){
+                new ApplicationEvent(
+                        triggeredBy: (User) getAuthenticatedUser(),
+                        action: "finalitzat",
+                        domainObject: "fita",
+                        objectId: milestone.id.toString(),
+                        objectName: milestone.name
+                ).save flush: true
+                isFinished = true
+            }
+        }
+
+        milestone.save flush:true
 
         if (milestone.hasErrors()) {
             transactionStatus.setRollbackOnly()
@@ -97,7 +122,15 @@ class MilestoneController {
             return
         }
 
-        milestone.save flush:true
+        if(!isFinished){
+            new ApplicationEvent(
+                    triggeredBy: (User) getAuthenticatedUser(),
+                    action: "editat",
+                    domainObject: "fita",
+                    objectId: milestone.id.toString(),
+                    objectName: milestone.name
+            ).save flush: true
+        }
 
         redirect controller: "workPlan", action: "show", id: milestone.workPlan.id
     }
@@ -110,6 +143,14 @@ class MilestoneController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "fita",
+                objectId: milestone.id.toString(),
+                objectName: milestone.name
+        ).save flush: true
 
         def workPlan = milestone.workPlan
         workPlan.removeFromMilestones(milestone)

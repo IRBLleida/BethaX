@@ -10,7 +10,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class InstitutionSectionController {
 
-    static allowedMethods = [save: "POST", update: "PUT"]
+    //static allowedMethods = [save: "POST", update: "PUT"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -58,6 +58,14 @@ class InstitutionSectionController {
 
         institutionSection.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "secció",
+                objectId: institutionSection.id.toString(),
+                objectName: institutionSection.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'institutionSection.label', default: 'InstitutionSection'), institutionSection.id])
@@ -97,6 +105,14 @@ class InstitutionSectionController {
 
         institutionSection.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "secció",
+                objectId: institutionSection.id.toString(),
+                objectName: institutionSection.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'institutionSection.label', default: 'InstitutionSection'), institutionSection.id])
@@ -115,6 +131,15 @@ class InstitutionSectionController {
             return
         }
         def institution = institutionSection.institution
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "secció",
+                objectId: institutionSection.id.toString(),
+                objectName: institutionSection.name
+        ).save flush: true
+
         institutionSection.delete flush:true
         redirect controller: 'institution', action: "show", id: institution.id
     }

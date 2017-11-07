@@ -49,6 +49,14 @@ class PersonController {
 
         person.save flush:true
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "creat",
+                domainObject: "persona",
+                objectId: person.id.toString(),
+                objectName: person.name
+        ).save flush: true
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'person.label', default: 'Person'), person.id])
@@ -86,6 +94,14 @@ class PersonController {
             return
         }
 
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "editat",
+                domainObject: "persona",
+                objectId: person.id.toString(),
+                objectName: person.name
+        ).save flush: true
+
         person.save flush:true
 
         request.withFormat {
@@ -104,6 +120,14 @@ class PersonController {
             notFound()
             return
         }
+
+        new ApplicationEvent(
+                triggeredBy: (User) getAuthenticatedUser(),
+                action: "eliminat",
+                domainObject: "persona",
+                objectId: person.id.toString(),
+                objectName: person.name
+        ).save flush: true
 
         def projects = Project.findAllByPrincipalInvestigator(person)
         def requests = ProjectApplication.findAllByApplicant(person)
