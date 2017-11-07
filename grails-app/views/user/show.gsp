@@ -19,20 +19,52 @@
                     </div>
                     <div class="card-body text-center">
                         <h4 class="card-title">
-                            <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
-                            <g:link class="edit" action="edit" resource="${this.user}"><i class="fa fa-pencil" aria-hidden="true" style="    font-size: 1rem;"></i></g:link>
+                            ${user.givenName} ${user.familyName}
+                            <g:if test="${isHimself}"><g:link class="edit" action="edit" resource="${this.user}"><i class="fa fa-pencil" aria-hidden="true" style="    font-size: 1rem;"></i></g:link></g:if>
                         </h4>
-                        <p class="card-text">
-                            <g:if test="${user.biography}">
-                                ${user.biography}
-                            </g:if><g:else>
-                                <g:link class="edit" action="edit" resource="${this.user}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                    Afegir biografia
-                                </g:link>
-                            </g:else>
-                            <g:if test="${user.website}"><br/><a href="${user?.website}">(${user?.website})</a></g:if>
-                        </p>
+
+                        <g:if test="${isHimself && !user.position && !user.website && !user.biography}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="lead">Sense informació de perfil</p>
+                                    <p class="card-text">Caram, quin perfil més desolat. Està tant buit que en Keanu Reeves està trist.</p>
+                                    <g:if test="${user == currentUser}">
+                                        <p class="card-text">Anima'l <g:link controller="user" action="edit">afegint la teva informació <i class="material-icons">tag_faces</i></g:link></p>
+                                    </g:if>
+                                </div>
+                                <div class="profile-box">
+                                    <img src="https://files.gamebanana.com/img/ico/sprays/52ecd3c23c1b5.png" width="100%" />
+                                </div>
+                            </div>
+                        </g:if>
+
+                        <g:if test="${!isHimself && !user.position && !user.website && !user.biography}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="lead">Sense informació de perfil</p>
+                                    <p class="card-text">Caram, quin perfil més desolat. Està tant buit que en Keanu Reeves està trist.</p>
+                                </div>
+                                <div class="profile-box">
+                                    <img src="https://files.gamebanana.com/img/ico/sprays/52ecd3c23c1b5.png" width="100%" />
+                                </div>
+                            </div>
+                        </g:if>
+
+                        <g:if test="${user.position}">
+                            <p class="card-text">
+                                <i class="material-icons">card_membership</i> ${user.position}
+                            </p>
+                        </g:if>
+                        <g:if test="${user.website}">
+                            <p class="card-text">
+                                <i class="material-icons">web</i> <a href="${user.website}" target="_blank">${user.website}</a>
+                            </p>
+                        </g:if>
+                        <g:if test="${user.biography}">
+                            <p class="card-text">
+                                <i class="material-icons">face</i> ${user.biography}
+                            </p>
+                        </g:if>
                     </div>
                 </div>
 
@@ -92,6 +124,19 @@
         </div>
     <content tag="footScripts">
         <g:javascript>
+        var months = []
+        <g:each var="m" in="${monthString}">
+            months.push("${m}");
+        </g:each>
+            var created = []
+            <g:each var="m" in="${createdMilestones}">
+                created.push(${m});
+            </g:each>
+            var finished = []
+            <g:each var="m" in="${closedMilestones}">
+                finished.push(${m});
+            </g:each>
+
             Highcharts.chart('container2', {
                 chart: {
                     type: 'line'
@@ -100,7 +145,7 @@
                     text: 'Relació fites afegides i finalitzades'
                 },
                 xAxis: {
-                    categories: ['Gen', 'Feb', 'Mar', 'Abr', 'Maig', 'Jun', 'Jul', 'Ago', 'Set', 'Oct', 'Nov', 'Des']
+                    categories: months
                 },
                 yAxis: {
                     title: {
@@ -108,15 +153,15 @@
                     }
                 },
                 series: [{
-                    name: 'Finalitzades',
-                    data: [3, 4, 5, 12, 8, 3, 24, 6, 8, 12, 3, 22]
-                }, {
                     name: 'Creades',
-                    data: [5, 9, 12 , 3, 7, 13, 5, 7, 10, 12, 6, 9]
+                    data: created
+                }, {
+                    name: 'Finalitzades',
+                    data: finished
                 }],
                 credits: {
-                    enabled: false
-                },
+                  enabled: false
+              },
             });
         </g:javascript>
     </content>

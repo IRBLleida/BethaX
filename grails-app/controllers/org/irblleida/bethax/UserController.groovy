@@ -1,6 +1,9 @@
 package org.irblleida.bethax
 
 import grails.plugin.springsecurity.annotation.Secured
+import groovy.time.TimeCategory
+
+import java.text.DateFormatSymbols
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -16,15 +19,53 @@ class UserController {
         respond User.list(params), model:[userCount: User.count()]
     }
 
-    def show() {
-        User user = User.get(((User) getAuthenticatedUser()).id)
+    def show(User user) {
+        def isHimself = false
+        if (!user || user.id.equals(((User) getAuthenticatedUser()).id)){
+            user = User.get(((User) getAuthenticatedUser()).id)
+            isHimself = true
+        }
         def milestones = Milestone.findAllByCreatedByAndDateFinishedIsNull(user,  [sort: "deadline", order: "desc"])
-        respond user, model: [milestoneList: milestones]
-    }
 
-    def profile(User user) {
-        User currentUser = User.get(((User) getAuthenticatedUser()).id)
-        respond user ?: currentUser, model: [currentUser: currentUser]
+        /*** Created and Closed Milestones per month ***/
+
+        def tenMonthsAgo = Calendar.getInstance()
+        DateFormatSymbols dfs = new DateFormatSymbols()
+        String[] months = dfs.getMonths()
+
+        def createdMilestones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        def closedMilestones = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        def monthsString = [], monthHelper = []
+        def i = 0
+
+
+        use(TimeCategory) {
+            for (i = 0; i<10 ;i++){
+                tenMonthsAgo.setTime(new Date() - i.months)
+                def mo = months[tenMonthsAgo.get(Calendar.MONTH)].replace('de ', '').replace("d’" , "")
+                def ye = ( tenMonthsAgo.get(Calendar.YEAR) )
+                monthsString.add(mo + " " + ye)
+                monthHelper.add(tenMonthsAgo.get(Calendar.MONTH))
+            }
+        }
+
+        monthHelper = monthHelper.reverse()
+
+        def milestoneList = Milestone.findAllByDateCreatedGreaterThanEqualsAndCreatedBy(tenMonthsAgo, user)
+        def date = Calendar.getInstance()
+
+        for (m in milestoneList){
+            date.setTime(m.dateCreated)
+            createdMilestones[monthHelper.indexOf(date.get(Calendar.MONTH))] += 1
+            if(m.dateFinished){
+                date.setTime(m.dateFinished)
+                closedMilestones[monthHelper.indexOf(date.get(Calendar.MONTH))] += 1
+            }
+        }
+
+
+        respond user, model: [milestoneList: milestones, isHimself: isHimself, monthString: monthsString.reverse(),
+                              createdMilestones: createdMilestones, closedMilestones: closedMilestones,]
     }
 
     def create() {
