@@ -14,5 +14,6 @@
 *= require component
 *= require animate
 *= require bootstrap-datepicker3
+*= require fullcalendar
 *= require_self
 */

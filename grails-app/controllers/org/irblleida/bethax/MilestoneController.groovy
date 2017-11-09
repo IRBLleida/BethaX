@@ -1,5 +1,6 @@
 package org.irblleida.bethax
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
@@ -26,6 +27,14 @@ class MilestoneController {
         }
 
         render view: 'index', model:[myOpenMilestones: myOpenMilestones, myClosedMilestones: myClosedMilestones]
+    }
+
+    def ajaxList() {
+        def result = []
+        Milestone.list().each { milestone ->
+            result.add(['title': milestone.name, 'start': milestone.deadline, 'allDay': 1, 'url': createLink(controller: 'workPlan', action: 'show', id: milestone.workPlan.id.toString())])
+        }
+        render result as JSON
     }
 
     def show(Milestone milestone) {

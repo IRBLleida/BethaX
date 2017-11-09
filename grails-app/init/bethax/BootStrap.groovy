@@ -1,5 +1,6 @@
 package bethax
 
+import grails.converters.JSON
 import org.irblleida.bethax.Institution
 import org.irblleida.bethax.InstitutionType
 import org.irblleida.bethax.Organization
@@ -11,6 +12,13 @@ class BootStrap {
     def springSecurityService
 
     def init = { servletContext ->
+
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Madrid"))
+
+        JSON.registerObjectMarshaller(Date) {
+            return it?.format("yyyy-MM-dd")
+        }
+
         new Role(authority: 'ROLE_USER').save(flush: true)
         new Role(authority: 'ROLE_ADMIN').save(flush: true)
 

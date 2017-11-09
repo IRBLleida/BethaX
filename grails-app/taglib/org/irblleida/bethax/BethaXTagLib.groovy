@@ -19,13 +19,13 @@ class BethaXTagLib {
         if(attrs.enum && attrs.value) attrs.value = g.message(code: 'enum.' + attrs.enum + '.value.' + attrs.value)
         attrs.name = attrs.property
         if(attrs.width == null) attrs.width = 3
+        attrs.rawValue = attrs.bean[attrs.property]
 
         if(!attrs.type) {
             attrs = propertyClassToType(attrs)
         }
 
         attrs.domain = attrs.bean.getClass().getSimpleName().uncapitalize()
-        attrs.rawValue = attrs.bean[attrs.property]
         attrs.value = attrs.bean ? (attrs.bean[attrs.name] ?: '<i class="fa fa-minus red" aria-hidden="true"></i>') : (attrs.value ?: '<i class="fa fa-minus red" aria-hidden="true"></i>')
         attrs.offset = attrs.offset ? 'col-md-offset-' + attrs.offset : ''
         attrs.pre = attrs.pre ?: false
@@ -139,6 +139,7 @@ class BethaXTagLib {
                 break
             case(org.irblleida.bethax.ProjectApplication):
                 attrs.type = 'select'
+                if(attrs.rawValue) attrs.link = 'projectApplication'
                 attrs.from = org.irblleida.bethax.ProjectApplication.list()
                 attrs.optionKey = 'id'
                 attrs.noSelection = ['': message(code: 'default.noSelection')]

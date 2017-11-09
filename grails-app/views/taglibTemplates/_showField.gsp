@@ -55,9 +55,15 @@
                         </g:else>
                     </g:if>
                     <g:else>
-                        ${raw(value)}
+                        <g:if test="${link}">
+                            <g:link controller="${link}" action="show" id="${value.id}">
+                                ${raw(value)}
+                            </g:link>
+                        </g:if>
+                        <g:else>
+                            ${raw(value)}
+                        </g:else>
                     </g:else>
-
                 </g:elseif>
             </g:else>
         </dd>

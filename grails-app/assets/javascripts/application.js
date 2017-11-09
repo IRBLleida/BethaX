@@ -18,6 +18,9 @@
 //= require bootstrap-maxlength
 //= require popper
 //= require jquery.searchable-1.1.0.min
+//= require moment.min
+//= require fullcalendar
+//= require ca
 //= require_tree .
 //= require_self
 
