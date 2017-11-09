@@ -2,7 +2,6 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <asset:stylesheet src="profile.css" />
 </head>
 <body>
 <div id="show-user" class="content scaffold-show" role="main">
@@ -11,7 +10,7 @@
             ${flash.message}
         </div>
     </g:if>
-    <div class="col-md-12">
+    <div class="col-md-12" style="margin-top: 10px;">
         <div class="card card-01">
             <div class="row">
                 <div class="col-md-3">
@@ -62,7 +61,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-top: 30px;">
             <div class="card">
                 <div class="card-body crud">
                     <h4 class="card-title"><g:message code="profile.milestones.label" /></h4>
@@ -120,7 +119,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-top: 30px;">
             <div class="card">
                 <div id="container2" style="min-width: 310px; height: 400px;"></div>
             </div>
