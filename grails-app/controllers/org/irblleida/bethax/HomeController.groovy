@@ -143,7 +143,7 @@ class HomeController {
         def milestones = []
         def myProjectApplicationList = ProjectApplication.findAllByHeadStatistician(user , [sort: "deadline", order: "asc"])
         myProjectApplicationList.each { projectApplication ->
-            projectApplication.workPlan.milestones.each { milestone ->
+            projectApplication?.workPlan?.milestones?.each { milestone ->
                 if(!milestone.dateFinished && (milestone.name.contains(params?.query) || milestone.description.contains(params?.query))) {
                     milestones.add([id: milestone.workPlan.id.toString(), name: milestone.name, date: milestone.deadline])
                 }
