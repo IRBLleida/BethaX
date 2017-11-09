@@ -13,15 +13,15 @@
             </thead>
             <tbody>
             <g:each var="institution" in="${institutionList}">
-                <g:if test="${institution.institutionType.value == id}">
+                <g:if test="${institution.key.institutionType.value == id}">
                 <tr>
                     <td>
-                        <g:link action="show" id="${institution.id.toString()}">
-                            ${institution.name}
+                        <g:link action="show" id="${institution.key.id.toString()}">
+                            ${institution.key.name}
                         </g:link>
                     </td>
                     <td>
-                        5
+                        ${institution.value}
                     </td>
                 </tr>
                 </g:if>
