@@ -91,7 +91,17 @@ class HomeController {
             }
         }
 
-        render view:'summary', model: [institutionList: Institution.list(), pendingMilestones: pendingMilestones,
+        /*** Institutions ***/
+        def institutionList = [:]
+        for(institution in Institution.findAll()){
+            institutionList[institution] = 0
+        }
+        for(pA in ProjectApplication.findAll()){
+            if(pA.applicant.institution)
+                institutionList[pA.applicant.institution] += 1
+        }
+
+        render view:'summary', model: [institutionList: institutionList, pendingMilestones: pendingMilestones,
                                        finishedMilestones: finishedMilestones, projectApplications: projectApplicationsSize,
                                        projects: projects, monthString: monthsString.reverse(),
                                        createdMilestones: createdMilestones, closedMilestones: closedMilestones,
