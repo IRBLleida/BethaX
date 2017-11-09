@@ -74,7 +74,7 @@
                             ${milestone.id.toString().take(10)}...</th>
                         </g:link>
                         <td>${milestone.name}</td>
-                        <td>${milestone.description?.take(60)}${milestone.description.size() > 60 ? '...' : ''}</td>
+                        <td>${milestone.description?.take(60)}${milestone.description?.size() > 60 ? '...' : ''}</td>
                         <td><g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></td>
                         <td><g:formatDate date="${milestone.dateFinished}" format="dd/MM/yyyy" /></td>
                         <td>${milestone.workPlan}</td>

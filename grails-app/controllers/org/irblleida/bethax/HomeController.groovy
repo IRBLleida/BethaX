@@ -118,21 +118,57 @@ class HomeController {
         //) as JSON
 
         def projects = []
-        def projectList = Project.findAllByNameIlikeOrDescriptionIlike(query, query, [sort: "lastUpdated", order: "desc"])
+        def projectList = Project.findAllByNameIlikeOrDescriptionIlike(query, query, [max: 5, sort: "lastUpdated", order: "desc"])
         projectList.each { project ->
             projects.add([id: project.id.toString(), name: project.name])
         }
 
         def requests = []
-        def projectApplicationList = ProjectApplication.findAllByNameIlikeOrDescriptionIlike(query, query, [sort: "lastUpdated", order: "desc"])
+        def projectApplicationList = ProjectApplication.findAllByNameIlikeOrDescriptionIlike(query, query, [max: 5, sort: "lastUpdated", order: "desc"])
         projectApplicationList.each { projectApplication ->
             requests.add([id: projectApplication.id.toString(), name: projectApplication.name, projects: projectApplication.projects*.name ?: ''])
         }
 
+
+        def milestones = []
+        def myProjectApplicationList = ProjectApplication.findAllByHeadStatistician(user , [sort: "deadline", order: "asc"])
+        myProjectApplicationList.each { projectApplication ->
+            projectApplication.workPlan.milestones.each { milestone ->
+                if(!milestone.dateFinished && (milestone.name.contains(params?.query) || milestone.description.contains(params?.query))) {
+                    milestones.add([id: milestone.workPlan.id.toString(), name: milestone.name, date: milestone.deadline])
+                }
+            }
+        }
+
+        def institutions = []
+        def institutionList = Institution.findAllByNameIlike(query, [max: 5, sort: "dateCreated", order: "desc"])
+        institutionList.each { institution ->
+            institutions.add([id: institution.id.toString(), name: institution.name])
+        }
+
+        def persons = []
+        def personList = Person.findAllByNameIlike(query, [max: 5, sort: "dateCreated", order: "desc"])
+        personList.each { person ->
+            persons.add([id: person.id.toString(), name: person.name, institution: person.institution.name])
+        }
+
+        def users = []
+        def userList = User.findAllByGivenNameIlikeOrFamilyNameIlike(query, query, [max: 5, sort: "dateCreated", order: "desc"])
+        userList.each { usr ->
+            users.add([id: usr.id.toString(), name: usr.givenName + ' ' + usr.familyName, username: usr.username])
+        }
+
         def result = [
                 projects: projects,
-                requests: requests
+                requests: requests,
+                milestones: milestones,
+                institutions: institutions,
+                persons: persons,
+                users: users
         ]
+
+        if(projects.empty && requests.empty && milestones.empty && institutions.empty && persons.empty && users.empty)
+            result = []
 
         render result as JSON
         return

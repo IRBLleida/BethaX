@@ -16,6 +16,9 @@
     .input-group .form-control {
         z-index: 0;
     }
+    a.disabled {
+        pointer-events: none;
+    }
     </style>
 </head>
 <body>
@@ -52,8 +55,6 @@
     </div>
 
     <div class="collapse navbar-collapse order-lg-2">
-
-
         <div class="container">
             <div id="morphsearch" class="morphsearch">
                 <form class="morphsearch-form">
@@ -61,65 +62,51 @@
                     <button class="morphsearch-submit" type="submit">Buscar</button>
                 </form>
                 <div class="morphsearch-content">
-                    <div class="dummy-column">
-                        <h2>Fites</h2>
-                        <div id="search-milestone">
-                            <a class="dummy-media-object" href="#">
-                                <h3>Acabar blabla</h3>
-                            </a>
-                            <a class="dummy-media-object" href="#">
-                                <h3>Anàlisi A</h3>
-                            </a>
+                    <div id="emptyResults" class="row">
+                        <div class="col-md-12" style="text-align: center; margin-top: 50px;"> <asset:image src="loading.gif" width="500" style="opacity: 0.4;"/> </div>
+                    </div>
+                    <div id="resultsSection" class="row">
+                        <div class="dummy-column" id="milestones">
+                            <h2>Fites</h2>
+                            <div id="search-milestone">
+
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="dummy-column">
-                        <h2>Sol·licituds</h2>
-                        <div id="search-projectApplication">
-                            <a class="dummy-media-object" href="#">
-                                <h3>Blabla</h3>
-                            </a>
-                            <a class="dummy-media-object" href="#">
-                                <h3>Bleble</h3>
-                            </a>
+                        <div class="dummy-column" id="projectApplications">
+                            <h2>Sol·licituds</h2>
+                            <div id="search-projectApplication">
+
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="dummy-column">
-                        <h2>Projectes</h2>
-                        <div id="search-project">
-                            <a class="dummy-media-object" href="#">
-                                <h3>Projecte A</h3>
-                            </a>
-                            <a class="dummy-media-object" href="">
-                                <h3>Projecte B</h3>
-                            </a>
+                        <div class="dummy-column" id="projects">
+                            <h2>Projectes</h2>
+                            <div id="search-project">
+
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="dummy-column">
-                        <h2>Persones</h2>
-                        <asset:image src="waiting_person.gif" class="dummy-media-object" width="100" />
-                    </div>
+                        <div class="dummy-column" id="persons">
+                            <h2>Persones</h2>
+                            <div id="search-person">
 
-                    <div class="dummy-column">
-                        <h2>Institucions</h2>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Institució X</h3>
-                        </a>
-                        <a class="dummy-media-object" href="">
-                            <h3>Institució Y</h3>
-                        </a>
-                    </div>
+                            </div>
+                        </div>
 
-                    <div class="dummy-column">
-                        <h2>Usuaris</h2>
-                        <a class="dummy-media-object" href="#">
-                            <h3>Pau Balaguer</h3>
-                        </a>
-                        <a class="dummy-media-object" href="">
-                            <h3>Jordi Vilaplana</h3>
-                        </a>
+                        <div class="dummy-column" id="institutions">
+                            <h2>Institucions</h2>
+                            <div id="search-institution">
+
+                            </div>
+                        </div>
+
+                        <div class="dummy-column" id="users">
+                            <h2>Usuaris</h2>
+                            <div id="search-user">
+
+                            </div>
+                        </div>
                     </div>
 
                 </div><!-- /morphsearch-content -->
@@ -384,24 +371,41 @@
         $('#search').keyup(function() {
             delay(function() {
                 if($('#search').val() == '') {
-                    $('#search-projectApplication').html("Sense resultats ...");
+                    noWords();
                     return;
                 }
+
                 var searchField = $('#search').val();
                 $.getJSON('<g:createLink controller="home" action="search" />', {
                     query: searchField
                 }).done(function(data) {
-                    if(data.length == 0) {
-                        $('#search-projectApplication').html('<div style="color:#5A738E;">Sense resultats ...</div>');
+
+                    if(data.length == 0){
+                        noWords();
+                        return;
+                    }
+
+                    $('#emptyResults').hide();
+                    $('#resultsSection').show();
+
+                    var output = '';
+                    if(data.requests.length == 0) {
+                        $('#projectApplications').hide();
                     }
                     else {
-                        var output = '';
+                        $('#projectApplications').show();
                         $.each(data.requests, function(key, val) {
                             output +=   '<a class="dummy-media-object" href="<g:createLink controller="projectApplication" action="show"/>/' + val.id +
                                         '" class="list-group-item">' + '<h3>' + val.name + ' (' + val.projects + ')</h3></a>';
                         });
                         $('#search-projectApplication').html(output);
+                    }
 
+                    if(data.projects.length == 0){
+                        $('#projects').hide();
+                    }
+                    else{
+                        $('#projects').show();
                         output = '';
                         $.each(data.projects, function(key, val) {
                             output +=   '<a class="dummy-media-object" href="<g:createLink controller="project" action="show"/>/' + val.id +
@@ -409,10 +413,74 @@
                         });
                         $('#search-project').html(output);
                     }
+
+                    if(data.milestones.length == 0){
+                        $('#milestones').hide();
+                    }
+                    else{
+                        $('#milestones').show();
+                        output = '';
+                        $.each(data.milestones, function(key, val) {
+                            output +=   '<a class="dummy-media-object" href="<g:createLink controller="workPlan" action="show"/>/' + val.id +
+                                        '" class="list-group-item">' + '<h3>' + val.name +' <div style="float: right;">' + val.date +'</div></h3></a>';
+                        });
+                        $('#search-milestone').html(output);
+                    }
+
+                    if(data.persons.length == 0){
+                        $('#persons').hide();
+                    }
+                    else{
+                        $('#persons').show();
+                        output = '';
+                        $.each(data.persons, function(key, val) {
+                            output +=   '<a class="dummy-media-object" href="<g:createLink controller="person" action="show"/>/' + val.id +
+                                        '" class="list-group-item">' + '<h3> <img src="${createLink(controller: "person", action: "photo", id:"' + val.id + '")}" width="100" class="rounded-circle animated pulse" />' +
+                                        val.name +' (' + val.institution + ')</h3></a>';
+                        });
+                        $('#search-person').html(output);
+                    }
+
+                    if(data.institutions.length == 0){
+                        $('#institutions').hide();
+                    }
+                    else{
+                        $('#institutions').show();
+                        output = '';
+                        $.each(data.institutions, function(key, val) {
+                            output +=   '<a class="dummy-media-object" href="<g:createLink controller="institution" action="show"/>/' + val.id +
+                                        '" class="list-group-item">' + '<h3>' + val.name +'</h3></a>';
+                        });
+                        $('#search-institution').html(output);
+                    }
+
+                    if(data.users.length == 0){
+                        $('#users').hide();
+                    }
+                    else{
+                        $('#users').show();
+                        output = '';
+                        $.each(data.users, function(key, val) {
+                            output +=   '<a class="dummy-media-object" href="<g:createLink controller="user" action="show"/>/' + val.id +
+                                        '" class="list-group-item">' + '<h3> <img src="${createLink(controller: "user", action: "photo", id:"' + val.id + '")}" width="100" class="rounded-circle animated pulse" />' +
+                                        val.name +' (' + val.username + ')</h3></a>';
+                        });
+                        $('#search-user').html(output);
+                    }
+
                 });
             }, 500);
          });
     })();
+</g:javascript>
+
+
+<g:javascript>
+noWords();
+function noWords() {
+    $('#emptyResults').show();
+    $('#resultsSection').hide();
+}
 </g:javascript>
 
 <!-- Custom placeholder for page scripts -->
