@@ -33,13 +33,6 @@ body {
 	width: 100%;
 	height: 40px;
 	margin: 0 auto;
-	position: relative;
-	-webkit-transition-property: width, height, -webkit-transform;
-	transition-property: width, height, transform;
-	-webkit-transition-duration: 0.5s;
-	transition-duration: 0.5s;
-	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
-	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
 
 .morphsearch.open .morphsearch-form {
@@ -259,12 +252,8 @@ input[type="search"] { /* reset normalize */
 	transform: translate3d(0,0,0);
 }
 
-.dummy-column:nth-child(2) {
-	margin: 0 5%;
-}
-
-.dummy-column:nth-child(5) {
-	margin: 0 5%;
+.dummy-column{
+	margin: 0 2.5%;
 }
 
 .dummy-column h2 {
