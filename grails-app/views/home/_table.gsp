@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            <g:each var="institution" in="${institutionList}">
+            <g:each var="institution" in="${institutionList.sort { -it.value }}">
                 <g:if test="${institution.key.institutionType.value == id}">
                 <tr>
                     <td>
