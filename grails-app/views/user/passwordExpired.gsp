@@ -58,23 +58,37 @@
         </div>
         <div class="content">
             <div class="inner">
-                <h1>Welcome to BethaX</h1>
-                <p>The project management WebbApp developed by <a href="http://www.irblleida.org/ca/index.php?p=webs/serveis_cientificotec/detall_servei.php&id=7">UBiostat</a> team.</p>
-                <g:if test="${flash.message}">
-                    <div class="alert alert-info" role="alert">${flash.message}</div>
+                <div class="alert alert-info" role="alert"><g:message code="user.passwordExpired.title" /></div>
+                <g:if test="${flash.error}">
+                    <div class="alert alert-error" style="display: block">${flash.error}</div>
                 </g:if>
-                <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" autocomplete="on" class="login-form">
+                <g:if test="${flash.message}">
+                    <div class="alert alert-warning" style="text-shadow: none;">
+                        ${flash.message}.
+                    </div>
+                </g:if>
+                <g:form action='updatePassword' method="POST" id="loginForm" autocomplete="on" class="login-form">
                     <div class="form-group">
-                        <input type="email" id="username" name="username" class="form-control" placeholder="Username" style="color:#ffffff">
+                        <label><g:message code="login.auth.username" />:</label>
+                        <span class='text_'>${username}</span>
                     </div>
                     <div class="form-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" style="color:#ffffff">
+                        <g:passwordField name='password' class='form-control' required="required" placeholder="${message(code: 'user.passwordExpired.currentPassword')}" style="color:#ffffff" />
+                    </div>
+                    <div class="form-group">
+                        <g:passwordField name='password_new' class='form-control' min="6" max="64" required="required" placeholder="${message(code: 'user.passwordExpired.newPassword')}" style="color:#ffffff" />
+                    </div>
+                    <div class="form-group">
+                        <g:passwordField name='password_new_2' class='form-control' min="6" max="64" required="required" placeholder="${message(code: 'user.passwordExpired.newPasswordAgain')}" style="color:#ffffff" />
+                        <p class="help-block">
+                            <g:message code="user.passwordExpired.passwordHelpText" />
+
+                        </p>
                     </div>
                     <div class="form-check">
-                        <button type="submit" class="btn btn-login">Submit</button>
+                        <button type="submit" class="btn btn-login"><g:message code="user.passwordExpired.reset" /></button>
                     </div>
-
-                </form>
+                </g:form>
             </div>
         </div>
         <nav>
@@ -123,3 +137,4 @@
 <asset:javascript src="application.js"/>
 </body>
 </html>
+

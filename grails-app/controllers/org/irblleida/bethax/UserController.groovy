@@ -8,15 +8,19 @@ import java.text.DateFormatSymbols
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class UserController {
 
+    def springSecurityService
+    def mailService
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond User.list(params), model:[userCount: User.count()]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def show(User user) {
         def isHimself = false
         if (!user || user.id.equals(((User) getAuthenticatedUser()).id)){
@@ -66,10 +70,12 @@ class UserController {
                               createdMilestones: createdMilestones, closedMilestones: closedMilestones,]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def create() {
         respond new User(params)
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     @Transactional
     def save(User user) {
         if (user == null) {
@@ -103,10 +109,12 @@ class UserController {
         return
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def edit(User user) {
         respond user ?: User.get(((User) getAuthenticatedUser()).id)
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     @Transactional
     def update(User user) {
         if (user == null) {
@@ -140,6 +148,7 @@ class UserController {
         }
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     @Transactional
     def delete(User user) {
 
@@ -168,5 +177,54 @@ class UserController {
             }
             '*'{ render status: NOT_FOUND }
         }
+    }
+
+    def passwordExpired() {
+        [username: session['SPRING_SECURITY_LAST_USERNAME']]
+    }
+
+    def updatePassword(String password, String password_new, String password_new_2) {
+        String username = session['SPRING_SECURITY_LAST_USERNAME']
+
+        if (!username) {
+            flash.message = 'Sorry, an error has occurred'
+            redirect controller: 'login', action: 'auth'
+            return
+        }
+
+        if (!password || !password_new || !password_new_2 || password_new != password_new_2 || password_new?.size() < 6 || password_new?.size() > 64) {
+            flash.message = message(code: "user.updatePassword.invalidNew")
+            render view: 'passwordExpired', model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
+            return
+        }
+
+        User user = User.findByUsername(username)
+
+        if (!springSecurityService?.passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
+            flash.message = message(code: "user.updatePassword.currentIncorrect")
+            render view: 'passwordExpired', model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
+            return
+        }
+
+        if (springSecurityService?.passwordEncoder.isPasswordValid(user.password, password_new, null /*salt*/)) {
+            flash.message = message(code: "user.updatePassword.incorrectDifferent")
+            render view: 'passwordExpired', model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
+            return
+        }
+
+        user.password = springSecurityService.encodePassword(password_new)
+        user.passwordExpired = false
+        user.save(failOnError: true) // if you have password constraints check them here
+
+        sendMail {
+            to username
+            from "BethaX <no-reply@bethax.com>"
+            subject "[BethaX] Canvi de contrasenya"
+            html view: "/email/password_changed"
+        }
+
+        flash.message = message(code: "user.updatePassword.success")
+
+        redirect controller: 'login', action: 'auth'
     }
 }

@@ -94,7 +94,7 @@
 		font-size: 16pt;
 	}
 
-		@media screen and (max-width: 1680px) {
+		@media screen and (max-width: 1920px) {
 
 			html {
 				font-size: 12pt;
@@ -1143,7 +1143,7 @@
 			display: block;
 		}
 
-		@media screen and (max-width: 1680px) {
+		@media screen and (max-width: 1920px) {
 
 			#wrapper {
 				padding: 3rem 2rem;

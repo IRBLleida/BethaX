@@ -44,8 +44,6 @@ class BootStrap {
                 organization: Organization.findByName("UBiostat"),
                 passwordExpired: false).save(flush: true)
 
-
-
         def pau = User.findByUsername('pbalaguer@irblleida.cat')
         def jordi = User.findByUsername('jvilaplana@irblleida.cat')
 
@@ -106,8 +104,82 @@ class BootStrap {
         new InstitutionSection(createdBy: pau, lastModifiedBy: pau, institution: irb, name: "Unitat de Farmacologia").save(flush: true)
         new InstitutionSection(createdBy: pau, lastModifiedBy: pau, institution: irb, name: "Unitat de Senyalització Neuronal").save(flush: true)
         new InstitutionSection(createdBy: pau, lastModifiedBy: pau, institution: irb, name: "Vascular and Renal Translational Research Group").save(flush: true)
+
+        createUBiostatUsers()
     }
 
     def destroy = {
+    }
+
+    def createUBiostatUsers() {
+        new User(
+                username: 'montse.rue@cmb.udl.cat',
+                password: springSecurityService.encodePassword('montse.rue'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Montse',
+                familyName: 'Rué',
+                isFemale: true,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'cforne@irblleida.cat',
+                password: springSecurityService.encodePassword('cforne'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Carles',
+                familyName: 'Forné',
+                isFemale: false,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'hperpinan@irblleida.cat',
+                password: springSecurityService.encodePassword('hperpinan'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Hèctor',
+                familyName: 'Perpiñán',
+                isFemale: false,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'mmartinez@irblleida.cat',
+                password: springSecurityService.encodePassword('mmartinez'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Montse',
+                familyName: 'Martínez',
+                isFemale: true,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'jvalls@irblleida.cat',
+                password: springSecurityService.encodePassword('jvalls'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Joan',
+                familyName: 'Valls',
+                isFemale: false,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'ibenitez@irblleida.cat',
+                password: springSecurityService.encodePassword('ibenitez'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Ivan',
+                familyName: 'Benítez',
+                isFemale: false,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'sbertran@irblleida.cat',
+                password: springSecurityService.encodePassword('sbertran'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Sandra',
+                familyName: 'Bertran',
+                isFemale: true,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
     }
 }

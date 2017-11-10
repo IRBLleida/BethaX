@@ -284,7 +284,10 @@
         });
     }
 
-    a();
+    $(function(){setTimeout(function () {
+            a();
+    },1000)});
+
     setInterval(a, 30000);
 
     $('#navbarDropdownMenuLink2').on("click", function() {

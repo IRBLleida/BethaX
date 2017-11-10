@@ -23,13 +23,21 @@ class ServiceRequestController {
         ]
     }
 
-    @Secured(['IS_AUTHENTICATED_FULLY'])
     def ajaxList() {
+        def user = (User) getAuthenticatedUser()
+        if(!user) {
+            render ""
+            return
+        }
+
         def serviceRequestList = ServiceRequest.findAllByIsApprovedIsNull()
         def result = []
         serviceRequestList.each { serviceRequest ->
             result.add([id: serviceRequest.id.toString(), name: serviceRequest.name, institution: serviceRequest.institution])
         }
+
+        session["SPRING_SECURITY_SAVED_REQUEST"] = null
+
         render result as JSON
         return
     }

@@ -31,6 +31,10 @@ class ProjectApplicationController {
         respond projectApplication
     }
 
+    def close(ProjectApplication projectApplication) {
+        respond projectApplication
+    }
+
     def create() {
         respond new ProjectApplication(params)
     }
@@ -170,7 +174,7 @@ class ProjectApplicationController {
         }
 
         def isFinished = false
-        if(projectApplication.isDirty('closingDate')){
+        if(projectApplication.isDirty('closingDate')) {
             def currentProjectApplicationDate = projectApplication.getPersistentValue('closingDate')
             if(currentProjectApplicationDate == null && projectApplication.closingDate != null){
                 new ApplicationEvent(

@@ -18,6 +18,7 @@
                     <th><g:message code="projectApplication.entryDate.label" /></th>
                     <th><g:message code="projectApplication.name.label" /></th>
                     <th><g:message code="projectApplication.applicant.label" /></th>
+                    <th><g:message code="projectApplication.status.label" /></th>
                     <th><g:message code="projectApplication.projects.label" /></th>
                 </tr>
                 </thead>
@@ -30,6 +31,14 @@
                             </g:link>
                             <td>${projectApplication.name}</td>
                             <td>${projectApplication.applicant}</td>
+                            <td>
+                                <g:if test="${projectApplication.closingDate}">
+                                    <i class="fa fa-file-archive-o" aria-hidden="true"></i> Tancada
+                                </g:if>
+                                <g:else>
+                                    <i class="fa fa-folder-open-o" aria-hidden="true"></i> Oberta
+                                </g:else>
+                            </td>
                             <td>
                                 <g:each var="project" in="${projectApplication.projects}">
                                     <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>
@@ -65,6 +74,7 @@
                     <th><g:message code="projectApplication.name.label" /></th>
                     <th><g:message code="projectApplication.applicant.label" /></th>
                     <th><g:message code="projectApplication.headStatistician.label" /></th>
+                    <th><g:message code="projectApplication.status.label" /></th>
                     <th><g:message code="projectApplication.projects.label" /></th>
                 </tr>
                 </thead>
@@ -78,6 +88,14 @@
                         <td>${projectApplication.name}</td>
                         <td>${projectApplication.applicant}</td>
                         <td><g:link controller="user" action="show" id="${projectApplication.headStatistician?.id?.toString()}">${projectApplication.headStatistician}</g:link></td>
+                        <td>
+                            <g:if test="${projectApplication.closingDate}">
+                                <i class="fa fa-file-archive-o" aria-hidden="true"></i> Tancada
+                            </g:if>
+                            <g:else>
+                                <i class="fa fa-folder-open-o" aria-hidden="true"></i> Oberta
+                            </g:else>
+                        </td>
                         <td>
                             <g:each var="project" in="${projectApplication.projects}">
                                 <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>

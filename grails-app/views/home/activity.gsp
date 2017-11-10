@@ -24,8 +24,8 @@
         <div class="activity-feed">
             <g:each var="event" in="${applicationEventList}">
                 <div class="feed-item">
-                    <div class="date">${event.dateCreated}</div>
-                    <div class="text"><g:message code="home.activity.layout" args="[event.action, event.domainObject]"/> [${event.objectName}]</div>
+                    <div class="date"><g:formatDate date="${event.dateCreated}" format="dd/MM/yyyy HH:mm" /></div>
+                    <div class="text"><g:message code="home.activity.layout" args="[event.action, event.domainObject.capitalize()]"/> <kbd>${event.objectName}</kbd></div>
                     <div class="person">${event.triggeredBy.givenName} ${event.triggeredBy.familyName}</div>
                 </div>
             </g:each>
@@ -41,8 +41,8 @@
         <div class="activity-feed">
             <g:each var="event" in="${applicationEventListUser}">
                 <div class="feed-item">
-                    <div class="date">${event.dateCreated}</div>
-                    <div class="text"><g:message code="home.activity.layout" args="[event.action, event.domainObject]"/> [${event.objectName}]</div>
+                    <div class="date"><g:formatDate date="${event.dateCreated}" format="dd/MM/yyyy HH:mm" /></div>
+                    <div class="text"><g:message code="home.myActivity.layout" args="[event.action, event.domainObject.capitalize()]"/> <kbd>${event.objectName}</kbd></div>
                     <div class="person">${event.triggeredBy.givenName} ${event.triggeredBy.familyName}</div>
                 </div>
             </g:each>

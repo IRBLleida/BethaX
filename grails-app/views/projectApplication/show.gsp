@@ -39,7 +39,12 @@
     </g:if>
     <div class="card">
         <div class="card-body crud">
-            <h4 class="card-title">Sol·licitud <strong>${this.projectApplication}</strong></h4>
+            <h4 class="card-title">
+                Sol·licitud <strong>${this.projectApplication}</strong>
+                <g:if test="${this.projectApplication.closingDate}">
+                    <asset:image src="closed_stamp.png" style="float: right; margin-right: 30px;" />
+                </g:if>
+            </h4>
             <hr class="brace">
             <div class="row">
                 <bx:showField bean="${this.projectApplication}" property="entryDate" />
@@ -90,6 +95,21 @@
                 </div>
             </div>
             </g:if>
+            <g:if test="${this.projectApplication.closingDate}">
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <bx:showField property="closingDate" bean="${this.projectApplication}" />
+                    <bx:showField property="closingComments" bean="${this.projectApplication}" width="9" />
+                    <bx:showField property="isInvoiceIssued" bean="${this.projectApplication}" />
+                    <bx:showField property="invoiceAmount" bean="${this.projectApplication}" addon="€" />
+                    <bx:showField property="invoiceDate" bean="${this.projectApplication}" />
+                    <bx:showField property="invoicePaymentDate" bean="${this.projectApplication}" />
+                </div>
+            </g:if>
             <hr />
             <div class="row">
                 <div class="col-md-12">
@@ -110,6 +130,7 @@
         <div class="card-footer">
             <g:link action="index" class="card-link btn btn-outline-primary"><i class="fa fa-list" aria-hidden="true"></i> Tornar al llistat</g:link>
             <g:link action="edit" id="${this.projectApplication.id.toString()}" class="card-link btn btn-outline-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Modificar</g:link>
+            <g:link action="close" id="${this.projectApplication.id.toString()}" class="card-link btn btn-outline-secondary"><i class="fa fa-file-archive-o" aria-hidden="true"></i> Tancament</g:link>
             <g:link action="delete" id="${this.projectApplication.id.toString()}" class="card-link btn btn-outline-danger pull-right" onclick="return confirm('${message(code: 'default.button.delete.confirm.message')}');"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</g:link>
         </div>
     </div>
