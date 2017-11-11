@@ -8,9 +8,8 @@ import org.springframework.web.servlet.support.RequestContextUtils
 
 import java.text.DateFormatSymbols
 
-@Secured(['IS_AUTHENTICATED_FULLY'])
 class HomeController {
-
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def index() {
         if (!session.'org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE') {
             LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
@@ -20,6 +19,7 @@ class HomeController {
         redirect controller: "project", action: "index"
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def summary(){
         def today = new Date()
         def tenMonthsAgo = Calendar.getInstance()
@@ -109,10 +109,12 @@ class HomeController {
                                        usersMap: usersMap]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def calendar(){
         render view:'calendar', model: []
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def activity(){
         def applicationEventList = ApplicationEvent.findAll(max: 10, sort: "dateCreated", order: "desc")
         def applicationEventListUser = ApplicationEvent.findAllByTriggeredBy((User) getAuthenticatedUser(), [max: 10, sort: "dateCreated", order: "desc"])
@@ -120,6 +122,7 @@ class HomeController {
         render view:'activity', model: [applicationEventList: applicationEventList, applicationEventListUser: applicationEventListUser]
     }
 
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     def search() {
         User user = User.get(((User) getAuthenticatedUser()).id)
         def query = "%" + params?.query + "%"
@@ -181,6 +184,13 @@ class HomeController {
             result = []
 
         render result as JSON
+        return
+    }
+
+    def acmeChallenge(String id) {
+        File file = new File("/opt/bethax/acme-challenge/${id}")
+        if(file.exists()) render file.text
+        else render ""
         return
     }
 }

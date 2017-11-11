@@ -13,6 +13,10 @@ class UrlMappings {
             controller = "home"
             action = "index"
         }
+        "/.well-known/acme-challenge/$id" {
+            controller = "home"
+            action = "acmeChallenge"
+        }
         "500"(view:'/error')
         "404"(view:'/notFound')
     }

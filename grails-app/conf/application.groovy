@@ -1,5 +1,5 @@
-//grails.plugin.springsecurity.auth.forceHttps = true
-//grails.plugin.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+grails.plugin.springsecurity.auth.forceHttps = true
+grails.plugin.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
 grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
@@ -12,9 +12,7 @@ grails.plugin.springsecurity.authority.className = 'org.irblleida.bethax.Role'
 //grails.plugin.springsecurity.rememberMe.alwaysRemember = true
 //grails.plugin.springsecurity.rememberMe.tokenValiditySeconds = 2419200
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	//[pattern: '/oauth/authorize',access: "isFullyAuthenticated() and (request.getMethod().equals('GET') or request.getMethod().equals('POST'))"],
-	//[pattern: '/oauth/token',    access: "isFullyAuthenticated() and request.getMethod().equals('POST')"],
-	[pattern: '/',               access: ['permitAll']],
+	[pattern: '/',               access: ['permitAll', 'REQUIRES_SECURE_CHANNEL']],
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
@@ -25,11 +23,11 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/**/images/**',   access: ['permitAll']],
 	[pattern: '/**/fonts/**',    access: ['permitAll']],
 	[pattern: '/**/favicon.ico', access: ['permitAll']],
-	[pattern: '/login/**',       access: ['permitAll']],
+	[pattern: '/login/**',       access: ['permitAll', 'REQUIRES_SECURE_CHANNEL']],
 	[pattern: '/logout/**',      access: ['permitAll']],
     //[pattern: '/oauth/error.gsp',       access: ['permitAll']],
     //[pattern: '/oauth/confirm_access.gsp',       access: ['permitAll']],
-    //[pattern: '/**',      access: ['permitAll']]
+    [pattern: '/**',      access: ['permitAll', 'REQUIRES_SECURE_CHANNEL']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
