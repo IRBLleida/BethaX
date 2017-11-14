@@ -87,7 +87,8 @@
                                                     </small>
                                                 </div>
                                                 <p class="mb-1">${milestone.description}</p>
-                                                <small>Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></small>
+                                                <small><g:message code="milestone.estimatedTime.label"/>: ${milestone.estimatedTime}<br/>
+                                                Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></small>
                                                 </g:link>
                                             </g:each>
                                         </div>
