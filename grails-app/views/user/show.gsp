@@ -79,7 +79,7 @@
                             <g:each var="milestone" in="${milestoneList}">
                                 <tr>
                                 <th scope="row">
-                                    <g:link controller="milestone" action="show" id="${milestone.id.toString()}">
+                                    <g:link controller="workPlan" action="show" id="${milestone.workPlan.id.toString()}">
                                         ${milestone.name}</th>
                                     </g:link>
                                     <td><g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></td>

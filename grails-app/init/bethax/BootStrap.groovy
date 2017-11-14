@@ -67,7 +67,7 @@ class BootStrap {
 
         new Institution(createdBy: pau, lastModifiedBy: pau, name: "CatSalut", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
         new Institution(createdBy: pau, lastModifiedBy: pau, name: "HUGTP", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
-        new Institution(createdBy: pau, lastModifiedBy: pau, name: "Parc Taurí", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
+        new Institution(createdBy: pau, lastModifiedBy: pau, name: "Parc Taulí", institutionType: InstitutionType.PUBLIC_EXTERNAL).save(flush: true)
 
         new Institution(createdBy: pau, lastModifiedBy: pau, name: "GOC", institutionType: InstitutionType.PRIVATE_EXTERNAL).save(flush: true)
 
