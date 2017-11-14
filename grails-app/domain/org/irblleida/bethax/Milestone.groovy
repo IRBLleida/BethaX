@@ -14,6 +14,8 @@ class Milestone {
     String description
     Date deadline
     Date dateFinished
+    User headStatistician
+    Float estimatedTime
 
     /** Days to Expiration */
     Integer getDte() {
@@ -33,6 +35,8 @@ class Milestone {
         description nullable: true, blank: true, maxSize: 500
         deadline nullable: false
         dateFinished nullable: true
+        headStatistician nullable: false
+        estimatedTime nullable: true
     }
 
     String toString() { name }
