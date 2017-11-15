@@ -13,7 +13,7 @@
     <bx:formField bean="${this.milestone}" property="name" required="required" maxlength="30" tooltip="Aaaa" />
     <bx:formField bean="${this.milestone}" property="deadline" required="required" />
     <bx:formField bean="${this.milestone}" property="dateFinished" />
-    <bx:formField bean="${this.milestone}" property="headStatistician" />
+    <bx:formField bean="${this.milestone}" property="headStatistician" value="${this.milestone.workPlan.projectApplication.headStatistician.id.toString()}" />
     <bx:formField bean="${this.milestone}" property="estimatedTime" />
     <bx:formField bean="${this.milestone}" type="textarea" property="description" width="12" maxlength="500" />
     <g:hiddenField name="workPlan" value="${this.milestone?.workPlan?.id?.toString()}" />
