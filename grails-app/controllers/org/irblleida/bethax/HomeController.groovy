@@ -87,7 +87,7 @@ class HomeController {
 
         for (m in openedMilestones){
             if((m.deadline.getTime() - today.getTime()) >= 0){
-                usersMap[m.createdBy.givenName + ' ' + m.createdBy.familyName] += 1
+                usersMap[m.headStatistician.givenName + ' ' + m.headStatistician.familyName] += 1
             }
         }
 

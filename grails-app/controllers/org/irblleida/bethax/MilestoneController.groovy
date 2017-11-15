@@ -13,18 +13,8 @@ class MilestoneController {
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        def myProjectApplications = ProjectApplication.findAllByHeadStatistician((User) getAuthenticatedUser())
-        def myOpenMilestones = []
-        def myClosedMilestones = []
-
-        myProjectApplications.each { application ->
-            if(application.workPlan) {
-                application.workPlan.milestones.each { milestone ->
-                    if(!milestone.dateFinished) myOpenMilestones.add(milestone)
-                    else myClosedMilestones.add(milestone)
-                }
-            }
-        }
+        def myOpenMilestones = Milestone.findAllByHeadStatisticianAndDateFinishedIsNull((User) getAuthenticatedUser())
+        def myClosedMilestones =  Milestone.findAllByHeadStatisticianAndDateFinishedIsNotNull((User) getAuthenticatedUser())
 
         render view: 'index', model:[myOpenMilestones: myOpenMilestones, myClosedMilestones: myClosedMilestones]
     }
@@ -56,6 +46,7 @@ class MilestoneController {
         milestone.createdBy = (User) getAuthenticatedUser()
         milestone.lastModifiedBy = (User) getAuthenticatedUser()
 
+        //TODO: Es necessari?
         if(!milestone.headStatistician)
             milestone.headStatistician = milestone.workPlan.projectApplication.headStatistician
 
