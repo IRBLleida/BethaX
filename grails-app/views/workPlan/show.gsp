@@ -88,7 +88,8 @@
                                                 </div>
                                                 <p class="mb-1">${milestone.description}</p>
                                                 <small><g:message code="milestone.estimatedTime.label"/>: ${milestone.estimatedTime}<br/>
-                                                Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></small>
+                                                Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /> <br/>
+                                                Responsable: ${milestone.headStatistician.givenName} ${milestone.headStatistician.familyName}</small>
                                                 </g:link>
                                             </g:each>
                                         </div>
@@ -106,7 +107,8 @@
                                                         </small>
                                                     </div>
                                                     <p class="mb-1">${milestone.description}</p>
-                                                    <small>Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></small>
+                                                    <small>Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /> <br/>
+                                                    Responsable: ${milestone.headStatistician.givenName} ${milestone.headStatistician.familyName}</small>
                                                 </g:link>
                                             </g:each>
                                         </div>

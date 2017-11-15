@@ -27,7 +27,7 @@ class UserController {
             user = User.get(((User) getAuthenticatedUser()).id)
             isHimself = true
         }
-        def milestones = Milestone.findAllByCreatedByAndDateFinishedIsNull(user,  [sort: "deadline", order: "desc"])
+        def milestones = Milestone.findAllByHeadStatisticianAndDateFinishedIsNull(user,  [sort: "deadline", order: "desc"])
 
         /*** Created and Closed Milestones per month ***/
 
@@ -53,7 +53,7 @@ class UserController {
 
         monthHelper = monthHelper.reverse()
 
-        def milestoneList = Milestone.findAllByDateCreatedGreaterThanEqualsAndCreatedBy(tenMonthsAgo, user)
+        def milestoneList = Milestone.findAllByDateCreatedGreaterThanEqualsAndHeadStatistician(tenMonthsAgo, user)
         def date = Calendar.getInstance()
 
         for (m in milestoneList){
