@@ -15,7 +15,7 @@ class Milestone {
     Date deadline
     Date dateFinished
     User headStatistician
-    Float estimatedTime
+    Integer estimatedTime
 
     /** Days to Expiration */
     Integer getDte() {
