@@ -19,7 +19,8 @@
     a.disabled {
         pointer-events: none;
     }
-    </style>
+
+</style>
 </head>
 <body>
 <nav class="navbar fixed-top navbar-light navbar-expand-lg navbar-template">
@@ -59,12 +60,17 @@
             <div id="morphsearch" class="morphsearch">
                 <form class="morphsearch-form">
                     <input class="morphsearch-input" id="search" type="search" placeholder="Cercar ..." autocomplete="off" />
-                    <button class="morphsearch-submit" type="submit">Buscar</button>
+                    <button class="morphsearch-submit" type="submit">A</button>
                 </form>
                 <div class="morphsearch-content">
+                    <div style="color: #c2c2c2; margin: 0 auto; width: 80%;">
+                        <g:link style="color: #c2c2c2;" controller="search" action="advanced"><i id="options" class="fa fa-search-plus" aria-hidden="true"></i> Cerca avançada</g:link>
+                    </div>
+
                     <div id="emptyResults" class="row">
                         <div class="col-md-12" style="text-align: center; margin-top: 50px;"> <asset:image src="loading.gif" width="500" style="opacity: 0.4;"/> </div>
                     </div>
+                    <br/>
                     <div id="resultsSection" class="row">
                         <div class="dummy-column" id="milestones">
                             <h2>Fites</h2>
@@ -323,9 +329,6 @@
                     if( isOpen ) {
                         classie.remove( morphSearch, 'open' );
 
-
-                        // trick to hide input text once the search overlay closes
-                        // todo: hardcoded times, should be done after transition ends
                         if( input.value !== '' ) {
                             setTimeout(function() {
                                 classie.add( morphSearch, 'hideInput' );
