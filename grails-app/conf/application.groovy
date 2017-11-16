@@ -51,6 +51,7 @@ grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 		user.save(flush: true)
 	}
 }
+grails.plugin.wkhtmltopdf.binary = "/usr/local/bin/wkhtmltopdf"
 
 // Added by the Spring Security OAuth2 Google Plugin:
 //grails.plugin.springsecurity.oauth2.domainClass = 'org.irblleida.bethax.OAuthID'
