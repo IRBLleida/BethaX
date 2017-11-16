@@ -12,7 +12,14 @@
     </style>
 </head>
 <body>
-<div class="row" style="text-align: center; margin-top: 20px">
+<div class="row" style="text-align: center;">
+    <div class="col-md-12" style="height: 50px; margin-bottom: 20px;">
+        <g:link controller="report" action="options" class="btn btn-outline-info pull-right">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            Generar informe
+        </g:link>
+    </div>
+
     <div class="col-md-2"></div>
     <div class="card border-info mb-3 col-md-2" style="max-width: 20rem; margin-left: 15px">
         <div class="card-body text-info">
