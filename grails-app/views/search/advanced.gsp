@@ -13,11 +13,12 @@
         <hr class="brace">
 
         <div id="advancedSearch">
+            <g:form controller="search" action="searchResults">
             <div class="row justify-content-md-center">
                 <div class="col-md-10">
                     Que contingui ...
                     <div class="input-group">
-                        <input type="text" name="text" value="" class="form-control" id="text" placeholder="dd/mm/aaaa"/>
+                        <input type="text" name="text" value="" class="form-control" id="text" placeholder="Escriu qualsevol paraula"/>
                         <span class="input-group-addon"><i class="fa fa-font" aria-hidden="true"></i></span>
                     </div>
                 </div>
@@ -43,7 +44,7 @@
             <br/>
             <div class="row justify-content-md-center">
                 <div class="col-md-5">
-                    Data de finalitzció màxima
+                    Data de finalització màxima (Solament a fites i sol·licituds)
                     <div class="input-group date">
                         <input type="text" name="closingFrom" value="" class="form-control" id="closingFrom" placeholder="dd/mm/aaaa"/>
                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -51,7 +52,7 @@
                 </div>
 
                 <div class="col-md-5">
-                    Data de finalització màxima
+                    Data de finalització màxima (Solament a fites i sol·licituds)
                     <div class="input-group date">
                         <input type="text" name="closingTo" value="" class="form-control" id="closingTo" placeholder="dd/mm/aaaa"/>
                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
@@ -63,31 +64,14 @@
                 <div class="col-md-5">
                     Fites amb cost estimat menor o igual de
                     <div class="input-group">
-                        <input type="number" min="0" name="estimatedLower" value="" class="form-control" id="estimatedLower" placeholder="Número"/>
+                        <input type="number" min="0" name="estimatedGreater" value="" class="form-control" id="estimatedGreater" placeholder="Número"/>
                         <span class="input-group-addon"><i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></span>
                     </div>
                 </div>
                 <div class="col-md-5">
                     Fites amb cost estimat major de
                     <div class="input-group">
-                        <input type="number" min="0" name="estimatedGreater" value="" class="form-control" id="estimatedGreater" placeholder="Número"/>
-                        <span class="input-group-addon"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></span>
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <div class="row justify-content-md-center">
-                <div class="col-md-5">
-                    Sol·licituds amb nombre de fites menor o igual de
-                    <div class="input-group">
-                        <input type="number" min="0" name="milestononesLower" value="" class="form-control" id="milestononesLower" placeholder="Número"/>
-                        <span class="input-group-addon"><i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></span>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    Sol·licituds amb nombre de fites major de
-                    <div class="input-group">
-                        <input type="number" min="0" name="milestononesGreater" value="" class="form-control" id="milestononesGreater" placeholder="Número"/>
+                        <input type="number" min="0" name="estimatedLower" value="" class="form-control" id="estimatedLower" placeholder="Número"/>
                         <span class="input-group-addon"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></span>
                     </div>
                 </div>
@@ -96,11 +80,11 @@
             <div class="row justify-content-md-center">
                 <div class="col-md-5">
                     <g:checkBox name="finished" id="finished" value="${false}" />
-                    Solament les finalitzades
+                    Solament sol·licituds finalitzades
                 </div>
                 <div class="col-md-5">
                     <g:checkBox name="notPayed" id="notPayed" value="${false}" />
-                    Solament les no cobrades
+                    Solament sol·licituds no cobrades
                 </div>
             </div>
             <br/>
@@ -114,9 +98,19 @@
                     Solament sol·licituds sense petició associada
                 </div>
             </div>
+
+            <br/>
+            <div class="row justify-content-md-center">
+                <g:submitButton name="Cercar" class="btn btn-info"/>
+            </div>
+            </g:form>
         </div>
 
     </div>
 </div>
+
+<content tag="footScripts">
+
+</content>
 </body>
 </html>
