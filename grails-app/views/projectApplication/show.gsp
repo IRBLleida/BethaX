@@ -28,6 +28,11 @@
     </style>
 </head>
 <body>
+<g:if test="${flash.message}">
+    <div class="alert alert-warning" role="alert">
+        ${flash.message}
+    </div>
+</g:if>
 <div class="col-md-12">
     <g:if test="${projectApplication.isWorkPlanNeeded && projectApplication.workPlan == null}">
         <div class="alert alert-warning alert-dismissible fade show" role="alert">

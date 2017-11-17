@@ -233,13 +233,8 @@ class ProjectApplicationController {
 
         projectApplication.delete flush:true
 
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'projectApplication.label', default: 'ProjectApplication'), projectApplication.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
+        flash.message = message(code: 'default.deleted.message', args: [message(code: 'projectApplication.label', default: 'ProjectApplication'), projectApplication.id])
+        redirect action: 'index'
     }
 
     protected void notFound() {
