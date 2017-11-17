@@ -131,7 +131,7 @@ class UserController {
 
         user.save flush:true
 
-        if(params.photo) {
+        if(!params.photo.isEmpty()) {
             def folderPath = "/opt/bethax/user/" as String
             def path = "${folderPath}/${user.id}" as String
             def currentPhoto = new File(path)

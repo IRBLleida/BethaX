@@ -14,7 +14,7 @@
         <div class="card card-01">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="profile-box">
+                    <div class="profile-box" style="padding: 10px;">
                         <img class="card-img-top rounded-circle" src="${createLink(controller: 'user', action: 'photo', id: this.user.id.toString())}"  style="width:120px;height:120px;"/>
                     </div>
                 </div>

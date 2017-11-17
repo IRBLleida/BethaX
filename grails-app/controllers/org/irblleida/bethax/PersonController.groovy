@@ -57,7 +57,7 @@ class PersonController {
                 objectName: person.name
         ).save flush: true
 
-        if(params.photo) {
+        if(!params.photo.isEmpty()) {
             def folderPath = "/opt/bethax/person/" as String
             def folder = new File(folderPath)
             if(!folder.exists()) folder.mkdirs()
@@ -119,7 +119,7 @@ class PersonController {
 
         person.save flush:true
 
-        if(params.photo) {
+        if(!params.photo.isEmpty()) {
             def folderPath = "/opt/bethax/person/" as String
             def path = "${folderPath}/${person.id}" as String
             def currentPhoto = new File(path)
