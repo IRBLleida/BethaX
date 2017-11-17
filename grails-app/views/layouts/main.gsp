@@ -144,7 +144,7 @@
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
                     <g:link controller="user" action="show" class="nav-link ${controllerName == 'user' ? 'active2' : ''}" style="text-align: center">
-                        <img src="${createLink(controller: 'user', action: 'photo')}"  style="width:80px;height:80px;"/>
+                        <img class="card-img-top rounded-circle" src="${createLink(controller: 'user', action: 'photo')}"  style="width:80px;height:80px;"/>
                         <br/><br/>
                         <sec:loggedInUserInfo field="givenName" /> <sec:loggedInUserInfo field="familyName" />
                     </g:link>
