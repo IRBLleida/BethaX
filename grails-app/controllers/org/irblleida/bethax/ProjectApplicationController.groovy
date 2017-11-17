@@ -225,7 +225,12 @@ class ProjectApplicationController {
                 objectId: projectApplication.id.toString(),
                 objectName: projectApplication.name
         ).save flush: true
-        
+
+        projectApplication.projects.each {project ->
+            project.removeFromRequests(projectApplication)
+            project.save(flush: true)
+        }
+
         projectApplication.delete flush:true
 
         request.withFormat {
