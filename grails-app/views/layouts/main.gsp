@@ -131,7 +131,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <g:link controller="user" action="show" class="dropdown-item"><i class="fa fa-user"></i> <span class="user-dropwdown">Perfil</span></g:link>
-                    <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> <span class="user-dropwdown">Configuració</span></a>
+                    <g:link controller="user" action="settings" class="dropdown-item"><i class="fa fa-cog"></i> <span class="user-dropwdown">Configuració</span></g:link>
                     <g:link class="dropdown-item" controller="logout" action="index"><i class="fa fa-sign-out"></i> <span class="user-dropwdown">Tancar sessió</span></g:link>
                 </div>
             </li>
