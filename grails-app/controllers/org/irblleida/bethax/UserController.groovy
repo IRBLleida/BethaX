@@ -115,6 +115,11 @@ class UserController {
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
+    def settings(User user) {
+        respond user ?: User.get(((User) getAuthenticatedUser()).id), username: session['SPRING_SECURITY_LAST_USERNAME']
+    }
+
+    @Secured(['IS_AUTHENTICATED_FULLY'])
     @Transactional
     def update(User user) {
         if (user == null) {
