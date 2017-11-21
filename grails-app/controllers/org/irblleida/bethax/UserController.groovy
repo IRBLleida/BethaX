@@ -188,18 +188,32 @@ class UserController {
         [username: session['SPRING_SECURITY_LAST_USERNAME']]
     }
 
-    def updatePassword(String password, String password_new, String password_new_2) {
+    def updatePassword(Boolean settings, String password, String password_new, String password_new_2) {
         String username = session['SPRING_SECURITY_LAST_USERNAME']
+
+        def noUsernameController = 'login'
+        def noUsernameAction = 'auth'
+        def okController = 'login'
+        def okAction = 'auth'
+        def errorView = 'passwordExpired'
+
+        if(settings){
+            noUsernameController = 'user'
+            noUsernameAction = 'settings'
+            okController = 'project'
+            okAction = 'index'
+            errorView = 'settings'
+        }
 
         if (!username) {
             flash.message = 'Sorry, an error has occurred'
-            redirect controller: 'login', action: 'auth'
+            redirect controller: noUsernameController, action: noUsernameAction
             return
         }
 
         if (!password || !password_new || !password_new_2 || password_new != password_new_2 || password_new?.size() < 6 || password_new?.size() > 64) {
             flash.message = message(code: "user.updatePassword.invalidNew")
-            render view: 'passwordExpired', model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
+            render view: errorView, model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
             return
         }
 
@@ -207,13 +221,13 @@ class UserController {
 
         if (!springSecurityService?.passwordEncoder.isPasswordValid(user.password, password, null /*salt*/)) {
             flash.message = message(code: "user.updatePassword.currentIncorrect")
-            render view: 'passwordExpired', model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
+            render view: errorView, model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
             return
         }
 
         if (springSecurityService?.passwordEncoder.isPasswordValid(user.password, password_new, null /*salt*/)) {
             flash.message = message(code: "user.updatePassword.incorrectDifferent")
-            render view: 'passwordExpired', model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
+            render view: errorView, model: [username: session['SPRING_SECURITY_LAST_USERNAME']]
             return
         }
 
@@ -230,6 +244,6 @@ class UserController {
 
         flash.message = message(code: "user.updatePassword.success")
 
-        redirect controller: 'login', action: 'auth'
+        redirect controller: okController, action: okAction
     }
 }

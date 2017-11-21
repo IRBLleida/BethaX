@@ -4,6 +4,11 @@
     <meta name="layout" content="main" />
 </head>
 <body>
+<g:if test="${flash.message}">
+    <div class="alert alert-warning" role="alert">
+        ${flash.message}
+    </div>
+</g:if>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -11,6 +16,7 @@
                 <h4 class="card-title">Configuració</h4>
                 <hr class="brace">
                 <g:form action='updatePassword' method="POST" id="loginForm" autocomplete="on" class="login-form">
+                    <g:hiddenField name="settings" value="${true}"/>
                     <div class="alert alert-secondary" role="alert">
                         <g:message code="user.passwordExpired.passwordHelpText" />
                     </div>
