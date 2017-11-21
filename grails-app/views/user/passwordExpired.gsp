@@ -68,6 +68,7 @@
                     </div>
                 </g:if>
                 <g:form action='updatePassword' method="POST" id="loginForm" autocomplete="on" class="login-form">
+                    <g:hiddenField name="settings" value="${false}"/>
                     <div class="form-group">
                         <label><g:message code="login.auth.username" />:</label>
                         <span class='text_'>${username}</span>
