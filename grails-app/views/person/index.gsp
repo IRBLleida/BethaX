@@ -67,7 +67,9 @@
 </head>
 <body>
 <g:if test="${flash.message}">
-    <div class="message" role="status">${flash.message}</div>
+    <div class="alert alert-warning" role="alert">
+        ${flash.message}
+    </div>
 </g:if>
 <div class="card">
     <div class="card-body crud">

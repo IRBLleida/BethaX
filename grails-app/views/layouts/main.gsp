@@ -7,6 +7,7 @@
     <title>
         <g:layoutTitle default="BethaX"/>
     </title>
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <asset:stylesheet src="application.css"/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
