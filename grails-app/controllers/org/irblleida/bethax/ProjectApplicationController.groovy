@@ -231,6 +231,11 @@ class ProjectApplicationController {
             project.save(flush: true)
         }
 
+        ProjectApplication.findAllByLinkedApplication(projectApplication).each {pA ->
+            pA.linkedApplication = null
+            pA.save(flush: true)
+        }
+
         projectApplication.delete flush:true
 
         flash.message = message(code: 'default.deleted.message', args: [message(code: 'projectApplication.label', default: 'ProjectApplication'), projectApplication.id])
