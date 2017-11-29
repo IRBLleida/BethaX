@@ -58,58 +58,49 @@
         </div>
         <div class="content">
             <div class="inner">
-                <h1>Welcome to BethaX</h1>
-                <p>The project management WebbApp developed by <a href="http://www.irblleida.org/ca/index.php?p=webs/serveis_cientificotec/detall_servei.php&id=7">UBiostat</a> team.</p>
-                <g:if test="${flash.message}">
-                    <div class="alert alert-info" role="alert">${flash.message}</div>
+                <div class="alert alert-info" role="alert"><g:message code="user.newPassword.title" /></div>
+                <g:if test="${flash.error}">
+                    <div class="alert alert-error" style="display: block">${flash.error}</div>
                 </g:if>
-                <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" autocomplete="on" class="login-form">
+                <g:if test="${flash.message}">
+                    <div class="alert alert-warning" style="text-shadow: none;">
+                        ${flash.message}.
+                    </div>
+                </g:if>
+                <g:form action="saveNewPassword" id="loginForm" autocomplete="on" class="login-form">
+                    <g:hiddenField name="username" value="${username}" />
+                    <g:hiddenField name="uTok" value="${uTok}" />
                     <div class="form-group">
-                        <input type="email" id="username" name="username" class="form-control" placeholder="Username" style="color:#ffffff">
+                        <label><g:message code="login.auth.username" /></label>
+                        <span class='text_'>${username}</span>
                     </div>
                     <div class="form-group">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" style="color:#ffffff">
+                        <label for='password_new'><g:message code="login.auth.newPassword" /></label>
+                        <g:passwordField name='password_new' class='form-control' />
                     </div>
-                    <div class="form-check">
-                        <button type="submit" class="btn btn-login">Submit</button>
+                    <div class="form-group">
+                        <label for='password_new_2'><g:message code="login.auth.newPassword" /></label>
+                        <g:passwordField name='password_new_2' class='form-control' />
                     </div>
-
-                </form>
+                    <div class="form-group">
+                        <input type='submit' class="btn btn-default" value='${g.message(code: 'login.auth.newPassword.submit')}' />
+                    </div>
+                </g:form>
             </div>
         </div>
         <nav>
             <ul>
-                <%--
                 <li><a href="#work">BETHAX</a></li>
                 <li><a href="#about">UBIOSTAT</a></li>
-                --%>
-                <li>
-                    <a href="#reset">Where's my password?</a>
-                </li>
             </ul>
         </nav>
     </header>
 
     <!-- Main -->
     <div id="main">
-        <!-- Password reset -->
-        <article id="reset">
-            <h2 class="major">Password reset</h2>
-            <span class="image main">
-                <asset:image src="password_reset.png" />
 
-            </span>
-            <p>Oh... have you forgotten your password (<i>again</i>)? No worries, we got you covered. Enter your email address below to get a password reset email.</p>
-            <g:form controller="user" action="passwordReset" useToken="true">
-                <g:textField name="username" />
-                <br />
-                <button type="submit">
-                    Let's do this!
-                </button>
-            </g:form>
-        </article>
         <!-- Work -->
-        <article id="work2">
+        <article id="work">
             <h2 class="major">BethaX</h2>
             <span class="image main">
                 <img src="${resource(dir: 'images', file: 'pic02.png')}"/>
@@ -143,3 +134,10 @@
 <asset:javascript src="application.js"/>
 </body>
 </html>
+
+
+
+
+
+
+

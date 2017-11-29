@@ -237,7 +237,7 @@ class UserController {
 
         sendMail {
             to username
-            from "BethaX <no-reply@bethax.com>"
+            from "BethaX <no-reply@bethax.udl.cat>"
             subject "[BethaX] Canvi de contrasenya"
             html view: "/email/password_changed"
         }
@@ -245,5 +245,64 @@ class UserController {
         flash.message = message(code: "user.updatePassword.success")
 
         redirect controller: okController, action: okAction
+    }
+
+    def passwordReset() {
+        String username = params?.username
+
+        User user = User.findByUsername(username)
+
+        if(user != null) {
+
+            def generator = { String alphabet, int n ->
+                new Random().with {
+                    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+                }
+            }
+
+            def token = generator( (('A'..'Z')+('0'..'9')).join(), 15 )
+
+            def uTok = username + "__" + token
+
+            user.passwordResetToken = uTok
+            user.save flush: true
+
+            sendMail {
+                to username
+                from "BethaX <no-reply@bethax.udl.cat>"
+                subject "[BethaX] Reinici de Contrasenya"
+                html view: "/email/password_reset", model: [token: uTok]
+            }
+        }
+
+        flash.message = message(code: 'login.auth.resetEmailSent')
+        redirect controller: 'login', action: 'auth'
+    }
+
+    def newPassword() {
+        def uTok = params?.uTok
+        def username = uTok.split('__')[0]
+
+        render view: 'newPassword', model: [username: username, uTok: uTok]
+        return
+    }
+
+    def saveNewPassword() {
+        String username = params?.username
+        String token = params?.uTok
+        String password1 = params?.password_new
+        String password2 = params?.password_new_2
+
+        User user = User.findByUsernameAndPasswordResetToken(username, token)
+
+        if(user != null && password1 && password2 && password1 == password2) {
+            user.password = springSecurityService.encodePassword(password1)
+            user.passwordResetToken = null
+            user.save()
+            flash.message = message(code: 'login.auth.passwordResetSuccess')
+        }
+
+        redirect controller: 'login', action: 'auth'
+        return
     }
 }
