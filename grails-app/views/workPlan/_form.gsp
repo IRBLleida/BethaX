@@ -21,9 +21,13 @@
     <bx:formField bean="${this.workPlan}" property="wpVersion" required="required" />
     <div class="col-md-12">
         <div class="form-group">
-            <label>Document del pla de treball *</label>
+            <label>Document del pla de treball <g:if test="${isNew}">*</g:if></label>
             <label class="custom-file form-control">
-                <input type="file" id="workPlanFile" name="workPlanFile" class="custom-file-input" required="required">
+                <g:if test="${isNew}">
+                    <input type="file" id="workPlanFile" name="workPlanFile" class="custom-file-input" required="required">
+                </g:if><g:else>
+                    <input type="file" id="workPlanFile" name="workPlanFile" class="custom-file-input" >
+                </g:else>
                 <span class="custom-file-control form-control-file"></span>
             </label>
         </div>

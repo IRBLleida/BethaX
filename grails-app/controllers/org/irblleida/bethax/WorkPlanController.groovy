@@ -126,7 +126,7 @@ class WorkPlanController {
             if(it.type == Double && params[it.name]) workPlan.properties[it.name] = Double.parseDouble(params[it.name].replace(',', '.'))
         }
 
-        if(params.workPlanFile) {
+        if(params.workPlanFile?.getOriginalFilename() != null && params.workPlanFile?.getOriginalFilename() != '') {
             workPlan.filename = params.workPlanFile?.getOriginalFilename()
         }
 
@@ -148,7 +148,7 @@ class WorkPlanController {
                 objectName: workPlan.toString()
         ).save flush: true
 
-        if(params.workPlanFile) {
+        if(params.workPlanFile?.getOriginalFilename() != null && params.workPlanFile?.getOriginalFilename() != '') {
             def folderPath = "/opt/bethax/workPlan/" as String
             def path = "${folderPath}/${workPlan.id}" as String
             def currentWorkPlan = new File(path)

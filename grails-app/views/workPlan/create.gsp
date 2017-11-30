@@ -11,7 +11,7 @@
                 <h4 class="card-title">Nou pla de treball</h4>
                 <hr class="brace">
                 <g:uploadForm action="save">
-                    <g:render template="form"/>
+                    <g:render template="form" model="[isNew: true]"/>
                     <div class="row">
                         <div class="col-md-12">
                             <hr />
