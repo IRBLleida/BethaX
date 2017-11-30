@@ -152,8 +152,9 @@ class ReportController {
                 images: true,
                 javascriptDelay: 500,
                 //viewportSize: '1024x0',
-                dpi: 125,
-                lowquality: false)
+                disableSmartShrinking: true,
+                //dpi: 125,
+        )
 
         response.setHeader "Content-disposition", "inline; filename="+new Date().toString()+""
         response.contentType = 'application/pdf'

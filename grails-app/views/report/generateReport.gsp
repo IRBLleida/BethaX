@@ -26,7 +26,7 @@
     }
     </style>
 </head>
-<body style="width: 100%; font-size: 6em;">
+<body style="font-size: 4em;">
 <div class="row" style="text-align: center">
     <p><strong>Informe BETHAX de ${from} a ${to}</strong></p>
     <br/>
@@ -77,11 +77,11 @@
 
 <br/><br/>
 <div id="container" style="min-width: 310px; height: 400px;  display: none"></div>
-<canvas id="canvas" width="4000" height="1500" style="display: none;"></canvas>
+<canvas id="canvas" width="6000" height="2000" style="display: none;"></canvas>
 <div id="pwChartPlace"></div>
 
 <div id="container2" style="min-width: 310px; height: 400px;  display: none"></div>
-<canvas id="canvas2" width="4000" height="1500" style="display: none;"></canvas>
+<canvas id="canvas2" width="6000" height="2000" style="display: none;"></canvas>
 <div id="pwChartPlace2"></div>
 
 <br/>
@@ -271,7 +271,7 @@
     var canvas = document.getElementById("canvas");
     var img = canvas.toDataURL("image/png");
 
-    $('#pwChartPlace').html('<img width="2000" height="1300" src="'+img+'"/>');
+    $('#pwChartPlace').html('<img width="100%" src="'+img+'"/>');
 </script>
 <script>
     var users = [];
@@ -330,7 +330,7 @@
 
     var canvas2 = document.getElementById("canvas2");
     var img2 = canvas2.toDataURL("image/png");
-    $('#pwChartPlace2').html('<img width="2000" height="1300" src="'+img2+'"/>');
+    $('#pwChartPlace2').html('<img width="100%" src="'+img2+'"/>');
 </script>
 
 </body>
