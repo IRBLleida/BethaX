@@ -47,7 +47,7 @@ grails.plugin.springsecurity.onAuthenticationSuccessEvent = { e, appCtx ->
 	org.irblleida.bethax.User.withTransaction {
 		def user = org.irblleida.bethax.User.findByUsername(e.authentication.name)
 		user.lastLogin = new Date()
-		user.loginCount++
+		//user.loginCount++
 		user.save(flush: true)
 	}
 }
