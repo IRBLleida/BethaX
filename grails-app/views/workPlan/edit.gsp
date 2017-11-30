@@ -13,7 +13,7 @@
                 <g:uploadForm action="update">
                     <g:hiddenField name="id" value="${this.workPlan?.id.toString()}" />
                     <g:hiddenField name="version" value="${this.workPlan?.version}" />
-                    <g:render template="form"/>
+                    <g:render template="form" model="[isNew: false]"/>
                     <div class="row">
                         <div class="col-md-12">
                             <hr />
