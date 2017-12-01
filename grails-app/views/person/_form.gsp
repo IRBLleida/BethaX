@@ -45,6 +45,29 @@
             if(fileName.length > 30) fileName = '... ' + fileName.substr(fileName.length - 27);
             $(this).next('.form-control-file').addClass("selected").html(fileName);
         });
+        $('#institution').val('${this.person.institution.id}');
+
+        $.ajax({
+            url: "${g.createLink(controller: 'institutionSection', action: 'findByInstitution')}",
+            data: { id: $('#institution').val() },
+            dataType: "json",
+            success: function(sections) {
+                console.log(sections);
+                var name, select, option;
+
+                // Get the raw DOM object for the select box
+                select = document.getElementById('section');
+
+                // Clear the old options
+                select.options.length = 0;
+
+                // Load the new options
+                $.each(sections, function(index, section) {
+                    select.options.add(new Option(section.name, section.id));
+                });
+                $('#section').val('${this.person?.section.id}');
+            }
+        });
 
         $('#institution').on('change', function() {
             console.log('wo');
@@ -69,5 +92,6 @@
                 }
             });
         });
+
     </g:javascript>
 </content>
