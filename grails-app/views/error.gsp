@@ -6,7 +6,7 @@
         <g:if env="development"><asset:stylesheet src="errors.css"/></g:if>
     </head>
     <body>
-        %{--<g:if env="development">
+        <g:if env="development">
             <g:if test="${Throwable.isInstance(exception)}">
                 <g:renderException exception="${exception}" />
             </g:if>
@@ -22,7 +22,7 @@
                 </ul>
             </g:else>
         </g:if>
-        <g:else>--}%
+        <g:else>
         <div class="jumbotron" style="text-align: center;">
             <h1 class="display-3">
                 <asset:image src="error.gif" width="250px" />
@@ -32,8 +32,6 @@
             <p>Torna-ho a provar més tard o contacta amb els desenvolupadors.</p>
 
         </div>
-%{--
         </g:else>
---}%
     </body>
 </html>
