@@ -74,7 +74,7 @@ class HomeController {
         for (p in projectApplications){
             if(p.applicationType.value() == 1) internal += 1
             if(p.applicationType.value() == 2) externalPub += 1
-            if(p.applicationType.value() == 2) externalPriv += 1
+            if(p.applicationType.value() == 3) externalPriv += 1
         }
 
         /*** Opened-Milestones divided by users Chart ***/

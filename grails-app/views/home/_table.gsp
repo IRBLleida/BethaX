@@ -18,7 +18,7 @@
                 <g:if test="${institution.key.institutionType.value == id}">
                 <tr>
                     <td>
-                        <g:link action="show" id="${institution.key.id.toString()}">
+                        <g:link controller="institution" action="show" id="${institution.key.id.toString()}">
                             ${institution.key.name}
                         </g:link>
                     </td>
