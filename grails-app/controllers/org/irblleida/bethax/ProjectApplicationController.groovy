@@ -173,6 +173,16 @@ class ProjectApplicationController {
             return
         }
 
+        def projects = Project.findAll().find{ it.requests && it.requests.contains(projectApplication) }
+        projects.each{ project ->
+            project.removeFromRequests(projectApplication)
+            project.save flush: true
+        }
+        projectApplication.projects.each { project ->
+            project.addToRequests(projectApplication)
+            project.save flush: true
+        }
+
         def isFinished = false
         if(projectApplication.isDirty('closingDate')) {
             def currentProjectApplicationDate = projectApplication.getPersistentValue('closingDate')
