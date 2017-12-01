@@ -15,6 +15,7 @@
     <bx:formField bean="${this.milestone}" property="dateFinished" />
     <bx:formField bean="${this.milestone}" property="headStatistician" value="${this.milestone.workPlan.projectApplication.headStatistician.id.toString()}" />
     <bx:formField bean="${this.milestone}" property="estimatedTime" />
+    <bx:formField bean="${this.milestone}" property="realTime" cssClass="realTime"/>
     <bx:formField bean="${this.milestone}" type="textarea" property="description" width="12" maxlength="500" />
     <g:hiddenField name="workPlan" value="${this.milestone?.workPlan?.id?.toString()}" />
     <%--<bx:formField bean="${this.milestone}" property="workPlan" value="${this.milestone?.workPlan?.id?.toString()}" />--%>
@@ -29,5 +30,17 @@
             warningClass: "badge badge-success",
             limitReachedClass: "badge badge-danger"
         });
+
+        $('#dateFinished').on("change", function() {
+            if($(this).val() != null && $(this).val() != '') {
+                $('.realTime').show();
+            }
+            else{
+                $('.realTime').hide();
+                $('#realTime').val("");
+            }
+        });
+
+        $('#dateFinished').change();
     </g:javascript>
 </content>

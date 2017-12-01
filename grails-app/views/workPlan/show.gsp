@@ -107,8 +107,12 @@
                                                         </small>
                                                     </div>
                                                     <p class="mb-1">${milestone.description}</p>
-                                                    <small>Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /> <br/>
-                                                    Responsable: ${milestone.headStatistician.givenName} ${milestone.headStatistician.familyName}</small>
+                                                    <small>
+                                                        <g:if test="${milestone?.realTime}">
+                                                            <g:message code="milestone.realTime.label"/>: ${milestone?.realTime}<br/>
+                                                        </g:if>
+                                                        Data límit: <g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /> <br/>
+                                                        Responsable: ${milestone.headStatistician.givenName} ${milestone.headStatistician.familyName}</small>
                                                 </g:link>
                                             </g:each>
                                         </div>

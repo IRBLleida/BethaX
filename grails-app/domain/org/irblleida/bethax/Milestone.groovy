@@ -16,6 +16,7 @@ class Milestone {
     Date dateFinished
     User headStatistician
     Integer estimatedTime
+    Integer realTime
 
     /** Days to Expiration */
     Integer getDte() {
@@ -37,6 +38,7 @@ class Milestone {
         dateFinished nullable: true
         headStatistician nullable: false
         estimatedTime nullable: true
+        realTime nullable: true
     }
 
     String toString() { name }
