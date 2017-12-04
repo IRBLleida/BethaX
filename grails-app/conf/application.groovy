@@ -71,5 +71,6 @@ grails {
 }
 
 slack {
-	webhook = 'https://hooks.slack.com/services/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'
+	webhook = 'https://hooks.slack.com/services/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'
+	testing = 'https://hooks.slack.com/services/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'
 }
