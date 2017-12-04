@@ -67,6 +67,8 @@ dependencies {
     compile "org.renjin:renjin-script-engine:0.8.2364"
     compile 'org.grails.plugins:mail:2.0.0.RC6'
     compile 'org.grails.plugins:wkhtmltopdf:1.0.0.RC7'
+    compile 'org.grails:grails-datastore-rest-client'
+    compile 'org.grails.plugins:quartz:2.0.1'
 }
 
 bootRun {

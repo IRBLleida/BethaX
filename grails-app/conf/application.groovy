@@ -69,3 +69,7 @@ grails {
 				 "mail.smtp.socketFactory.fallback":"false"]
 	}
 }
+
+slack {
+	webhook = 'https://hooks.slack.com/services/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'
+}

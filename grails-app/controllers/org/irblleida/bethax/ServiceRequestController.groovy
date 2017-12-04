@@ -11,6 +11,7 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class ServiceRequestController {
     def mailService
+    def slackBotService
 
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -95,6 +96,12 @@ class ServiceRequestController {
         }
 
         serviceRequest.save flush:true
+
+        def description = "Sol·licitant: " + serviceRequest.name +
+                "\nDepartament: " + serviceRequest.department + ' (' + serviceRequest.institution + ')' +
+                "\nProjecte de Recerca: " + serviceRequest.researchProject
+
+        slackBotService.send('Nova petició de sol·licitud', 'https://bethax.udl.cat/serviceRequest/show/' + serviceRequest.id.toString() , description)
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'serviceRequest.label', default: 'ServiceRequest'), serviceRequest.id])
         redirect action: 'success', id: serviceRequest.id
