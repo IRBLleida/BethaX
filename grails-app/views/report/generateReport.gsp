@@ -26,7 +26,7 @@
     }
     </style>
 </head>
-<body style="font-size: 4em;">
+<body style="width: 100%; font-size: 4em;">
 <div class="row" style="text-align: center">
     <p><strong>Informe BETHAX de ${from} a ${to}</strong></p>
     <br/>

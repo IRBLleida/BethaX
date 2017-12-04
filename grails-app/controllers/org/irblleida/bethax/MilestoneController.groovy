@@ -160,7 +160,7 @@ class MilestoneController {
         milestone.delete flush:true
         workPlan.save flush: true
 
-        redirect controller: "workPlan", action: "show", id: milestone.workPlan.id
+        redirect controller: "workPlan", action: "show", id: workPlan.id
     }
 
     protected void notFound() {
