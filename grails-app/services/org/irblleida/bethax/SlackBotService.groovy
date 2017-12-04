@@ -19,7 +19,7 @@ class SlackBotService {
         def jsonObject = [
                 //"text": "Noticia!",
                 "attachments": [[
-                        "color": "#36a64f",
+                        "color": url.contains("serviceRequest") ? "#36a64f": "#3687a6",
                         "title": title,
                         "title_link": url,
                         "text": text,
