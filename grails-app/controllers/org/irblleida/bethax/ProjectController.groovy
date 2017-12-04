@@ -12,7 +12,6 @@ import grails.transaction.Transactional
 @Secured(['IS_AUTHENTICATED_FULLY'])
 @Transactional(readOnly = true)
 class ProjectController {
-    def slackBotService
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -56,8 +55,6 @@ class ProjectController {
                 objectName: project.name
         ).save flush: true
 
-        slackBotService.send('CREAT: ' + project.name , 'https://bethax.udl.cat/project/show/' + project.id.toString() , project.description)
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'project.label', default: 'Project'), project.id])
@@ -97,8 +94,6 @@ class ProjectController {
                 objectName: project.name
         ).save flush: true
 
-        slackBotService.send('MODIFICAT: ' + project.name , 'https://bethax.udl.cat/project/show/' + project.id.toString() , project.description)
-
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'project.label', default: 'Project'), project.id])
@@ -130,9 +125,6 @@ class ProjectController {
                 objectId: project.id.toString(),
                 objectName: project.name
         ).save flush: true
-
-        slackBotService.send('ELIMINAT: ' + project.name , 'https://bethax.udl.cat/project/show/' + project.id.toString() , project.description)
-
 
         project.delete flush:true
         flash.message = message(code: 'default.deleted.message', args: [message(code: 'project.label', default: 'Project'), project.id])
