@@ -58,7 +58,8 @@ environments {
         grails.plugin.wkhtmltopdf.binary = "/usr/local/bin/wkhtmltopdf"
 	}
 	production {
-        grails.plugin.wkhtmltopdf.binary = "/usr/bin/xvfb-run /usr/local/bin/wkhtmltopdf"
+        //grails.plugin.wkhtmltopdf.binary = "/usr/bin/xvfb-run /usr/local/bin/wkhtmltopdf"
+		grails.plugin.wkhtmltopdf.binary = "/root/xkhtmltopdf-xvfb.sh"
 	}
 }
 

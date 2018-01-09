@@ -151,12 +151,13 @@ class ReportController {
                 enableJavascript: true,
                 images: true,
                 javascriptDelay: 500,
+                encoding: 'UTF-8'
                 //viewportSize: '1024x0',
-                disableSmartShrinking: true,
-                //dpi: 125,
+                //disableSmartShrinking: true
+                //dpi: 125
         )
 
-        response.setHeader "Content-disposition", "inline; filename="+new Date().toString()+""
+        response.setHeader "Content-disposition", "inline; filename=Informe_BethaX_"+ from.format('dd_MM_yy') + "-" + to.format('dd_MM_yy') + ".pdf"
         response.contentType = 'application/pdf'
         response.outputStream << pdfData
         response.outputStream.flush()
