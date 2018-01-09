@@ -107,6 +107,11 @@
                 </g:each>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <g:paginate controller="projectApplication" action="index" total="${projectApplicationOthersCount}" />
+                </div>
+            </div>
         </g:if>
     </div>
 </div>

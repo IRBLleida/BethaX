@@ -39,6 +39,11 @@
                     </g:each>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <g:paginate controller="project" action="index" total="${projectCount}" />
+                </div>
+            </div>
         </g:if>
         <g:else>
             <div class="jumbotron">

@@ -1,3 +1,4 @@
+<%@ page import="org.irblleida.bethax.Person" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,8 +78,10 @@
             Persones
             <span class="pull-right">
                 <g:link action="create" data-toggle="tooltip" data-placement="left" title="Afegir contacte"><i class="fa fa-user-plus" aria-hidden="true"></i></g:link>
-                <a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Mostra la cerca" style="margin-left: 10px; padding-left: 10px; padding-right: 10px;"><i class="fa fa-ellipsis-v"></i></a>
-            </span>
+            <%--
+            <a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Mostra la cerca" style="margin-left: 10px; padding-left: 10px; padding-right: 10px;"><i class="fa fa-ellipsis-v"></i></a>
+            --%>
+        </span>
         </h4>
         <div class="row" style="display: none;">
             <div class="col align-self-center">
@@ -93,7 +96,7 @@
 
         </div>
         <div class="list-group" id="contact-list">
-            <div class="row">
+            <div id="contact-list-content" class="row">
                 <g:each var="person" in="${personList}">
                     <div class="col-xs-12 col-md-6 personElement">
                         <div class="list-group-item">
@@ -127,6 +130,11 @@
                     </div>
                 </g:each>
             </div>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <g:paginate controller="person" action="index" total="${personCount}" />
+                </div>
+            </div>
         </div>
         <g:if test="${!personList}">
             <div class="jumbotron">
@@ -145,36 +153,34 @@
     </div>
 </div>
 <content tag="footScripts">
-    <g:javascript>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip();
+<g:javascript>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
 
-            $('[data-command="toggle-search"]').on('click', function(event) {
-                event.preventDefault();
-                $(this).toggleClass('hide-search');
+        $('[data-command="toggle-search"]').on('click', function(event) {
+            event.preventDefault();
+            $(this).toggleClass('hide-search');
 
-                if ($(this).hasClass('hide-search')) {
-                    $('.c-search').closest('.row').slideUp(100);
-                }else{
-                    $('.c-search').closest('.row').slideDown(100);
-                }
-            })
+            if ($(this).hasClass('hide-search')) {
+                $('.c-search').closest('.row').slideUp(100);
+            }else{
+                $('.c-search').closest('.row').slideDown(100);
+            }
+        })
 
-            $('#contact-list').searchable({
-                searchField: '#contact-list-search',
-                selector: 'div.personElement',
-                childSelector: '.col-xs-12',
-                show: function( elem ) {
-                    elem.slideDown(100);
-                },
-                hide: function( elem ) {
-                    elem.slideUp( 100 );
-                }
-            })
-        });
-
-    </g:javascript>
+        $('#contact-list').searchable({
+            searchField: '#contact-list-search',
+            selector: 'div.personElement',
+            childSelector: '.col-xs-12',
+            show: function( elem ) {
+                elem.slideDown(100);
+            },
+            hide: function( elem ) {
+                elem.slideUp( 100 );
+            }
+        })
+    });
+</g:javascript>
 </content>
-
 </body>
 </html>

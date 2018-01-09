@@ -10,7 +10,7 @@ import grails.transaction.Transactional
 class PersonController {
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 8, 100)
         respond Person.list(params + [sort: "name", order: "asc"]), model:[personCount: Person.count()]
     }
 
