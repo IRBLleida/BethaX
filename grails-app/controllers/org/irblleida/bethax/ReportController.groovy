@@ -93,7 +93,7 @@ class ReportController {
             calendar.setTime(m.dateCreated)
             createdMilestonesPerMonth[monthHelper.indexOf(calendar.get(Calendar.MONTH))] += 1
             openMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += 1
-            costOpenMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
+            if(m.estimatedTime) costOpenMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
         }
 
         //Information of closed milestones
@@ -101,7 +101,7 @@ class ReportController {
             calendar.setTime(m.dateCreated)
             closedMilestonesPerMonth[monthHelper.indexOf(calendar.get(Calendar.MONTH))] += 1
             closedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += 1
-            costClosedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
+            if(m.estimatedTime) costClosedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
         }
 
 
