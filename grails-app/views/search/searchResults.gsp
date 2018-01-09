@@ -188,7 +188,7 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-4 col-md-4">
                                         <g:link controller="person" action="show" id="${person.id.toString()}">
-                                            <img src="${createLink(action: 'photo', id: person.id.toString())}" width="128" height="128" alt="${person.name}" class="rounded-circle animated pulse" />
+                                            <img src="${createLink(controller: 'person', action: 'photo', id: person.id.toString())}" width="128" height="128" alt="${person.name}" class="rounded-circle animated pulse" />
                                         </g:link>
                                     </div>
                                     <div class="col-xs-12 col-sm-8 col-md-8">
