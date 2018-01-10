@@ -8,7 +8,6 @@ class DeadlineCheckerJob {
     }
 
     def execute() {
-        println('AAA')
         def milestones = Milestone.findAllByHeadStatisticianAndDateFinishedIsNull()
 
         for(Milestone m: milestones){
