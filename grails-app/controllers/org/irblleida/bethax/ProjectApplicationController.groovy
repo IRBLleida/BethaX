@@ -106,7 +106,7 @@ class ProjectApplicationController {
 
     @Transactional
     def saveFromRequest(ProjectApplication projectApplication) {
-        if (projectApplication == null) {
+        if(projectApplication == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
@@ -199,7 +199,7 @@ class ProjectApplicationController {
         def isFinished = false
         if(projectApplication.isDirty('closingDate')) {
             def currentProjectApplicationDate = projectApplication.getPersistentValue('closingDate')
-            if(currentProjectApplicationDate == null && projectApplication.closingDate != null){
+            if(currentProjectApplicationDate == null && projectApplication.closingDate != null) {
                 new ApplicationEvent(
                         triggeredBy: (User) getAuthenticatedUser(),
                         action: "finalitzat",
@@ -222,7 +222,7 @@ class ProjectApplicationController {
 
         projectApplication.save flush:true
 
-        if(!isFinished){
+        if(!isFinished) {
             new ApplicationEvent(
                     triggeredBy: (User) getAuthenticatedUser(),
                     action: "editat",
