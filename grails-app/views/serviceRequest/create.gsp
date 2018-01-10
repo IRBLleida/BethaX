@@ -372,7 +372,7 @@
                                     <figure>
                                         <div>
                                             <div>
-                                                <img src="${createLink(controller: "user", action: "photo", id: user.id.toString())}" />
+                                                <img src="${createLink(controller: "user", action: "photo", id: user.id.toString())}" width="100%" />
                                             </div>
                                         </div>
                                         <figcaption>
