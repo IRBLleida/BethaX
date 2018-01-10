@@ -377,7 +377,9 @@
                                         </div>
                                         <figcaption>
                                             <h2>${user}</h2>
-                                            <p>${user.position}</p>
+                                            <g:if test="${user.position}">
+                                                <p>${user.position}</p>
+                                            </g:if>
                                         </figcaption>
                                     </figure>
                                 </li>
