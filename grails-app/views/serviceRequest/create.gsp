@@ -7,14 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
-        .mrue {
-            /*
-            background-image: url("${assetPath(src: '/mrue.png')}");
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 10%;
-            */
-        }
         .aligned {
             display: inline-flex;
             vertical-align: middle;
@@ -22,6 +14,145 @@
 
         .aligned > .material-icons {
             margin-right: 10px;
+        }
+
+        *,
+        *:after,
+        *:before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizelegibility;
+        }
+
+        ul li {
+            list-style-type: none;
+        }
+
+        .slider--teams {
+            margin-top: 100px;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            max-width: 750px;
+            opacity: 0;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .slider--teams .slider--teams__team {
+            position: relative;
+            overflow: hidden;
+        }
+
+        #list {
+            position: relative;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+        #list li {
+            position: relative;
+            display: inline-block;
+            float: left;
+            text-align: center;
+        }
+        #list li figure {
+            cursor: pointer;
+            margin: 1em;
+            opacity: 0.5;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transition: opacity 450ms ease-in-out, -webkit-transform 450ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            transition: opacity 450ms ease-in-out, -webkit-transform 450ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            transition: transform 450ms cubic-bezier(0.445, 0.05, 0.55, 0.95), opacity 450ms ease-in-out;
+            transition: transform 450ms cubic-bezier(0.445, 0.05, 0.55, 0.95), opacity 450ms ease-in-out, -webkit-transform 450ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+            -webkit-transform: scale(0.5) translateZ(0px);
+            transform: scale(0.5) translateZ(0px);
+        }
+        #list li figure:hover {
+            opacity: 0.8;
+            -webkit-transform: scale(0.6) translateZ(0px);
+            transform: scale(0.6) translateZ(0px);
+        }
+        #list li figure:active {
+            opacity: 1;
+            -webkit-transform: scale(0.7) translateZ(0px);
+            transform: scale(0.7) translateZ(0px);
+        }
+        #list li figure > div {
+            border-radius: 5px;
+            position: relative;
+            margin: 2rem auto;
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+            -webkit-transform: rotate(45deg) translateZ(0px);
+            transform: rotate(45deg) translateZ(0px);
+        }
+        #list li figure > div > div {
+            /*background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/953/teams.jpg) no-repeat;*/
+            background-size: cover;
+            background-position: 0px 0px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 170px;
+            height: 170px;
+            -webkit-transform: rotate(-45deg) translate(0%, -70%);
+            transform: rotate(-45deg) translate(0%, -70%);
+        }
+        #list li figure figcaption h2 {
+            color: #333;
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+        #list li figure figcaption p {
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+        #list li:nth-child(1) figure > div > div {
+            background-position: 0px 0px !important;
+        }
+        #list li:nth-child(2) figure > div > div {
+            background-position: 0px 20% !important;
+        }
+        #list li:nth-child(3) figure > div > div {
+            background-position: 0px 40% !important;
+        }
+        #list li:nth-child(4) figure > div > div {
+            background-position: 0px 60% !important;
+        }
+        #list li:nth-child(5) figure > div > div {
+            background-position: 0px 80% !important;
+        }
+        #list li:nth-child(6) figure > div > div {
+            background-position: 0px 100% !important;
+        }
+
+        .active {
+            opacity: 1 !important;
+            -webkit-transform: scale(1) translateZ(0px) !important;
+            transform: scale(1) translateZ(0px) !important;
+        }
+
+        .cf:before,
+        .cf:after {
+            content: " ";
+            display: table;
+        }
+
+        .cf:after {
+            clear: both;
+        }
+
+        .cf {
+            *zoom: 1;
         }
     </style>
 </head>
@@ -233,29 +364,28 @@
             </div>
             <div class="col l6 s12">
                 <h5 class="white-text">Equip</h5>
-                <div class="carousel carousel-slider" data-indicators="true">
-                    <g:each var="user" in="${org.irblleida.bethax.User.list()}">
-                        <div class="carousel-item mrue white-text" href="#mrue">
-                            <div class="row">
-                                <div class="col offset-l1 l3 s12">
-                                    <asset:image src="mrue.png" width="100%" class="circle" style="" />
-                                </div>
-                                <div class="col l8 s12">
-                                    <h2><span class="yellow-text lighten-5">Dr.</span> ${user}</h2>
-                                    <p class="white-text">
-                                        <a class="white-text aligned" href="mailto:mrue@irblleida.cat">
-                                            <i class="material-icons">email</i> ${user.username}
-                                        </a>
-                                    </p>
-                                    <p class="white-text">
-                                        <a class="white-text aligned" href="http://www.researcherid.com/rid/B-5663-2009" target="_blank">
-                                            <i class="material-icons">subtitles</i> ResearcherID
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </g:each>
+                <div class="slider--teams">
+                    <div class="slider--teams__team">
+                        <ul id="list" class="cf">
+                            <g:each var="user" in="${org.irblleida.bethax.User.list()}">
+                                <li>
+                                    <figure>
+                                        <div>
+                                            <div>
+                                                <img src="${createLink(controller: "user", action: "photo", id: user.id.toString())}" />
+                                            </div>
+                                        </div>
+                                        <figcaption>
+                                            <h2>${user}</h2>
+                                            <g:if test="${user.position}">
+                                                <p>${user.position}</p>
+                                            </g:if>
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            </g:each>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,39 +396,136 @@
         </div>
     </div>
 </footer>
-
-
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js"></script>
 <script>
+    var sliderTeam = (function(document, $) {
+        var $sliderTeams = $('.slider--teams'),
+            $list = $('#list'),
+            $listItems = $('#list li'),
+            $nItems = $listItems.length,
+            $nView = 3,
+            autoSlider,
+            $current = 0,
+            $isAuto = true,
+            $acAuto = 2500,
+
+            _init = function() {
+                _initWidth();
+                _eventInit();
+            },
+
+            _initWidth = function() {
+                $list.css({
+                    'margin-left': Math.floor(100 / $nView) + '%',
+                    'width': Math.floor(100 * ($nItems / $nView)) + '%'
+                });
+                $listItems.css('width', 100 / $nItems + '%');
+                $sliderTeams.velocity({ opacity: 1 }, { display: "block" }, { delay:1000 });
+            },
+
+            _eventInit = function() {
+
+                window.requestAnimFrame = (function() {
+                    return  window.requestAnimationFrame       ||
+                        window.webkitRequestAnimationFrame ||
+                        window.mozRequestAnimationFrame    ||
+                        window.oRequestAnimationFrame      ||
+                        window.msRequestAnimationFrame     ||
+                        function(callback, element){
+                            window.setTimeout(callback, 1000 / 60);
+                        };
+                })();
+
+                window.requestInterval = function(fn, delay) {
+                    if( !window.requestAnimationFrame       &&
+                        !window.webkitRequestAnimationFrame &&
+                        !window.mozRequestAnimationFrame    &&
+                        !window.oRequestAnimationFrame      &&
+                        !window.msRequestAnimationFrame)
+                        return window.setInterval(fn, delay);
+                    var start = new Date().getTime(),
+                        handle = new Object();
+
+                    function loop() {
+                        var current = new Date().getTime(),
+                            delta = current - start;
+                        if(delta >= delay) {
+                            fn.call();
+                            start = new Date().getTime();
+                        }
+                        handle.value = requestAnimFrame(loop);
+                    };
+                    handle.value = requestAnimFrame(loop);
+                    return handle;
+                }
+
+                window.clearRequestInterval = function(handle) {
+                    window.cancelAnimationFrame ? window.cancelAnimationFrame(handle.value) :
+                        window.webkitCancelRequestAnimationFrame ? window.webkitCancelRequestAnimationFrame(handle.value)   :
+                            window.mozCancelRequestAnimationFrame ? window.mozCancelRequestAnimationFrame(handle.value) :
+                                window.oCancelRequestAnimationFrame ? window.oCancelRequestAnimationFrame(handle.value) :
+                                    window.msCancelRequestAnimationFrame ? msCancelRequestAnimationFrame(handle.value) :
+                                        clearInterval(handle);
+                };
+
+                $.each($listItems, function(i) {
+                    var $this = $(this);
+                    $this.on('touchstart click', function(e) {
+                        e.preventDefault();
+                        _stopMove(i);
+                        _moveIt($this, i);
+                    });
+                });
+
+                autoSlider = requestInterval(_autoMove, $acAuto);
+            },
+
+            _moveIt = function(obj, x) {
+
+                var n = x;
+
+                obj.find('figure').addClass('active');
+                $listItems.not(obj).find('figure').removeClass('active');
+
+                $list.velocity({
+                    translateX: Math.floor((-(100 / $nItems)) * n) + '%',
+                    translateZ: 0
+                }, {
+                    duration: 2000,
+                    easing: [400, 26],
+                    queue: false
+                });
+
+            },
+
+            _autoMove = function(currentSlide) {
+                if ($isAuto) {
+                    $current = ~~(($current + 1) % $nItems);
+                } else {
+                    $current = currentSlide;
+                }
+                console.log($current);
+                _moveIt($listItems.eq($current), $current);
+            },
+
+            _stopMove = function(x) {
+                clearRequestInterval(autoSlider);
+                $isAuto = false;
+                _autoMove(x);
+            };
+
+        return {
+            init: _init
+        };
+
+    })(document, jQuery);
+
 
     $(document).ready(function(){
-        $('.carousel').carousel({fullWidth: true});
-        var carouselAutoplay = setInterval(function(){
-            $('.fa-angle-right').click();
-        }, 7000);
-        setInterval(function() {
-            $('.carousel').carousel('next');
-        }, 10000); // every 2 seconds
-        $('input.autocomplete').autocomplete({
-            data: {
-                "IRBLleida": 'http://www.irblleida.org/arxius/imatges/logos/300-IRBok.jpg',
-                "ICS Lleida": 'https://ccooprimarialleida.files.wordpress.com/2015/11/ics.png?w=780',
-                "GSS": 'http://identitatcorporativa.gencat.cat/web/.content/Documentacio/descarregues/dpt/COLOR/Salut/gss.jpg',
-                "UdL": 'http://udltreball.udl.cat/export/sites/UdLTreball/.galleries/imagenes-estructura/UdL.jpg',
-                "CatSalut": 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/CatSalut.svg/1200px-CatSalut.svg.png',
-                "HUGTP": 'http://identitatcorporativa.gencat.cat/web/.content/Documentacio/descarregues/dpt/COLOR/Salut/hgtp.jpg',
-                "Parc Taurí": 'https://www.tauli.cat/tauli/images/recursos/logo.png',
-                "GOC": null
-            },
-            limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-            onAutocomplete: function(val) {
-                // Callback function when value is autcompleted.
-            },
-            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
-        });
+        sliderTeam.init();
     });
-
 </script>
 </body>
 </html>
