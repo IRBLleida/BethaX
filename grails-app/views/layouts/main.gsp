@@ -28,15 +28,9 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <g:link controller="home" action="index" class="navbar-brand" style="text-align: center">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <g:link controller="home" action="index" class="navbar-brand" style="text-align: center">
-        <img src="${resource(dir: 'images', file: 'logo.png')}"  style="width:40%;height:40%;"/>
+    <g:link controller="home" action="index" class="navbar-brand">
+        <img src="${resource(dir: 'images', file: 'logo.png')}"  style="padding-left: 20px; height:35px;"/>
     </g:link>
-    </g:link>
-
     <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown2">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -48,14 +42,12 @@
             </li>
         </ul>
     </div>
-
     <div class="collapse navbar-collapse order-lg-2">
         <ul class="navbar-nav">
             <li class="nav-item"><g:link class="nav-link" controller="milestone" action="index">Fites</g:link></li>
             <li class="nav-item"><a data-dialog="addSomethingDialog" class="nav-link" href="#"><i class="fa fa-plus-circle"></i></a></li>
         </ul>
     </div>
-
     <div class="collapse navbar-collapse order-lg-2">
         <div class="container">
             <div id="morphsearch" class="morphsearch">
@@ -116,13 +108,11 @@
                         </div>
                     </div>
 
-                </div><!-- /morphsearch-content -->
+                </div>
                 <span class="morphsearch-close"></span>
-            </div><!-- /morphsearch -->
+            </div>
 
-        </div><!-- /container -->
-
-
+        </div>
     </div>
     <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
@@ -362,10 +352,8 @@
             }
         } );
 
-
         /***** for demo purposes only: don't allow to submit the form *****/
         morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
-
 
         var delay = (function() {
             var timer = 0;
@@ -480,8 +468,6 @@
          });
     })();
 </g:javascript>
-
-
 <g:javascript>
 noWords();
 function noWords() {
@@ -489,7 +475,6 @@ function noWords() {
     $('#resultsSection').hide();
 }
 </g:javascript>
-
 <!-- Custom placeholder for page scripts -->
 <g:ifPageProperty name="page.footScripts">
     <g:pageProperty name="page.footScripts" />
