@@ -32,10 +32,10 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown2" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" style="text-align: center">
+    <g:link controller="home" action="index" class="navbar-brand" style="text-align: center">
         <img src="${resource(dir: 'images', file: 'logo.png')}"  style="width:40%;height:40%;"/>
     </g:link>
-    </a>
+    </g:link>
 
     <div class="collapse navbar-collapse order-3 order-lg-2" id="navbarNavDropdown2">
         <ul class="navbar-nav ml-auto">
