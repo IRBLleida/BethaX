@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8" />
     <title>BetxhaX</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -12,21 +13,12 @@
         border-bottom: 1px dashed #999;
         width: 100%;
     }
-    p strong{
-        font-size: 120%;
-    }
-    p strong.title{
-        font-size: 100%;
-    }
-    p.text{
-        font-size: 75%;
-    }
     .keeptogether {
         page-break-inside:avoid;
     }
     </style>
 </head>
-<body style="width: 100%; font-size: 4em;">
+<body style="font-size: 14pt;">
 <div class="row" style="text-align: center">
     <p><strong>Informe BETHAX de ${from} a ${to}</strong></p>
     <br/>
@@ -271,7 +263,7 @@
     var canvas = document.getElementById("canvas");
     var img = canvas.toDataURL("image/png");
 
-    $('#pwChartPlace').html('<img width="100%" src="'+img+'"/>');
+    $('#pwChartPlace').html('<img width="80%" src="'+img+'"/>');
 </script>
 <script>
     var users = [];
@@ -330,7 +322,7 @@
 
     var canvas2 = document.getElementById("canvas2");
     var img2 = canvas2.toDataURL("image/png");
-    $('#pwChartPlace2').html('<img width="100%" src="'+img2+'"/>');
+    $('#pwChartPlace2').html('<img width="80%" src="'+img2+'"/>');
 </script>
 
 </body>

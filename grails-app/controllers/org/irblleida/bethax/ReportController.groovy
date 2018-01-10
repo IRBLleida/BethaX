@@ -19,16 +19,9 @@ class ReportController {
         Date from = sdf.parse(params.from)
         Date to = sdf.parse(params.to)
 
-        // Afegim un dia a la data "to" per a que entri dins de la condicio "Between"
-        Calendar c = Calendar.getInstance()
-        c.setTime(to)
-        c.add(Calendar.DATE, 1)
-        to = c.getTime()
-
-        // treiem un dia a la data "from" per a que entri dins de la condicio "Between"
-        c.setTime(from)
-        c.add(Calendar.DATE, -1)
-        from = c.getTime()
+        // Remove time from first date and set time to ~24ish to the second date
+        from.clearTime()
+        to.set(hourOfDay: 23, minute: 59, second: 59)
 
         def milestones = Milestone.findAllByDateCreatedBetween(from, to)
         def closedMilestones = Milestone.findAllByDateFinishedBetween(from, to)
@@ -93,7 +86,7 @@ class ReportController {
             calendar.setTime(m.dateCreated)
             createdMilestonesPerMonth[monthHelper.indexOf(calendar.get(Calendar.MONTH))] += 1
             openMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += 1
-            costOpenMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime ?: 0
+            if(m.estimatedTime) costOpenMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
         }
 
         //Information of closed milestones
@@ -101,9 +94,8 @@ class ReportController {
             calendar.setTime(m.dateCreated)
             closedMilestonesPerMonth[monthHelper.indexOf(calendar.get(Calendar.MONTH))] += 1
             closedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += 1
-            costClosedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
+            if(m.estimatedTime) costClosedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
         }
-
 
         def pendingServiceRequests = 0
         def approvedServiceRequests = 0
@@ -151,16 +143,16 @@ class ReportController {
                 enableJavascript: true,
                 images: true,
                 javascriptDelay: 500,
+                encoding: 'UTF-8'
                 //viewportSize: '1024x0',
-                disableSmartShrinking: true,
-                //dpi: 125,
+                //disableSmartShrinking: true
+                //dpi: 125
         )
 
-        response.setHeader "Content-disposition", "inline; filename="+new Date().toString()+""
+        response.setHeader "Content-disposition", "inline; filename=Informe_BethaX_"+ from.format('dd_MM_yy') + "-" + to.format('dd_MM_yy') + ".pdf"
         response.contentType = 'application/pdf'
         response.outputStream << pdfData
         response.outputStream.flush()
 
     }
-
 }

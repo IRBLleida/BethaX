@@ -15,7 +15,7 @@
         <label>&nbsp;</label>
         <g:link controller="institution" action="create" class="btn btn-outline-success form-control"><i class="fa fa-building" aria-hidden="true"></i> Nova institució</g:link>
     </div>
-    <bx:formField bean="${this.person}" property="section" />
+    <bx:formField bean="${this.person}" property="section"  />
     <div class="col-md-3">
         <label>&nbsp;</label>
         <g:link controller="institutionSection" action="create" class="btn btn-outline-success form-control"><i class="fa fa-users" aria-hidden="true"></i> Nova secció</g:link>
@@ -45,14 +45,13 @@
             if(fileName.length > 30) fileName = '... ' + fileName.substr(fileName.length - 27);
             $(this).next('.form-control-file').addClass("selected").html(fileName);
         });
-        $('#institution').val('${this.person.institution.id}');
+        $('#institution').val('${this.person?.institution?.id}');
 
         $.ajax({
             url: "${g.createLink(controller: 'institutionSection', action: 'findByInstitution')}",
             data: { id: $('#institution').val() },
             dataType: "json",
             success: function(sections) {
-                console.log(sections);
                 var name, select, option;
 
                 // Get the raw DOM object for the select box
@@ -62,10 +61,11 @@
                 select.options.length = 0;
 
                 // Load the new options
+                select.options.add(new Option('${message(code: 'default.noSelection')}', '${null}'));
                 $.each(sections, function(index, section) {
                     select.options.add(new Option(section.name, section.id));
                 });
-                $('#section').val('${this.person?.section.id}');
+                $('#section').val('${this.person?.section?.id}');
             }
         });
 
@@ -86,6 +86,7 @@
                     select.options.length = 0;
 
                     // Load the new options
+                    select.options.add(new Option('${message(code: 'default.noSelection')}', '${null}'));
                     $.each(sections, function(index, section) {
                         select.options.add(new Option(section.name, section.id));
                     });
