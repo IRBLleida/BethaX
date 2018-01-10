@@ -207,15 +207,15 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="https://github.com/IRBLleida/BethaX/issues/new?labels=sol%C2%B7licitud%20d%27ajuda&assignees=jvilaplana" target="_blank">
                         <i class="fa fa-question-circle"></i>
-                        Ajuda
+                        <g:message code="layouts.main.requestHelp" />
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="https://github.com/IRBLleida/BethaX/issues/new?labels=error&assignees=jvilaplana" target="_blank">
                         <i class="fa fa-bug"></i>
-                        Reportar un problema
+                        <g:message code="layouts.main.reportBug" />
                     </a>
                 </li>
             </ul>
