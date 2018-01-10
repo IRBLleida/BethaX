@@ -21,7 +21,7 @@
                     </div>
                 </g:hasErrors>
             </div>
-            <g:form action="update">
+            <g:uploadForm action="update">
                 <g:hiddenField name="id" value="${this.projectApplication?.id.toString()}" />
                 <g:hiddenField name="version" value="${this.projectApplication?.version}" />
                 <div class="row">
@@ -31,6 +31,24 @@
                     <bx:formField bean="${this.projectApplication}" property="invoiceAmount" addon="€" />
                     <bx:formField bean="${this.projectApplication}" property="invoiceDate" />
                     <bx:formField bean="${this.projectApplication}" property="invoicePaymentDate" />
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <%-- TODO: Finish this after meeting --%>
+                            <label>Document del tancament <g:if test="${this.projectApplication.isWorkPlanNeeded}">*</g:if></label>
+                            <label class="custom-file form-control">
+                                <input type="file" id="closeFile" name="closeFile" class="custom-file-input" />
+                                <span class="custom-file-control form-control-file"></span>
+                                <span class="help-block">
+                                    <g:link controller="projectApplication" action="closeTemplate">
+                                        <i class="fa fa-file-word-o" aria-hidden="true"></i>
+                                        Descarregar plantilla
+                                    </g:link>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -45,7 +63,7 @@
                         </g:link>
                     </div>
                 </div>
-            </g:form>
+            </g:uploadForm>
         </div>
     </div>
 </div>

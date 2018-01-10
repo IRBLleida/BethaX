@@ -27,8 +27,17 @@ class ProjectApplicationController {
         return
     }
 
-    def ajaxApplicant(){
+    def closeTemplate() {
+        def closeTemplate = new File("/opt/bethax/closeTemplate.docx/" as String)
+        if(closeTemplate.exists()) {
+            response.setContentType("application/octet-stream")
+            response.setHeader("Content-disposition", "inline;filename=\"Close_Template.docx\"")
+            response.outputStream << closeTemplate.bytes
+        }
+    }
 
+    def downloadCloseDoc() {
+        //TODO
     }
 
     def show(ProjectApplication projectApplication) {
@@ -200,6 +209,15 @@ class ProjectApplicationController {
                 ).save flush: true
                 isFinished = true
             }
+        }
+
+        if(params.closeFile?.getOriginalFilename() != null && params.closeFile?.getOriginalFilename() != '') {
+            // TODO: Create projectApplication/ directory on server
+            def folderPath = "/opt/bethax/projectApplication/" as String
+            def path = "${folderPath}/${projectApplication.id}" as String
+            def currentCloseFile = new File(path)
+            if(currentCloseFile.exists()) currentCloseFile.delete()
+            params.closeFile.transferTo(new File(path))
         }
 
         projectApplication.save flush:true
