@@ -19,16 +19,9 @@ class ReportController {
         Date from = sdf.parse(params.from)
         Date to = sdf.parse(params.to)
 
-        // Afegim un dia a la data "to" per a que entri dins de la condicio "Between"
-        Calendar c = Calendar.getInstance()
-        c.setTime(to)
-        c.add(Calendar.DATE, 1)
-        to = c.getTime()
-
-        // treiem un dia a la data "from" per a que entri dins de la condicio "Between"
-        c.setTime(from)
-        c.add(Calendar.DATE, -1)
-        from = c.getTime()
+        // Remove time from first date and set time to ~24ish to the second date
+        from.clearTime()
+        to.set(hourOfDay: 23, minute: 59, second: 59)
 
         def milestones = Milestone.findAllByDateCreatedBetween(from, to)
         def closedMilestones = Milestone.findAllByDateFinishedBetween(from, to)
@@ -104,7 +97,6 @@ class ReportController {
             if(m.estimatedTime) costClosedMilestonesUser[users.indexOf(m.headStatistician.givenName + ' ' + m.headStatistician.familyName)] += m.estimatedTime
         }
 
-
         def pendingServiceRequests = 0
         def approvedServiceRequests = 0
         def refusedServiceRequests = 0
@@ -163,5 +155,4 @@ class ReportController {
         response.outputStream.flush()
 
     }
-
 }
