@@ -123,7 +123,7 @@ class ReportController {
                         privExternal: privExternal,
                         createdMilestonesPerMonth: createdMilestonesPerMonth,
                         closedMilestonesPerMonth: closedMilestonesPerMonth,
-                        monthString: monthsString.reverse(),
+                        monthString: monthsString,
                         users: users,
                         openMilestonesUser: openMilestonesUser,
                         costOpenMilestonesUser: costOpenMilestonesUser,

@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="main" />
     <g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-    <title><g:message code="default.list.label" args="[entityName]" /></title>
+    <title>BethaX</title>
     <asset:stylesheet src="feed.css"/>
     <style>
     .col-md-12 .pull-right{

@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="main" />
     <g:set var="entityName" value="${message(code: 'person.label', default: 'Person')}" />
-    <title><g:message code="default.list.label" args="[entityName]" /></title>
+    <title>BethaX</title>
     <style>
     .col-md-12 .pull-right{
         margin-top: 10px;
@@ -93,9 +93,14 @@
 
 <content tag="footScripts">
     <g:javascript>
-        var data = []
+        var data = [];
         <g:each var="user" in="${usersMap}">
-            data.push({'name' : "${user?.key}", 'y': ${user?.value}})
+            data.push({'name' : "${user?.key}", 'y': ${user?.value}});
+        </g:each>
+
+        var cost = []
+        <g:each var="user" in="${usersEstimatedCost}">
+            cost.push({'name' : "${user?.key}", 'y': ${user?.value}});
         </g:each>
 
         // Create the chart
@@ -106,20 +111,13 @@
             title: {
                 text: 'Fites obertes'
             },
-            subtitle: {
-                text: ''
-            },
             xAxis: {
                 type: 'category'
             },
             yAxis: {
                 title: {
-                    text: 'Número de fites'
+                    text: 'Fites i cost'
                 }
-
-            },
-            legend: {
-                enabled: false
             },
             plotOptions: {
                 series: {
@@ -130,16 +128,12 @@
                     }
                 }
             },
-
-            tooltip: {
-                headerFormat: '',
-                pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b>'
-            },
-
             series: [{
-                name: 'Brands',
-                colorByPoint: true,
+                name: 'Fites',
                 data: data
+            }, {
+                name: 'Cost',
+                data: cost
             }],
             credits: {
                 enabled: false

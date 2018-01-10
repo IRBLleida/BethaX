@@ -79,15 +79,18 @@ class HomeController {
 
         /*** Opened-Milestones divided by users Chart ***/
         def usersMap = [:]
+        def usersEstimatedCost = [:]
         def openedMilestones = Milestone.findAllByDateFinishedIsNull()
 
         for (u in User.findAll()){
             usersMap[u.givenName + ' ' + u.familyName] = 0
+            usersEstimatedCost[u.givenName + ' ' + u.familyName] = 0
         }
 
         for (m in openedMilestones){
             if((m.deadline.getTime() - today.getTime()) >= 0){
                 usersMap[m.headStatistician.givenName + ' ' + m.headStatistician.familyName] += 1
+                if(m.estimatedTime) usersEstimatedCost[m.headStatistician.givenName + ' ' + m.headStatistician.familyName] += m.estimatedTime
             }
         }
 
@@ -106,7 +109,7 @@ class HomeController {
                                        projects: projects, monthString: monthsString.reverse(),
                                        createdMilestones: createdMilestones, closedMilestones: closedMilestones,
                                        internal: internal, externalPub: externalPub, externalPriv: externalPriv,
-                                       usersMap: usersMap]
+                                       usersMap: usersMap, usersEstimatedCost: usersEstimatedCost]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
