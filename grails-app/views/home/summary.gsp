@@ -103,6 +103,11 @@
             cost.push({'name' : "${user?.key}", 'y': ${user?.value}});
         </g:each>
 
+        var expired = []
+        <g:each var="user" in="${usersExpiredMilestones}">
+            expired.push({'name' : "${user?.key}", 'y': ${user?.value}});
+        </g:each>
+
         // Create the chart
         Highcharts.chart('container', {
             chart: {
@@ -134,6 +139,9 @@
             }, {
                 name: 'Cost',
                 data: cost
+            }, {
+                name: 'Fites expirades',
+                data: expired
             }],
             credits: {
                 enabled: false
