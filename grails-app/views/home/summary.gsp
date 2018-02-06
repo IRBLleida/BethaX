@@ -224,6 +224,7 @@
     <g:javascript>
         var users = []
         var data = []
+        var atypical = []
         <g:each var="u" in="${usersList}">
             users.push("${u}");
         </g:each>
@@ -233,6 +234,12 @@
                 tmp.push(parseInt("${v}"));
             </g:each>
             data.push(tmp);
+        </g:each>
+        <g:each var="a" in="${atypicalValues}">
+            atypical.push({
+                x: parseInt("${a[0]}"),
+                y: parseInt("${a[1]}")
+             });
         </g:each>
 
         Highcharts.chart('containerBox', {
@@ -284,20 +291,14 @@
                 name: 'Outlier',
                 color: Highcharts.getOptions().colors[0],
                 type: 'scatter',
-                data: [ // x, y positions where 0 is the first category
-                    {
-                        x: 0,
-                        y: 3,
-                        milestone:"AAAA"
-                    } //TODO: Finish it
-                ],
+                data: atypical,
                 marker: {
                     fillColor: 'white',
                     lineWidth: 1,
                     lineColor: Highcharts.getOptions().colors[0]
                 },
                 tooltip: {
-                    pointFormat: 'Observation: {point.y} {point.milestone}'
+                    pointFormat: 'Valor atípic: {point.y}'
                 }
             }],
             credits: {

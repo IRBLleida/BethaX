@@ -121,6 +121,7 @@ class HomeController {
 
         def usersList = []
         def boxPlotList = []
+        def atypicalValues = []
         usersMilestonesClosed.each { k, v ->
             /* Initialize variables for each user*/
             Collections.sort(v)
@@ -157,6 +158,13 @@ class HomeController {
                     boxPlotList[usersList.size() - 1][3] = boxPlotList[usersList.size() - 1][2] // 3rd quartile
                     boxPlotList[usersList.size() - 1][4] = boxPlotList[usersList.size() - 1][2] // Maximum
                 }
+
+                for(def mstone in v){
+                    if(mstone < boxPlotList[usersList.size() - 1][0] ||
+                       mstone > boxPlotList[usersList.size() - 1][4]){
+                        atypicalValues.add([usersList.size() - 1, mstone])
+                    }
+                }
             }
 
         }
@@ -168,7 +176,7 @@ class HomeController {
                                        internal: internal, externalPub: externalPub, externalPriv: externalPriv,
                                        usersMap: usersMap, usersEstimatedCost: usersEstimatedCost,
                                        usersExpiredMilestones: usersExpiredMilestones,
-                                       usersList: usersList, boxPlotList: boxPlotList]
+                                       usersList: usersList, boxPlotList: boxPlotList, atypicalValues: atypicalValues]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
