@@ -107,13 +107,68 @@ class HomeController {
                 institutionList[pA.applicant.institution] += 1
         }
 
+        /*** BOX PLOT ***/
+        def usersMilestonesClosed = [:]
+        for (u in User.findAll()){
+            usersMilestonesClosed[u.givenName + ' ' + u.familyName] = new ArrayList<Integer>()
+        }
+        for(m in Milestone.findAllByDateFinishedIsNotNull()){
+            if(m.estimatedTime && m.realTime){
+                ArrayList<Integer> a = (ArrayList) usersMilestonesClosed[m.headStatistician.givenName + ' ' + m.headStatistician.familyName]
+                a.add(m.estimatedTime - m.realTime)
+            }
+        }
+
+        def usersList = []
+        def boxPlotList = []
+        usersMilestonesClosed.each { k, v ->
+            /* Initialize variables for each user*/
+            Collections.sort(v)
+            usersList.add(k)
+            boxPlotList.add([0, 0, 0, 0, 0])
+
+            if(!v.isEmpty()){
+                /* If there is less than 4 closed milestones, you cannot calculate anything */
+                if(v.size() > 3){
+                    def pos = (v.size() + 1) / 4
+                    Float deci = pos - (int)pos
+                    pos = (Integer) pos
+                    boxPlotList[usersList.size() - 1][1] = v[pos - 1] + (deci * (v[pos - 1] + v[pos])) //1st quartile
+
+                    pos = (3 * (v.size() + 1)) / 4
+                    deci = pos - (Integer) pos
+                    pos = (Integer) pos
+                    boxPlotList[usersList.size() - 1][3] = v[pos - 1] + (deci * (v[pos - 1] + v[pos])) //3rd quartile
+                }
+
+                def interQuartileRange = boxPlotList[usersList.size() - 1][3] - boxPlotList[usersList.size() - 1][1]
+                boxPlotList[usersList.size() - 1][0] = boxPlotList[usersList.size() - 1][1] - (interQuartileRange * 1.5) //Minimum
+                boxPlotList[usersList.size() - 1][4] = boxPlotList[usersList.size() - 1][3] + (interQuartileRange * 1.5) //Maximum
+
+                if(v.size() % 2 == 0){
+                    boxPlotList[usersList.size() - 1][2] = (v[(Integer) (v.size() / 2)] + v[(Integer)((v.size() / 2) - 1)]) / 2 // Median
+                }else{
+                    boxPlotList[usersList.size() - 1][2] = v[(Integer) (v.size() / 2)] // Median
+                }
+
+                if(v.size() <= 3){
+                    boxPlotList[usersList.size() - 1][0] = boxPlotList[usersList.size() - 1][2] // Minimum
+                    boxPlotList[usersList.size() - 1][1] = boxPlotList[usersList.size() - 1][2] // 1st quartile
+                    boxPlotList[usersList.size() - 1][3] = boxPlotList[usersList.size() - 1][2] // 3rd quartile
+                    boxPlotList[usersList.size() - 1][4] = boxPlotList[usersList.size() - 1][2] // Maximum
+                }
+            }
+
+        }
+
         render view:'summary', model: [institutionList: institutionList, pendingMilestones: pendingMilestones,
                                        finishedMilestones: finishedMilestones, projectApplications: projectApplicationsSize,
                                        projects: projects, monthString: monthsString.reverse(),
                                        createdMilestones: createdMilestones, closedMilestones: closedMilestones,
                                        internal: internal, externalPub: externalPub, externalPriv: externalPriv,
                                        usersMap: usersMap, usersEstimatedCost: usersEstimatedCost,
-                                       usersExpiredMilestones: usersExpiredMilestones]
+                                       usersExpiredMilestones: usersExpiredMilestones,
+                                       usersList: usersList, boxPlotList: boxPlotList]
     }
 
     @Secured(['IS_AUTHENTICATED_FULLY'])

@@ -61,6 +61,13 @@
     </div>
 </div>
 <div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div id="containerBox" style="height: 400px; min-width: 310px;"></div>
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
     <div class="col-md-4">
         <div class="card">
             <div id="container3"></div>
@@ -187,7 +194,7 @@
             }],
             credits: {
               enabled: false
-          },
+          }
         });
     </g:javascript>
 
@@ -210,7 +217,93 @@
             }],
             credits: {
                 enabled: false
+            }
+        });
+    </g:javascript>
+
+    <g:javascript>
+        var users = []
+        var data = []
+        <g:each var="u" in="${usersList}">
+            users.push("${u}");
+        </g:each>
+        <g:each var="b" in="${boxPlotList}">
+            var tmp = [];
+            <g:each var="v" in="${b}">
+                tmp.push(parseInt("${v}"));
+            </g:each>
+            data.push(tmp);
+        </g:each>
+
+        Highcharts.chart('containerBox', {
+
+            chart: {
+                type: 'boxplot'
             },
+
+            title: {
+                text: 'Relació cost estimat i cost real'
+            },
+
+            legend: {
+                enabled: false
+            },
+
+            xAxis: {
+                categories: users,
+                title: {
+                    text: 'Usuari'
+                }
+            },
+
+            yAxis: {
+                title: {
+                    text: 'Cost estimat - Cost real'
+                },
+                plotLines: [{
+                    value: 0,
+                    color: 'red',
+                    width: 1,
+                    label: {
+                        text: 'Mitjana teòrica: 0',
+                        align: 'center',
+                        style: {
+                            color: 'gray'
+                        }
+                    }
+                }]
+            },
+
+            series: [{
+                name: 'Resultats',
+                data: data,
+                tooltip: {
+                    headerFormat: '<em>{point.key}</em><br/>'
+                }
+            }, {
+                name: 'Outlier',
+                color: Highcharts.getOptions().colors[0],
+                type: 'scatter',
+                data: [ // x, y positions where 0 is the first category
+                    {
+                        x: 0,
+                        y: 3,
+                        milestone:"AAAA"
+                    } //TODO: Finish it
+                ],
+                marker: {
+                    fillColor: 'white',
+                    lineWidth: 1,
+                    lineColor: Highcharts.getOptions().colors[0]
+                },
+                tooltip: {
+                    pointFormat: 'Observation: {point.y} {point.milestone}'
+                }
+            }],
+            credits: {
+                enabled: false
+            },
+
         });
     </g:javascript>
 </content>

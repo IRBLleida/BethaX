@@ -21,6 +21,8 @@
 //= require moment.min
 //= require fullcalendar
 //= require ca
+//= require highcharts
+//= require highcharts-more
 //= require_tree .
 //= require_self
 
