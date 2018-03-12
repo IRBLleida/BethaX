@@ -65,7 +65,7 @@ class UserController {
             }
         }
 
-        def projectApplicationList = ProjectApplication.findAllByHeadStatistician(user)
+        def projectApplicationList = ProjectApplication.findAllByHeadStatistician(user, params)
 
 
         respond user, model: [milestoneList: milestones, isHimself: isHimself, monthString: monthsString.reverse(),

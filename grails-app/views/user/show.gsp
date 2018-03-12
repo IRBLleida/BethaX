@@ -133,11 +133,11 @@
                     <table class="table">
                         <thead class="thead-inverse">
                         <tr>
-                            <th><g:message code="projectApplication.entryDate.label" /></th>
-                            <th><g:message code="projectApplication.name.label" /></th>
-                            <th><g:message code="projectApplication.applicant.label" /></th>
-                            <th><g:message code="projectApplication.status.label" /></th>
-                            <th><g:message code="projectApplication.projects.label" /></th>
+                            <g:sortableColumn property="entryDate" title="${message(code: 'projectApplication.entryDate.label')}"/>
+                            <g:sortableColumn property="name" title="${message(code: 'projectApplication.name.label')}"/>
+                            <g:sortableColumn property="applicant" title="${message(code: 'projectApplication.applicant.label')}"/>
+                            <g:sortableColumn property="status" title="${message(code: 'projectApplication.status.label')}"/>
+                            <g:sortableColumn property="projects" title="${message(code: 'projectApplication.projects.label')}"/>
                         </tr>
                         </thead>
                         <tbody>
