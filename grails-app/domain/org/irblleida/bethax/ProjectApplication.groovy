@@ -71,6 +71,10 @@ class ProjectApplication {
         invoicePaymentDate nullable: true
     }
 
+    static mapping = {
+        sort name: "asc"
+    }
+
     String toString() {
         name
     }

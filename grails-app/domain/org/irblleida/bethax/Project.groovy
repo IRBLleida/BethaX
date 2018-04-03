@@ -35,6 +35,10 @@ class Project {
         isCREC nullable: false
     }
 
+    static mapping = {
+        sort name: "asc"
+    }
+
     String toString() {
         name
     }

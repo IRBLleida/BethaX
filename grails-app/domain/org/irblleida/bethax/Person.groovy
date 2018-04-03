@@ -25,6 +25,10 @@ class Person {
         section nullable: true
     }
 
+    static mapping = {
+        sort name: "asc"
+    }
+
     String toString() {
         name + " (" + institution.name + ")"
     }

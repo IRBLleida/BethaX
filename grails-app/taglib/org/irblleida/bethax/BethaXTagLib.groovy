@@ -92,7 +92,13 @@ class BethaXTagLib {
     }
 
     private def propertyClassToType(attrs) {
-            switch (attrs.bean.getClass().getDeclaredField(attrs.property)?.type) {
+        def test = attrs.bean.getClass().getDeclaredField(attrs.property)
+        def enumList = []
+        if(test?.type in enumList) {
+            attrs.from = test.values()
+        }
+
+        switch (attrs.bean.getClass().getDeclaredField(attrs.property)?.type) {
             case(java.lang.String):
                 attrs.type = 'text'
                 break

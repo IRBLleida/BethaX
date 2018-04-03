@@ -32,6 +32,7 @@
                     <bx:formField bean="${this.projectApplication}" property="invoiceDate" />
                     <bx:formField bean="${this.projectApplication}" property="invoicePaymentDate" />
                 </div>
+                <!--
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -50,6 +51,7 @@
                         </div>
                     </div>
                 </div>
+                -->
                 <div class="row">
                     <div class="col-md-12">
                         <hr />

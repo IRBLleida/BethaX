@@ -11,7 +11,7 @@ class PersonController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 8, 100)
-        respond Person.list(params + [sort: "name", order: "asc"]), model:[personCount: Person.count()]
+        respond Person.listOrderByName(params + [order: 'asc']), model:[personCount: Person.count()]
     }
 
     def show(Person person) {
