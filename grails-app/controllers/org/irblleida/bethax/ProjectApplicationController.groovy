@@ -18,7 +18,7 @@ class ProjectApplicationController {
 
         def projectApplicationOthers = ProjectApplication.findAllByHeadStatisticianNotEqual(currentUser, params)
         def projectApplicationOthersCount = ProjectApplication.findAllByHeadStatisticianNotEqual(currentUser).size()
-        respond ProjectApplication.findAllByHeadStatistician(currentUser), model:[projectApplicationOthers: projectApplicationOthers, projectApplicationOthersCount: projectApplicationOthersCount]
+        respond ProjectApplication.findAllByHeadStatistician(currentUser, params), model:[projectApplicationOthers: projectApplicationOthers, projectApplicationOthersCount: projectApplicationOthersCount]
     }
 
     def ajaxList() {

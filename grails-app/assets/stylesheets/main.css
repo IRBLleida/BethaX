@@ -372,3 +372,22 @@ a.dropdown-item{
     border-right: 0;
     border-left: 0;
 }
+
+.sortable a{
+    color: white;
+    text-decoration: none;
+}
+
+.asc i.asc{
+    display: block;
+}
+.asc i.desc{
+    display: none;
+}
+
+.desc i.asc{
+    display: none;
+}
+.desc i.desc{
+    display: block;
+}

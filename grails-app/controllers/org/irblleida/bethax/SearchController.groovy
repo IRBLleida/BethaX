@@ -26,7 +26,6 @@ class SearchController {
 
         if(search == "") search = "No s'ha especificat res!"
 
-        //TODO: Afegir el maxim/minim numero de fites a les cerques checkbox
         if(params.fromRequest) model = fromRequest(params)
         if(!model && params.notFromRequest) model = notFromRequest(params, query)
         if(!model) model = checkFinishedAndNotPayed(params, query)

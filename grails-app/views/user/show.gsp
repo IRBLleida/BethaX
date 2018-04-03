@@ -124,6 +124,51 @@
                 <div id="container2" style="min-width: 310px; height: 400px;"></div>
             </div>
         </div>
+
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-body crud">
+                    <h4 class="card-title">Sol·licituds</h4>
+                    <hr class="brace">
+                    <table class="table">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <g:sortableColumn property="entryDate" title="${message(code: 'projectApplication.entryDate.label')}"/>
+                            <g:sortableColumn property="name" title="${message(code: 'projectApplication.name.label')}"/>
+                            <g:sortableColumn property="applicant" title="${message(code: 'projectApplication.applicant.label')}"/>
+                            <g:sortableColumn property="status" title="${message(code: 'projectApplication.status.label')}"/>
+                            <g:sortableColumn property="projects" title="${message(code: 'projectApplication.projects.label')}"/>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <g:each var="projectApplication" in="${projectApplicationList}">
+                            <tr>
+                                <th scope="row">
+                                    <g:link action="show" id="${projectApplication.id.toString()}">
+                                        <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
+                                    </g:link>
+                                <td>${projectApplication.name}</td>
+                                <td>${projectApplication.applicant}</td>
+                                <td>
+                                    <g:if test="${projectApplication.closingDate}">
+                                        <i class="fa fa-file-archive-o" aria-hidden="true"></i> Tancada
+                                    </g:if>
+                                    <g:else>
+                                        <i class="fa fa-folder-open-o" aria-hidden="true"></i> Oberta
+                                    </g:else>
+                                </td>
+                                <td>
+                                    <g:each var="project" in="${projectApplication.projects}">
+                                        <g:link controller="project" action="show" id="${project.id.toString()}">${project}</g:link>
+                                    </g:each>
+                                </td>
+                            </tr>
+                        </g:each>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <content tag="footScripts">
