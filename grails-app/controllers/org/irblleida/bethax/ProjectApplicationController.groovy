@@ -283,4 +283,16 @@ class ProjectApplicationController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    def downloadInvoiceRequest() {
+        def invoiceFile = new File("/opt/bethax/sol_factura.doc" as String)
+        if(invoiceFile.exists()) {
+            response.setContentType("application/msword")
+            response.setHeader("Content-disposition", "attachment;filename=\"Sol·licitud emissió de factura interna.doc\"")
+            response.outputStream << invoiceFile.bytes
+        }
+        else {
+            render "FAIL"
+        }
+    }
 }

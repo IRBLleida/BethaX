@@ -9,6 +9,11 @@
         <div class="card-body crud">
             <h4 class="card-title">Tancament de la sol·licitud <strong>${this.projectApplication}</strong></h4>
             <hr class="brace">
+            <g:link controller="projectApplication" action="downloadInvoiceRequest">
+                <i class="fa far fa-file-word-o" aria-hidden="true"></i>
+                Descarregar sol·licitud d'emissió de factura
+            </g:link>
+            <hr />
             <div class="row">
                 <g:if test="${flash.message}">
                     <div class="alert alert-info" role="alert">${flash.message}</div>
