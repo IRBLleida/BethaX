@@ -18,10 +18,10 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <th><g:message code="milestone.name.label" /></th>
-                    <th><g:message code="milestone.description.label" /></th>
-                    <th><g:message code="milestone.deadline.label" /></th>
-                    <th><g:message code="milestone.workPlan.label" /></th>
+                    <g:sortableColumn property="name" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="description" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="deadline" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="workPlan" title="${message(code: 'milestone.workPlan.label')}"/>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,12 +61,12 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <th><g:message code="milestone.name.label" /></th>
-                    <th><g:message code="milestone.description.label" /></th>
-                    <th><g:message code="milestone.estimatedTime.label" /></th>
-                    <th><g:message code="milestone.deadline.label" /></th>
-                    <th><g:message code="milestone.dateFinished.label" /></th>
-                    <th><g:message code="milestone.workPlan.label" /></th>
+                    <g:sortableColumn property="name" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="description" title="${message(code: 'milestone.description.label')}"/>
+                    <g:sortableColumn property="estimatedTime" title="${message(code: 'milestone.estimatedTime.label')}"/>
+                    <g:sortableColumn property="deadline" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="dateFinished" title="${message(code: 'milestone.dateFinished.label')}"/>
+                    <g:sortableColumn property="workPlan" title="${message(code: 'milestone.workPlan.label')}"/>
                 </tr>
                 </thead>
                 <tbody>

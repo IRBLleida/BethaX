@@ -18,10 +18,10 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <th><g:message code="project.name.label" /></th>
-                    <th><g:message code="project.principalInvestigator.label" /></th>
-                    <th><g:message code="project.isResearch.label" /></th>
-                    <th># Sol·licituds</th>
+                    <g:sortableColumn property="name" title="${message(code: 'project.name.label')}"/>
+                    <g:sortableColumn property="principalInvestigator" title="${message(code: 'project.principalInvestigator.label')}"/>
+                    <g:sortableColumn property="isResearch" title="${message(code: 'project.isResearch.label')}"/>
+                    <g:sortableColumn property="requests" title="# Sol·licituds"/>
                 </tr>
                 </thead>
                 <tbody>

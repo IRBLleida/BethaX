@@ -18,10 +18,10 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <th><g:message code="workPlan.projectApplication.label" /></th>
-                    <th><g:message code="workPlan.dateDone.label" /></th>
-                    <th><g:message code="workPlan.dateAccepted.label" /></th>
-                    <th><g:message code="workPlan.wpVersion.label" /></th>
+                    <g:sortableColumn property="projectApplication" title="${message(code: 'workPlan.projectApplication.label')}"/>
+                    <g:sortableColumn property="dateDone" title="${message(code: 'workPlan.dateDone.label')}"/>
+                    <g:sortableColumn property="dateAccepted" title="${message(code: 'workPlan.dateAccepted.label')}"/>
+                    <g:sortableColumn property="wpVersion" title="${message(code: 'workPlan.wpVersion.label')}"/>
                 </tr>
                 </thead>
                 <tbody>
