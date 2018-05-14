@@ -107,6 +107,46 @@
                 </div>
                 </div>
                 <hr/>
+
+                <div class="card">
+                    <div class="card-body crud">
+                        <h5 class="card-title text-center">Llista de projectes</h5>
+                        <hr class="brace">
+                        <g:if test="${projectList?.size() > 0}">
+                            <table class="table">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>#</th>
+                                    <g:sortableColumn property="name" title="${message(code: 'project.name.label')}"/>
+                                    <g:sortableColumn property="isResearch" title="${message(code: 'project.isResearch.label')}"/>
+                                    <g:sortableColumn property="requests" title="# Sol·licituds"/>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <g:each var="project" in="${projectList}">
+                                    <tr>
+                                    <th scope="row">
+                                        <g:link action="show" id="${project.id.toString()}">
+                                            ${project.id.toString().take(5)}...</th>
+                                        </g:link>
+                                        <td>${project.name}</td>
+                                        <td><g:message code="default.yesno.${project.isResearch}" /></td>
+                                        <td>${project.requests?.size() ?: 0}</td>
+                                    </tr>
+                                </g:each>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 30px;">
+                                    <g:paginate controller="project" action="index" total="${projectList.size()}" />
+                                </div>
+                            </div>
+                        </g:if>
+                    </div>
+                </div>
+
+
+                <hr/>
                 <div class="col-md-12">
                     <details>
                         <summary class="text-muted"><i class="fa fa-info-circle" aria-hidden="true"></i> Més detalls</summary>

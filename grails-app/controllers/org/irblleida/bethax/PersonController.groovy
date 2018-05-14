@@ -15,7 +15,7 @@ class PersonController {
     }
 
     def show(Person person) {
-        respond person, model: [projectApplicationList: ProjectApplication.findAllByApplicant(person, params)]
+        respond person, model: [projectApplicationList: ProjectApplication.findAllByApplicant(person, params), projectList: Project.findAllByPrincipalInvestigator(person, params)]
     }
 
     def create() {
