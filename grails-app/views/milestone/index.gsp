@@ -18,10 +18,10 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <th><g:message code="milestone.name.label" /></th>
-                    <th><g:message code="milestone.description.label" /></th>
-                    <th><g:message code="milestone.deadline.label" /></th>
-                    <th><g:message code="milestone.workPlan.label" /></th>
+                    <g:sortableColumn property="name" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="description" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="deadline" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="workPlan" title="${message(code: 'milestone.workPlan.label')}"/>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,6 +42,11 @@
                     </g:each>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 30px;">
+                    <g:paginate controller="milestone" action="index"  total="${openedMilestonesCount}" />
+                </div>
+            </div>
             <hr />
         </g:if>
         <g:else>
@@ -56,21 +61,22 @@
             </div>
         </g:else>
         <g:if test="${myClosedMilestones?.size() > 0}">
-            <h3>Fites completades</h3>
+            <h4 class="card-title">Últimes fites completades</h4>
+            <hr class="brace">
             <table class="table">
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <th><g:message code="milestone.name.label" /></th>
-                    <th><g:message code="milestone.description.label" /></th>
-                    <th><g:message code="milestone.estimatedTime.label" /></th>
-                    <th><g:message code="milestone.deadline.label" /></th>
-                    <th><g:message code="milestone.dateFinished.label" /></th>
-                    <th><g:message code="milestone.workPlan.label" /></th>
+                    <g:sortableColumn property="name" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="description" title="${message(code: 'milestone.description.label')}"/>
+                    <g:sortableColumn property="estimatedTime" title="${message(code: 'milestone.estimatedTime.label')}"/>
+                    <g:sortableColumn property="deadline" title="${message(code: 'milestone.name.label')}"/>
+                    <g:sortableColumn property="dateFinished" title="${message(code: 'milestone.dateFinished.label')}"/>
+                    <g:sortableColumn property="workPlan" title="${message(code: 'milestone.workPlan.label')}"/>
                 </tr>
                 </thead>
                 <tbody>
-                <g:each var="milestone" in="${myClosedMilestones.sort { it.dateFinished }}">
+                <g:each var="milestone" in="${myClosedMilestones}">
                     <tr class="table-success">
                     <th scope="row">
                         <g:link controller="workPlan" action="show" id="${milestone.workPlan.id.toString()}">
@@ -86,6 +92,7 @@
                 </g:each>
                 </tbody>
             </table>
+            <div class="pull-right"><g:link action="closed"><i class="fa fa-eye"></i> Veure totes</g:link></div>
         </g:if>
     </div>
 </div>
