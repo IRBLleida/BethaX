@@ -18,7 +18,7 @@
                 <thead class="thead-inverse">
                 <tr>
                     <th>#</th>
-                    <g:sortableColumn property="projectApplication" title="${message(code: 'workPlan.projectApplication.label')}"/>
+                    <g:sortableColumn property="projectApplicationName" title="${message(code: 'workPlan.projectApplication.label')}"/>
                     <g:sortableColumn property="dateDone" title="${message(code: 'workPlan.dateDone.label')}"/>
                     <g:sortableColumn property="dateAccepted" title="${message(code: 'workPlan.dateAccepted.label')}"/>
                     <g:sortableColumn property="wpVersion" title="${message(code: 'workPlan.wpVersion.label')}"/>
@@ -33,7 +33,7 @@
                         </g:link>
                         <td>
                             <g:link controller="projectApplication" action="show" id="${workPlan.projectApplication.id.toString()}">
-                                ${workPlan.projectApplication.name}
+                                ${workPlan.projectApplicationName}
                             </g:link>
                         </td>
                         <td><g:formatDate date="${workPlan.dateDone}" format="dd/MM/yyyy" /></td>

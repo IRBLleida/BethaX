@@ -13,10 +13,24 @@ class MilestoneController {
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        def myOpenMilestones = Milestone.findAllByHeadStatisticianAndDateFinishedIsNull((User) getAuthenticatedUser())
-        def myClosedMilestones =  Milestone.findAllByHeadStatisticianAndDateFinishedIsNotNull((User) getAuthenticatedUser())
+        if(!params['sort']) params['sort'] = 'dateFinished'
+        if(!params['order']) params['order'] = 'desc'
+        def myOpenMilestones = Milestone.findAllByHeadStatisticianAndDateFinishedIsNull((User) getAuthenticatedUser(), params)
+        params.max = 10
+        def myClosedMilestones =  Milestone.findAllByHeadStatisticianAndDateFinishedIsNotNull((User) getAuthenticatedUser(), params)
 
-        render view: 'index', model:[myOpenMilestones: myOpenMilestones, myClosedMilestones: myClosedMilestones]
+        render view: 'index', model:[myOpenMilestones: myOpenMilestones,
+                                     myClosedMilestones: myClosedMilestones,
+                                     openedMilestonesCount: myOpenMilestones.size()]
+    }
+
+    def closed(){
+        if(!params['sort']) params['sort'] = 'dateFinished'
+        if(!params['order']) params['order'] = 'desc'
+        def myClosedMilestones =  Milestone.findAllByHeadStatisticianAndDateFinishedIsNotNull((User) getAuthenticatedUser(), params)
+
+        render view: 'closed', model:[myClosedMilestones: myClosedMilestones,
+                                     milestonesCount: myClosedMilestones.size()]
     }
 
     def ajaxList() {

@@ -15,12 +15,18 @@ class WorkPlan {
     Float wpVersion
     String filename
 
+    String getProjectApplicationName() {
+        this.projectApplication.name
+    }
+
     static belongsTo = [projectApplication: ProjectApplication]
 
     static hasMany = [
             updates: WorkPlanUpdate,
             milestones: Milestone
     ]
+
+    static transients = ['projectApplicationName']
 
     static constraints = {
         createdBy nullable: false
