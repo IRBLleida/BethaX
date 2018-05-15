@@ -429,8 +429,9 @@
                         $('#persons').show();
                         output = '';
                         $.each(data.persons, function(key, val) {
+                            var photo = '<g:createLink controller="person" action="photo"/>/' + val.id;
                             output +=   '<a class="dummy-media-object" href="<g:createLink controller="person" action="show"/>/' + val.id +
-                                        '" class="list-group-item">' + '<h3> <img src="${createLink(controller: "person", action: "photo", id:"' + val.id + '")}" width="100" class="rounded-circle animated pulse" />' +
+                                        '" class="list-group-item">' + '<h3> <img src="' + photo + '" width="100" class="rounded-circle animated pulse" />' +
                                         val.name +' (' + val.institution + ')</h3></a>';
                         });
                         $('#search-person').html(output);
@@ -456,8 +457,10 @@
                         $('#users').show();
                         output = '';
                         $.each(data.users, function(key, val) {
+                            var photo = '<g:createLink controller="user" action="photo"/>/' + val.id;
+                            console.log(photo)
                             output +=   '<a class="dummy-media-object" href="<g:createLink controller="user" action="show"/>/' + val.id +
-                                        '" class="list-group-item">' + '<h3> <img src="${createLink(controller: "user", action: "photo", id:"' + val.id + '")}" width="100" class="rounded-circle animated pulse" />' +
+                                        '" class="list-group-item">' + '<h3> <img src="' + photo + '" width="100" class="rounded-circle animated pulse" />' +
                                         val.name +' (' + val.username + ')</h3></a>';
                         });
                         $('#search-user').html(output);
