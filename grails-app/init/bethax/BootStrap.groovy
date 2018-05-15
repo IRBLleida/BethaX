@@ -181,5 +181,15 @@ class BootStrap {
                 isFemale: true,
                 organization: Organization.findByName("UBiostat"),
                 passwordExpired: true).save(flush: true)
+
+        new User(
+                username: 'ralves@cmb.udl.cat',
+                password: springSecurityService.encodePassword('ralves'),
+                authorities: [Role.findByAuthority('ROLE_USER')],
+                givenName: 'Rui',
+                familyName: 'Alves',
+                isFemale: false,
+                organization: Organization.findByName("UBiostat"),
+                passwordExpired: true).save(flush: true)
     }
 }
