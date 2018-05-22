@@ -186,12 +186,13 @@ class ProjectApplicationController {
             return
         }
 
-        def projects = Project.findAll().find{ it.requests && it.requests.contains(projectApplication) }
-        projects.each{ project ->
+        def newProjects = projectApplication.projects
+        def oldProjects = Project.findAll().find{ it.requests && it.requests.contains(projectApplication) }
+        oldProjects.each{ project ->
             project.removeFromRequests(projectApplication)
             project.save flush: true
         }
-        projectApplication.projects.each { project ->
+        newProjects.each { project ->
             project.addToRequests(projectApplication)
             project.save flush: true
         }
