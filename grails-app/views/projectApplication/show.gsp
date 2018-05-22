@@ -65,8 +65,8 @@
                     <bx:showField bean="${this.projectApplication}" property="noWorkPlanReason" />
                 </g:if>
             </div>
-            <g:if test="${projectApplication.isWorkPlanNeeded}">
             <div class="row">
+            <g:if test="${projectApplication.isWorkPlanNeeded}">
                 <div class="col-md-6">
                     <dl class="animated fadeIn">
                         <dt>
@@ -86,6 +86,7 @@
                         </g:else>
                     </dl>
                 </div>
+            </g:if>
                 <div class="col-md-6">
                     <dl class="animated fadeIn">
                         <dt>
@@ -99,7 +100,6 @@
                     </dl>
                 </div>
             </div>
-            </g:if>
             <g:if test="${this.projectApplication.closingDate}">
                 <div class="row">
                     <div class="col-md-12">

@@ -17,7 +17,7 @@
     </div>
     <div class="col-md-3">
         <label for="projects">Projectes</label>
-        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects}" optionKey="id" class="form-control" />
+        <g:select name="projects" from="${org.irblleida.bethax.Project.list()}" multiple="multiple" value="${this.projectApplication.projects*.id}" optionKey="id" class="form-control" />
     </div>
     <div class="col-md-3">
         <label>&nbsp;</label>
@@ -48,5 +48,6 @@
         });
 
         $('#isWorkPlanNeeded').change();
+
     </g:javascript>
 </content>
