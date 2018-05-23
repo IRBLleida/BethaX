@@ -13,7 +13,6 @@ class ProjectApplicationController {
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
         def currentUser = (User) getAuthenticatedUser()
 
         def projectApplicationOthers = ProjectApplication.findAllByHeadStatisticianNotEqual(currentUser, params)
