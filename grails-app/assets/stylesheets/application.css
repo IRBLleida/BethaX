@@ -15,5 +15,6 @@
 *= require animate
 *= require bootstrap-datepicker3
 *= require fullcalendar
+*= require datatables.min
 *= require_self
 */

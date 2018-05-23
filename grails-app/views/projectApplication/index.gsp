@@ -16,23 +16,27 @@
 
 
         <g:if test="${projectApplicationList?.size() > 0}">
-            <table class="table">
-                <thead class="thead-inverse">
+            <table class="table table-sm table-striped" id="myProjectApplications">
+                <thead >
                 <tr>
-                    <g:sortableColumn property="entryDate" title="${message(code: 'projectApplication.entryDate.label')}"/>
-                    <g:sortableColumn property="name" title="${message(code: 'projectApplication.name.label')}"/>
-                    <g:sortableColumn property="applicant" title="${message(code: 'projectApplication.applicant.label')}"/>
-                    <g:sortableColumn property="status" title="${message(code: 'projectApplication.status.label')}"/>
-                    <g:sortableColumn property="projects" title="${message(code: 'projectApplication.projects.label')}"/>
+                    <th><g:message code="projectApplication.entryDate.label"/></th>
+                    <th><g:message code="projectApplication.name.label"/></th>
+                    <th><g:message code="projectApplication.applicant.label"/></th>
+                    <th><g:message code="projectApplication.status.label"/></th>
+                    <th><g:message code="projectApplication.projects.label"/></th>
                 </tr>
                 </thead>
                 <tbody>
                     <g:each var="projectApplication" in="${projectApplicationList}">
                         <tr>
-                        <th scope="row">
-                            <g:link action="show" id="${projectApplication.id.toString()}">
-                                <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
-                            </g:link>
+
+                           <td>
+                               <b>
+                                   <g:link action="show" id="${projectApplication.id.toString()}">
+                                        <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
+                                   </g:link>
+                               </b>
+                           </td>
                             <td>${projectApplication.name}</td>
                             <td>${projectApplication.applicant}</td>
                             <td>
@@ -71,15 +75,15 @@
             <hr />
             <h4 class="card-title">Altres sol·licituds</h4>
             <hr class="brace">
-            <table class="table">
-                <thead class="thead-inverse">
+            <table class="table table-sm table-striped" id="otherProjectApplications">
+                <thead>
                 <tr>
-                    <g:sortableColumn property="entryDate" title="${message(code: 'projectApplication.entryDate.label')}"/>
-                    <g:sortableColumn property="name" title="${message(code: 'projectApplication.name.label')}"/>
-                    <g:sortableColumn property="applicant" title="${message(code: 'projectApplication.applicant.label')}"/>
-                    <g:sortableColumn property="headStatistician" title="${message(code: 'projectApplication.headStatistician.label')}"/>
-                    <g:sortableColumn property="status" title="${message(code: 'projectApplication.status.label')}"/>
-                    <g:sortableColumn property="projects" title="${message(code: 'projectApplication.projects.label')}"/>
+                    <th><g:message code="projectApplication.entryDate.label"/></th>
+                    <th><g:message code="projectApplication.name.label"/></th>
+                    <th><g:message code="projectApplication.applicant.label"/></th>
+                    <th><g:message code="projectApplication.headStatistician.label"/></th>
+                    <th><g:message code="projectApplication.status.label"/></th>
+                    <th><g:message code="projectApplication.projects.label"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -109,13 +113,44 @@
                 </g:each>
                 </tbody>
             </table>
-            <div class="row">
-                <div class="col-md-12" style="margin-top: 30px;">
-                    <g:paginate controller="projectApplication" action="index" total="${projectApplicationOthersCount}" />
-                </div>
-            </div>
         </g:if>
     </div>
 </div>
+
+<content tag="footScripts">
+    <g:javascript>
+        $(document).ready(function() {
+            $('#myProjectApplications').DataTable({
+                "language": {
+                    "lengthMenu": "Mostra _MENU_ sol·licituds per pàgina",
+                    "zeroRecords": "No hi ha cap sol·licitud.",
+                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No s'ha trobat cap sol·licitud",
+                    "infoFiltered": "(filtrades d'un total de _MAX_ sol·licituds)",
+                    "search": "Cercar",
+                    "paginate": {
+                        "next": "Següent",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#otherProjectApplications').DataTable({
+                "language": {
+                    "lengthMenu": "Mostra _MENU_ sol·licituds per pàgina",
+                    "zeroRecords": "No hi ha cap sol·licitud.",
+                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No s'ha trobat cap sol·licitud",
+                    "infoFiltered": "(filtrades d'un total de _MAX_ sol·licituds)",
+                    "search": "Cercar",
+                    "paginate": {
+                        "next": "Següent",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        } );
+    </g:javascript>
+</content>
 </body>
 </html>

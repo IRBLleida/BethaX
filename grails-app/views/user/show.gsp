@@ -67,12 +67,12 @@
                     <h4 class="card-title"><g:message code="profile.milestones.label" /></h4>
                     <hr class="brace">
                     <g:if test="${milestoneList?.size() > 0}">
-                        <table class="table">
-                            <thead class="thead-inverse">
+                        <table class="table table-sm table-striped" id="pendingMilestones">
+                            <thead>
                             <tr>
-                                <g:sortableColumn property="name" title="${message(code: 'milestone.name.label')}"/>
-                                <g:sortableColumn property="deadline" title="${message(code: 'milestone.deadline.label')}"/>
-                                <g:sortableColumn property="workPlan" title="${message(code: 'milestone.workPlan.label')}"/>
+                                <th><g:message code="milestone.name.label"/></th>
+                                <th><g:message code="milestone.deadline.label"/></th>
+                                <th><g:message code="milestone.workPlan.label"/></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -80,8 +80,9 @@
                                 <tr>
                                 <th scope="row">
                                     <g:link controller="workPlan" action="show" id="${milestone.workPlan.id.toString()}">
-                                        ${milestone.name}</th>
+                                        ${milestone.name}
                                     </g:link>
+                                </th>
                                     <td><g:formatDate date="${milestone.deadline}" format="dd/MM/yyyy" /></td>
                                     <td>${milestone.workPlan}</td>
                                 </tr>
@@ -130,14 +131,14 @@
                 <div class="card-body crud">
                     <h4 class="card-title">Sol·licituds</h4>
                     <hr class="brace">
-                    <table class="table">
-                        <thead class="thead-inverse">
+                    <table class="table table-sm table-striped" id="projectApplicationsTable">
+                        <thead>
                         <tr>
-                            <g:sortableColumn property="entryDate" title="${message(code: 'projectApplication.entryDate.label')}"/>
-                            <g:sortableColumn property="name" title="${message(code: 'projectApplication.name.label')}"/>
-                            <g:sortableColumn property="applicant" title="${message(code: 'projectApplication.applicant.label')}"/>
-                            <g:sortableColumn property="status" title="${message(code: 'projectApplication.status.label')}"/>
-                            <g:sortableColumn property="projects" title="${message(code: 'projectApplication.projects.label')}"/>
+                            <th><g:message code="projectApplication.entryDate.label"/></th>
+                            <th><g:message code="projectApplication.name.label"/></th>
+                            <th><g:message code="projectApplication.applicant.label"/></th>
+                            <th><g:message code="projectApplication.status.label"/></th>
+                            <th><g:message code="projectApplication.projects.label"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -147,6 +148,7 @@
                                     <g:link action="show" id="${projectApplication.id.toString()}">
                                         <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
                                     </g:link>
+                                </th>
                                 <td>${projectApplication.name}</td>
                                 <td>${projectApplication.applicant}</td>
                                 <td>
@@ -172,6 +174,40 @@
     </div>
 </div>
 <content tag="footScripts">
+    <g:javascript>
+        $(document).ready(function() {
+            $('#pendingMilestones').DataTable({
+                "language": {
+                    "lengthMenu": "Mostra _MENU_ fites per pàgina",
+                    "zeroRecords": "No hi ha cap fita.",
+                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No s'ha trobat cap fita",
+                    "infoFiltered": "(filtrades d'un total de _MAX_ fites)",
+                    "search": "Cercar",
+                    "paginate": {
+                        "next": "Següent",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#projectApplicationsTable').DataTable({
+                "language": {
+                    "lengthMenu": "Mostra _MENU_ sol·licituds per pàgina",
+                    "zeroRecords": "No hi ha cap sol·licitud.",
+                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No s'ha trobat cap sol·licitud",
+                    "infoFiltered": "(filtrades d'un total de _MAX_ sol·licituds)",
+                    "search": "Cercar",
+                    "paginate": {
+                        "next": "Següent",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        } );
+    </g:javascript>
+
     <g:javascript>
     var months = []
     <g:each var="m" in="${monthString}">

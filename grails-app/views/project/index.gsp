@@ -17,7 +17,6 @@
             <table class="table">
                 <thead class="thead-inverse">
                 <tr>
-                    <th>#</th>
                     <g:sortableColumn property="name" title="${message(code: 'project.name.label')}"/>
                     <g:sortableColumn property="principalInvestigator" title="${message(code: 'project.principalInvestigator.label')}"/>
                     <g:sortableColumn property="isResearch" title="${message(code: 'project.isResearch.label')}"/>
@@ -27,11 +26,7 @@
                 <tbody>
                     <g:each var="project" in="${projectList}">
                         <tr>
-                            <th scope="row">
-                                <g:link action="show" id="${project.id.toString()}">
-                                    ${project.id.toString().take(5)}...</th>
-                                </g:link>
-                            <td>${project.name}</td>
+                            <td><b><g:link action="show" id="${project.id.toString()}">${project.name}</g:link></b></td>
                             <td>${project.principalInvestigator}</td>
                             <td><g:message code="default.yesno.${project.isResearch}" /></td>
                             <td>${project.requests?.size() ?: 0}</td>
