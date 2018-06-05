@@ -13,10 +13,12 @@ class MilestoneController {
     //static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
-        if(!params['sort']) params['sort'] = 'dateFinished'
-        if(!params['order']) params['order'] = 'desc'
+        if(!params['sort']) params['sort'] = 'deadline'
+        if(!params['order']) params['order'] = 'asc'
         def myOpenMilestones = Milestone.findAllByHeadStatisticianAndDateFinishedIsNull((User) getAuthenticatedUser(), params)
+        println(myOpenMilestones)
         params.max = 10
+        params['sort'] = 'dateFinished'
         def myClosedMilestones =  Milestone.findAllByHeadStatisticianAndDateFinishedIsNotNull((User) getAuthenticatedUser(), params)
 
         render view: 'index', model:[myOpenMilestones: myOpenMilestones,
