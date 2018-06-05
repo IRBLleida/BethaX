@@ -24,7 +24,9 @@ class InstitutionSectionController {
     }
 
     def show(InstitutionSection institutionSection) {
-        respond institutionSection
+        def persons = Person.findAllBySection(institutionSection)
+        respond institutionSection, model: [projects: Project.findAllByPrincipalInvestigatorInList(persons),
+                                            projectApplications: ProjectApplication.findAllByApplicantInList(persons)]
     }
 
     def create() {

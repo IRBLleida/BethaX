@@ -13,6 +13,7 @@
                 <bx:showField property="name" bean="${this.institution}" />
                 <bx:showField property="institutionType" bean="${this.institution}" />
             </div>
+            <hr />
             <div class="row">
                 <div class="col-md-12">
                     <nav class="nav nav-tabs" id="myTab" role="tablist">

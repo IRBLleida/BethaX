@@ -39,6 +39,39 @@
             </div>
             <hr />
             <div class="row">
+                <div class="col-md-6">
+                    <br/>
+                    <table class="table table-sm table-striped" id="projects-institution">
+                        <thead>
+                        <tr>
+                            <th><g:message code="project.label" /></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <g:each var="project" in="${projects}">
+                            <tr><td><g:link controller="project" action="show" id="${project.id.toString()}">${project.name}</g:link></td></tr>
+                        </g:each>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <br/>
+                    <table class="table table-sm table-striped" id="projectApplications-institution">
+                        <thead>
+                        <tr>
+                            <th><g:message code="projectApplication.label" /></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <g:each var="projectApplication" in="${projectApplications}">
+                            <tr><td><g:link controller="project" action="show" id="${projectApplication.id.toString()}">${projectApplication.name}</g:link></td></tr>
+                        </g:each>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
                 <div class="col-md-12">
                     <details>
                         <summary class="text-muted"><i class="fa fa-info-circle" aria-hidden="true"></i> Més detalls</summary>
@@ -61,5 +94,40 @@
         </div>
     </div>
 </div>
+<content tag="footScripts">
+    <g:javascript>
+        $(document).ready(function() {
+           $('#projects-institution').DataTable({
+                "language": {
+                    "lengthMenu": "Mostra _MENU_ projectes per pàgina",
+                    "zeroRecords": "No hi ha cap projecte.",
+                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No s'ha trobat cap projecte",
+                    "infoFiltered": "(filtrades d'un total de _MAX_ projectes)",
+                    "search": "Cercar",
+                    "paginate": {
+                        "next": "Següent",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+
+            $('#projectApplications-institution').DataTable({
+                "language": {
+                    "lengthMenu": "Mostra _MENU_ sol·licituds per pàgina",
+                    "zeroRecords": "No hi ha cap sol·licitud.",
+                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No s'ha trobat cap sol·licitud",
+                    "infoFiltered": "(filtrades d'un total de _MAX_ sol·licituds)",
+                    "search": "Cercar",
+                    "paginate": {
+                        "next": "Següent",
+                        "previous": "Anterior"
+                    }
+                }
+            });
+        } );
+    </g:javascript>
+</content>
 </body>
 </html>
