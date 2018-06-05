@@ -19,6 +19,7 @@
                 <tr>
                     <th>#</th>
                     <g:sortableColumn property="projectApplicationName" title="${message(code: 'workPlan.projectApplication.label')}"/>
+                    <g:sortableColumn property="projectApplicationName" title="${message(code: 'projectApplication.projects.label')}"/>
                     <g:sortableColumn property="dateDone" title="${message(code: 'workPlan.dateDone.label')}"/>
                     <g:sortableColumn property="dateAccepted" title="${message(code: 'workPlan.dateAccepted.label')}"/>
                     <g:sortableColumn property="wpVersion" title="${message(code: 'workPlan.wpVersion.label')}"/>
@@ -35,6 +36,11 @@
                             <g:link controller="projectApplication" action="show" id="${workPlan.projectApplication.id.toString()}">
                                 ${workPlan.projectApplicationName}
                             </g:link>
+                        </td>
+                        <td>
+                            <g:each var="project" in="${workPlan.projectApplication.projects}">
+                                <g:link controller="project" action="show" id="${project.id.toString()}">${project} </g:link>
+                            </g:each>
                         </td>
                         <td><g:formatDate date="${workPlan.dateDone}" format="dd/MM/yyyy" /></td>
                         <td><g:formatDate date="${workPlan.dateAccepted}" format="dd/MM/yyyy" /></td>
