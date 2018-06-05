@@ -16,7 +16,9 @@ class InstitutionController {
     }
 
     def show(Institution institution) {
-        respond institution
+        def persons = Person.findAllByInstitution(institution)
+        respond institution, model: [projects: Project.findAllByPrincipalInvestigatorInList(persons),
+                                     projectApplications: ProjectApplication.findAllByApplicantInList(persons)]
     }
 
     def create() {
