@@ -188,7 +188,10 @@
                         "next": "Següent",
                         "previous": "Anterior"
                     }
-                }
+                },
+                "columnDefs": [
+                    { type: 'date-eu', targets: 1 }
+                ]
             });
 
             $('#projectApplicationsTable').DataTable({
@@ -203,7 +206,10 @@
                         "next": "Següent",
                         "previous": "Anterior"
                     }
-                }
+                },
+                "columnDefs": [
+                    { type: 'date-eu', targets: 0 }
+                ]
             });
         } );
     </g:javascript>
