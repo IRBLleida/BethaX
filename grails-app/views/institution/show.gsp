@@ -63,7 +63,7 @@
                                         </thead>
                                         <tbody>
                                         <g:each var="projectApplication" in="${projectApplications}">
-                                            <tr><td><g:link controller="project" action="show" id="${projectApplication.id.toString()}">${projectApplication.name}</g:link></td></tr>
+                                            <tr><td><g:link controller="projectApplication" action="show" id="${projectApplication.id.toString()}">${projectApplication.name}</g:link></td></tr>
                                         </g:each>
                                         </tbody>
                                     </table>
