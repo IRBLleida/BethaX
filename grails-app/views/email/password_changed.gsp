@@ -1,242 +1,340 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
-    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
-    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
-    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
-
-<!-- Web Font / @font-face : BEGIN -->
-<!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
-
-<!-- Desktop Outlook chokes on web font references and defaults to Times New Roman, so we force a safe fallback font. -->
-<!--[if mso]>
-        <style>
-            * {
-                font-family: sans-serif !important;
-            }
-        </style>
-    <![endif]-->
-
-<!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
-<!--[if !mso]><!-->
-<!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
-<!--<![endif]-->
-
-<!-- Web Font / @font-face : END -->
-
-<!-- CSS Reset -->
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
-
-    /* What it does: Remove spaces around the email design added by some email clients. */
-    /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
-    html,
-    body {
-        margin: 0 auto !important;
-        padding: 0 !important;
-        height: 100% !important;
-        width: 100% !important;
-    }
-
-    /* What it does: Stops email clients resizing small text. */
-    * {
-        -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%;
-    }
-
-    /* What is does: Centers email on Android 4.4 */
-    div[style*="margin: 16px 0"] {
-        margin:0 !important;
-    }
-
-    /* What it does: Stops Outlook from adding extra spacing to tables. */
-    table,
-    td {
-        mso-table-lspace: 0pt !important;
-        mso-table-rspace: 0pt !important;
-    }
-
-    /* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
-    table {
-        border-spacing: 0 !important;
-        border-collapse: collapse !important;
-        table-layout: fixed !important;
-        margin: 0 auto !important;
-    }
-    table table table {
-        table-layout: auto;
-    }
-
-    /* What it does: Uses a better rendering method when resizing images in IE. */
+    /* -------------------------------------
+        GLOBAL RESETS
+    ------------------------------------- */
     img {
-        -ms-interpolation-mode:bicubic;
+        border: none;
+        -ms-interpolation-mode: bicubic;
+        max-width: 100%; }
+
+    body {
+        background-color: #f6f6f6;
+        font-family: sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0;
+        padding: 0;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%; }
+
+    table {
+        border-collapse: separate;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        width: 100%; }
+    table td {
+        font-family: sans-serif;
+        font-size: 14px;
+        vertical-align: top; }
+
+    /* -------------------------------------
+        BODY & CONTAINER
+    ------------------------------------- */
+
+    .body {
+        background-color: #f6f6f6;
+        width: 100%; }
+
+    /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+    .container {
+        display: block;
+        Margin: 0 auto !important;
+        /* makes it centered */
+        max-width: 580px;
+        padding: 10px;
+        width: 580px; }
+
+    /* This should also be a block element, so that it will fill 100% of the .container */
+    .content {
+        box-sizing: border-box;
+        display: block;
+        Margin: 0 auto;
+        max-width: 580px;
+        padding: 10px; }
+
+    /* -------------------------------------
+        HEADER, FOOTER, MAIN
+    ------------------------------------- */
+    .main {
+        background: #ffffff;
+        border-radius: 3px;
+        width: 100%; }
+
+    .wrapper {
+        box-sizing: border-box;
+        padding: 20px; }
+
+    .content-block {
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
 
-    /* What it does: A work-around for iOS meddling in triggered links. */
-    *[x-apple-data-detectors] {
-        color: inherit !important;
-        text-decoration: none !important;
-    }
+    .footer {
+        clear: both;
+        Margin-top: 10px;
+        text-align: center;
+        width: 100%; }
+    .footer td,
+    .footer p,
+    .footer span,
+    .footer a {
+        color: #999999;
+        font-size: 12px;
+        text-align: center; }
 
-    /* What it does: A work-around for Gmail meddling in triggered links. */
-    .x-gmail-data-detectors,
-    .x-gmail-data-detectors *,
-    .aBn {
-        border-bottom: 0 !important;
-        cursor: default !important;
-    }
+    /* -------------------------------------
+        TYPOGRAPHY
+    ------------------------------------- */
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: #000000;
+        font-family: sans-serif;
+        font-weight: 400;
+        line-height: 1.4;
+        margin: 0;
+        Margin-bottom: 30px; }
 
-    /* What it does: Prevents Gmail from displaying an download button on large, non-linked images. */
-    .a6S {
-        display: none !important;
-        opacity: 0.01 !important;
-    }
-    /* If the above doesn't work, add a .g-img class to any image in question. */
-    img.g-img + div {
-        display:none !important;
-    }
+    h1 {
+        font-size: 35px;
+        font-weight: 300;
+        text-align: center;
+        text-transform: capitalize; }
 
-    /* What it does: Prevents underlining the button text in Windows 10 */
-    .button-link {
-        text-decoration: none !important;
-    }
+    p,
+    ul,
+    ol {
+        font-family: sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        margin: 0;
+        Margin-bottom: 15px; }
+    p li,
+    ul li,
+    ol li {
+        list-style-position: inside;
+        margin-left: 5px; }
 
-    /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
-    /* Create one of these media queries for each additional viewport size you'd like to fix */
-    /* Thanks to Eric Lepetit @ericlepetitsf) for help troubleshooting */
-    @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { /* iPhone 6 and 6+ */
-        .email-container {
-            min-width: 375px !important;
-        }
-    }
+    a {
+        color: #3498db;
+        text-decoration: underline; }
+
+    /* -------------------------------------
+        BUTTONS
+    ------------------------------------- */
+    .btn {
+        box-sizing: border-box;
+        width: 100%; }
+    .btn > tbody > tr > td {
+        padding-bottom: 15px; }
+    .btn table {
+        width: auto; }
+    .btn table td {
+        background-color: #ffffff;
+        border-radius: 5px;
+        text-align: center; }
+    .btn a {
+        background-color: #ffffff;
+        border: solid 1px #3498db;
+        border-radius: 5px;
+        box-sizing: border-box;
+        color: #3498db;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0;
+        padding: 12px 25px;
+        text-decoration: none;
+        text-transform: capitalize; }
+
+    .btn-primary table td {
+        background-color: #3498db; }
+
+    .btn-primary a {
+        background-color: #3498db;
+        border-color: #3498db;
+        color: #ffffff; }
+
+    /* -------------------------------------
+        OTHER STYLES THAT MIGHT BE USEFUL
+    ------------------------------------- */
+    .last {
+        margin-bottom: 0; }
+
+    .first {
+        margin-top: 0; }
+
+    .align-center {
+        text-align: center; }
+
+    .align-right {
+        text-align: right; }
+
+    .align-left {
+        text-align: left; }
+
+    .clear {
+        clear: both; }
+
+    .mt0 {
+        margin-top: 0; }
+
+    .mb0 {
+        margin-bottom: 0; }
+
+    .preheader {
+        color: transparent;
+        display: none;
+        height: 0;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        mso-hide: all;
+        visibility: hidden;
+        width: 0; }
+
+    .powered-by a {
+        text-decoration: none; }
+
+    hr {
+        border: 0;
+        border-bottom: 1px solid #f6f6f6;
+        Margin: 20px 0; }
+
+    /* -------------------------------------
+        RESPONSIVE AND MOBILE FRIENDLY STYLES
+    ------------------------------------- */
+    @media only screen and (max-width: 620px) {
+        table[class=body] h1 {
+            font-size: 28px !important;
+            margin-bottom: 10px !important; }
+        table[class=body] p,
+        table[class=body] ul,
+        table[class=body] ol,
+        table[class=body] td,
+        table[class=body] span,
+        table[class=body] a {
+            font-size: 16px !important; }
+        table[class=body] .wrapper,
+        table[class=body] .article {
+            padding: 10px !important; }
+        table[class=body] .content {
+            padding: 0 !important; }
+        table[class=body] .container {
+            padding: 0 !important;
+            width: 100% !important; }
+        table[class=body] .main {
+            border-left-width: 0 !important;
+            border-radius: 0 !important;
+            border-right-width: 0 !important; }
+        table[class=body] .btn table {
+            width: 100% !important; }
+        table[class=body] .btn a {
+            width: 100% !important; }
+        table[class=body] .img-responsive {
+            height: auto !important;
+            max-width: 100% !important;
+            width: auto !important; }}
+
+    /* -------------------------------------
+        PRESERVE THESE STYLES IN THE HEAD
+    ------------------------------------- */
+    @media all {
+        .ExternalClass {
+            width: 100%; }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
+            line-height: 100%; }
+        .apple-link a {
+            color: inherit !important;
+            font-family: inherit !important;
+            font-size: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+            text-decoration: none !important; }
+        .btn-primary table td:hover {
+            background-color: #34495e !important; }
+        .btn-primary a:hover {
+            background-color: #34495e !important;
+            border-color: #34495e !important; } }
 
     </style>
-
-    <!-- Progressive Enhancements -->
-    <style>
-
-    /* What it does: Hover styles for buttons */
-    .button-td,
-    .button-a {
-        transition: all 100ms ease-in;
-    }
-    .button-td:hover,
-    .button-a:hover {
-        background: #ed672c !important;
-        border-color: #ed672c !important;
-    }
-
-
-    .clickable tr:hover { background: #FBF5EF; }
-    .clickable td { border: 1px solid #000; border-collapse: collapse; }
-    .clickable td a { display: block; padding: 5px 0px; text-decoration: none; }
-
-    </style>
-
 </head>
-<body width="100%" bgcolor="#222222" style="margin: 0; mso-line-height-rule: exactly;">
-<center style="width: 100%; background: #004020; text-align: left;">
+<body class="">
+<table border="0" cellpadding="0" cellspacing="0" class="body">
+    <tr>
+        <td>&nbsp;</td>
+        <td class="container">
+            <div class="content">
 
-    <!-- Visually Hidden Preheader Text : BEGIN -->
-    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: sans-serif;">
-        La seva contrasenya s'ha actualitzat correctament.
-    </div>
-    <!-- Visually Hidden Preheader Text : END -->
+                <!-- START CENTERED WHITE CONTAINER -->
+                <span class="preheader">La seva contrasenya s'ha actualitzat correctament.</span>
+                <table class="main">
 
-    <!--
-            Set the email width. Defined in two places:
-            1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 600px.
-            2. MSO tags for Desktop Windows Outlook enforce a 600px width.
-        -->
-    <div style="max-width: 600px; margin: auto;" class="email-container">
-        <!--[if mso]>
-            <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
-            <tr>
-            <td>
-            <![endif]-->
+                    <!-- START MAIN CONTENT AREA -->
+                    <tr>
+                        <td class="wrapper">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="padding: 20px 0; text-align: center">
+                                        <img src="http://bethax.udl.cat/assets/logo.png" width="350" height="102" alt="BETHAX" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h2 style="margin: 0 0 10px 0; font-family: sans-serif; font-size: 24px; line-height: 125%; color: #333333; font-weight: normal;">Contrasenya actualitzada.</h2>
+                                        <p style="margin: 0;">
+                                            Hola,
+                                            <br><br>
+                                            La seva contrasenya s'ha canviat correctament.
+                                            <br><br><br>
+                                            Si no has realitzat tu aquest canvi, posa't en contacte amb els administradors del projecte el més aviat possible.
+                                        </p>
+                                        <p><br/><br/><i>Aquest correu electrònic ha estat enviat de forma automàtica des de l'aplicació BethaX. Si us plau, no respongueu a aquest missatge.</i></p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
 
-        <!-- Email Header : BEGIN -->
-        <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
-            <tr>
-                <td style="padding: 20px 0; text-align: center">
+                    <!-- END MAIN CONTENT AREA -->
+                </table>
 
-                </td>
-            </tr>
-        </table>
-        <!-- Email Header : END -->
-
-        <!-- Email Body : BEGIN -->
-        <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
-
-            <!-- Hero Image, Flush : BEGIN -->
-            <%--
-            <tr>
-                <td bgcolor="#ffffff">
-                    <img src="http://placehold.it/1200x600" aria-hidden="true" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img">
-                </td>
-            </tr>
-            --%>
-            <!-- Hero Image, Flush : END -->
-
-            <!-- 1 Column Text + Button : BEGIN -->
-            <tr>
-                <td bgcolor="#ffffff">
-                    <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <!-- START FOOTER -->
+                <div class="footer">
+                    <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td style="padding: 40px; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
-                                Hola,
-                                <br><br>
-                                La seva contrasenya s'ha canviat correctament.
-                                <br><br><br>
-                                Si no has realitzat tu aquest canvi, posa't en contacte amb els administradors del projecte el més aviat possible.
-                                <br><br><br>
-                                <!-- Button : Begin -->
-                                <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
-                                    <tr>
-                                        <td style="border-radius: 3px; background: #222222; text-align: center;" class="button-td">
-                                            <a href="https://bethax.udl.cat" style="background: #ed672c; border: 15px solid #ed672c; font-family: sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
-                                                <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;BethaX&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <!-- Button : END -->
-                                <br>
-                                Aquest correu electrònic ha estat enviat de forma automàtica des de l'aplicació BethaX. Si us plau, no respongueu a aquest missatge.
+                            <td class="content-block">
+                                <span class="apple-link"> IRBLleida<br>Av. Alcalde Rovira Roure, 80, Lleida, 25198, Spain</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 20px 0; text-align: center">
+                                <img src="http://bethax.udl.cat/assets/ubiostat.png" width="350" height="102" alt="UBiostat" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
                             </td>
                         </tr>
                     </table>
-                </td>
-            </tr>
-            <!-- 1 Column Text + Button : BEGIN -->
+                </div>
+                <!-- END FOOTER -->
 
-            <!-- Clear Spacer : BEGIN -->
-            <tr>
-                <td height="40" style="font-size: 0; line-height: 0;">
-                    &nbsp;
-                </td>
-            </tr>
-            <!-- Clear Spacer : END -->
-        </table>
-        <!-- Email Body : END -->
-
-        <!-- Email Footer : BEGIN -->
-        <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px;">
-            <tr>
-                <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: sans-serif; line-height:18px; text-align: center; color: #888888;" class="x-gmail-data-detectors">
-                    <br><br>Projecte BethaX<br>-<br>-<br><br>
-                </td>
-            </tr>
-        </table>
-        <!-- Email Footer : END -->
-
-        <!--[if mso]>
-            </td>
-            </tr>
-            </table>
-            <![endif]-->
-    </div>
-</center>
+                <!-- END CENTERED WHITE CONTAINER -->
+            </div>
+        </td>
+        <td>&nbsp;</td>
+    </tr>
+</table>
 </body>
 </html>
