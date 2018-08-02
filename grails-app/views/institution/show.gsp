@@ -22,6 +22,9 @@
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-sections" role="tabpanel" aria-labelledby="nav-sections-tab">
+                            <div class="col-md-12 mt-3 mb-4">
+                                <g:link controller="institutionSection" action="create" params="[institution: this.institution.id]" class="card-link btn btn-success pull-right"><i class="fa fa-plus" aria-hidden="true"></i> <g:message code="institutionSection.add.label"/></g:link>
+                            </div>
                             <br/>
                             <table class="table table-sm table-striped" id="institutionSections">
                                 <thead>

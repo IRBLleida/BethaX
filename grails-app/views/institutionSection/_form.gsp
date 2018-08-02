@@ -10,7 +10,7 @@
     </div>
 </g:hasErrors>
 <div class="row">
-    <bx:formField bean="${this.institutionSection}" property="institution" required="required" />
+    <bx:formField bean="${this.institutionSection}" property="institution" required="required" value="${this.institutionSection.institution ? this.institutionSection.institution : params?.institution ? params?.institution : null}"/>
     <bx:formField bean="${this.institutionSection}" property="name" required="required" />
 </div>
 <content tag="footScripts">
