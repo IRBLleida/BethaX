@@ -326,6 +326,13 @@
                                 <img src="http://bethax.udl.cat/assets/ubiostat.png" width="350" height="102" alt="UBiostat" border="0" style="height: auto; font-family: sans-serif; font-size: 15px; line-height: 140%; color: #555555;">
                             </td>
                         </tr>
+                        <tr>
+                            <td class="content-block powered-by">
+                                This message may contain private or confidential information, and is addressed exclusively to its intended recipient. If you have received it in error, please notify the sender and delete it. Please bear in mind that you are not authorized to use it for any purposes.
+                                <br/><br/>
+                                More information <a href="http://irblleida.github.io/mail-signature/lopd.html">here</a>.
+                            </td>
+                        </tr>
                     </table>
                 </div>
                 <!-- END FOOTER -->
