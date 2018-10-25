@@ -145,7 +145,7 @@
                         <g:each var="projectApplication" in="${projectApplicationList}">
                             <tr>
                                 <th scope="row">
-                                    <g:link action="show" id="${projectApplication.id.toString()}">
+                                    <g:link controller="projectApplication" action="show" id="${projectApplication.id.toString()}">
                                         <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
                                     </g:link>
                                 </th>
