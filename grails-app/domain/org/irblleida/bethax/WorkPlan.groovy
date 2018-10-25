@@ -30,6 +30,16 @@ class WorkPlan {
         return closestMilestone
     }
 
+    Integer getMilestonesEstimatedTime(){
+        Integer time = 0
+        this.milestones.each { milestone ->
+            if(!milestone.dateFinished){
+                time += milestone.estimatedTime
+            }
+        }
+        return time
+    }
+
     static belongsTo = [projectApplication: ProjectApplication]
 
     static hasMany = [
@@ -37,7 +47,7 @@ class WorkPlan {
             milestones: Milestone
     ]
 
-    static transients = ['projectApplicationName', 'closestMilestone']
+    static transients = ['projectApplicationName', 'closestMilestone', 'milestonesEstimatedTime']
 
     static constraints = {
         createdBy nullable: false

@@ -135,8 +135,9 @@
                         <thead>
                         <tr>
                             <th><g:message code="projectApplication.entryDate.label"/></th>
-                            <th>Data d'entrega més propera</th>
                             <th><g:message code="projectApplication.name.label"/></th>
+                            <th>Data d'entrega més propera</th>
+                            <th>Temps estimat de les fites pendents</th>
                             <th><g:message code="projectApplication.applicant.label"/></th>
                             <th><g:message code="projectApplication.status.label"/></th>
                             <th><g:message code="projectApplication.projects.label"/></th>
@@ -150,10 +151,11 @@
                                         <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
                                     </g:link>
                                 </th>
+                                <td>${projectApplication.name}</td>
                                 <td>
                                     <g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" />
                                 </td>
-                                <td>${projectApplication.name}</td>
+                                <td>${projectApplication?.workPlan?.milestonesEstimatedTime}</td>
                                 <td>${projectApplication.applicant}</td>
                                 <td>
                                     <g:if test="${projectApplication.closingDate}">
