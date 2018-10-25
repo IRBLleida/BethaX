@@ -188,8 +188,10 @@ class ProjectApplicationController {
         def newProjects = projectApplication.projects
         def oldProjects = Project.findAll().find{ it.requests && it.requests.contains(projectApplication) }
         oldProjects.each{ project ->
-            project.removeFromRequests(projectApplication)
-            project.save flush: true
+            if(!(project in newProjects)){
+                project.removeFromRequests(projectApplication)
+                project.save flush: true
+            }
         }
         newProjects.each { project ->
             project.addToRequests(projectApplication)
@@ -212,7 +214,6 @@ class ProjectApplicationController {
         }
 
         if(params.closeFile?.getOriginalFilename() != null && params.closeFile?.getOriginalFilename() != '') {
-            // TODO: Create projectApplication/ directory on server
             def folderPath = "/opt/bethax/projectApplication/" as String
             def path = "${folderPath}/${projectApplication.id}" as String
             def currentCloseFile = new File(path)

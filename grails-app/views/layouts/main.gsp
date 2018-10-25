@@ -197,13 +197,13 @@
 
             <ul class="nav nav-pills flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/IRBLleida/BethaX/issues/new?labels=sol%C2%B7licitud%20d%27ajuda&assignees=jvilaplana" target="_blank">
+                    <a class="nav-link" href="https://github.com/IRBLleida/BethaX/issues/new?labels=sol%C2%B7licitud%20d%27ajuda&assignees=pbalaguer19" target="_blank">
                         <i class="fa fa-question-circle"></i>
                         <g:message code="layouts.main.requestHelp" />
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/IRBLleida/BethaX/issues/new?labels=error&assignees=jvilaplana" target="_blank">
+                    <a class="nav-link" href="https://github.com/IRBLleida/BethaX/issues/new?labels=error&assignees=pbalaguer19" target="_blank">
                         <i class="fa fa-bug"></i>
                         <g:message code="layouts.main.reportBug" />
                     </a>
