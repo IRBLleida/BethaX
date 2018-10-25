@@ -19,6 +19,17 @@ class WorkPlan {
         this.projectApplication.name
     }
 
+    Milestone getClosestMilestone(){
+        Milestone closestMilestone = null
+        this.milestones.each { milestone ->
+            if(milestone.dte >= 0){
+                if(!closestMilestone) closestMilestone = milestone
+                if(closestMilestone.dte > milestone.dte) closestMilestone = milestone
+            }
+        }
+        return closestMilestone
+    }
+
     static belongsTo = [projectApplication: ProjectApplication]
 
     static hasMany = [
@@ -26,7 +37,7 @@ class WorkPlan {
             milestones: Milestone
     ]
 
-    static transients = ['projectApplicationName']
+    static transients = ['projectApplicationName', 'closestMilestone']
 
     static constraints = {
         createdBy nullable: false

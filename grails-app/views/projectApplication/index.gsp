@@ -20,6 +20,7 @@
                 <thead >
                 <tr>
                     <th><g:message code="projectApplication.entryDate.label"/></th>
+                    <th>Data d'entrega més propera</th>
                     <th><g:message code="projectApplication.name.label"/></th>
                     <th><g:message code="projectApplication.applicant.label"/></th>
                     <th><g:message code="projectApplication.status.label"/></th>
@@ -29,14 +30,16 @@
                 <tbody>
                     <g:each var="projectApplication" in="${projectApplicationList}">
                         <tr>
-
-                           <td>
+                            <td>
                                <b>
                                    <g:link action="show" id="${projectApplication.id.toString()}">
                                         <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
                                    </g:link>
                                </b>
-                           </td>
+                            </td>
+                            <td>
+                                <g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" />
+                            </td>
                             <td>${projectApplication.name}</td>
                             <td>${projectApplication.applicant}</td>
                             <td>
@@ -79,6 +82,7 @@
                 <thead>
                 <tr>
                     <th><g:message code="projectApplication.entryDate.label"/></th>
+                    <th>Data d'entrega més propera</th>
                     <th><g:message code="projectApplication.name.label"/></th>
                     <th><g:message code="projectApplication.applicant.label"/></th>
                     <th><g:message code="projectApplication.headStatistician.label"/></th>
@@ -93,6 +97,9 @@
                         <g:link action="show" id="${projectApplication.id.toString()}">
                             <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
                         </g:link>
+                        <td>
+                            <g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" />
+                        </td>
                         <td>${projectApplication.name}</td>
                         <td>${projectApplication.applicant}</td>
                         <td><g:link controller="user" action="show" id="${projectApplication.headStatistician?.id?.toString()}">${projectApplication.headStatistician}</g:link></td>
