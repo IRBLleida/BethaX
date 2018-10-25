@@ -4,6 +4,9 @@
 <meta name="layout" content="main" />
 </head>
 <body>
+<div class="alert alert-secondary" role="alert">
+    Nota: Les fites en que estàs involucrat apareixen en <b style="color: #6AA84F">verd</b>. La resta en <b style="color: #65a9d7;">blau</b>!
+</div>
 <div id="calendar"></div>
 <content tag="footScripts">
 <g:javascript>
@@ -22,8 +25,7 @@
                     url: '${createLink(controller: 'milestone', action: 'ajaxList')}',
                     type: 'POST',
                     allDay: true,
-                    color: '#65a9d7',    // an option!
-                    textColor: '#3c3d3d'  // an option!
+                    textColor: '#fff'
                 },
                 {
                     googleCalendarId: '5705kqh2ajrsqfmocaojr7fpvs@group.calendar.google.com',

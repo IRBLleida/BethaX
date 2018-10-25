@@ -37,8 +37,13 @@ class MilestoneController {
 
     def ajaxList() {
         def result = []
+        def user = (User) getAuthenticatedUser()
+
         Milestone.list().each { milestone ->
-            result.add(['title': milestone.name, 'start': milestone.deadline, 'allDay': 1, 'url': createLink(controller: 'workPlan', action: 'show', id: milestone.workPlan.id.toString())])
+            def color = "#65a9d7"
+            if(milestone.headStatistician == user) color = '#6AA84F'
+
+            result.add(['title': "[" + milestone.headStatistician + "] " + milestone.name, 'start': milestone.deadline, 'allDay': 1, 'url': createLink(controller: 'workPlan', action: 'show', id: milestone.workPlan.id.toString()), color: color])
         }
         render result as JSON
     }
