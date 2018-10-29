@@ -118,27 +118,6 @@
     </div>
 </div>
 <content tag="footScripts">
-    <g:javascript>
-        $(document).ready(function() {
-            $('#finishedMilestones').DataTable({
-                "language": {
-                    "lengthMenu": "Mostra _MENU_ fites per pàgina",
-                    "zeroRecords": "No hi ha cap fita.",
-                    "info": "Mostrant la pàgina _PAGE_ de _PAGES_",
-                    "infoEmpty": "No s'ha trobat cap fita",
-                    "infoFiltered": "(filtrades d'un total de _MAX_ fites)",
-                    "search": "Cercar",
-                    "paginate": {
-                        "next": "Següent",
-                        "previous": "Anterior"
-                    }
-                },
-                "columnDefs": [
-                    { type: 'date-eu', targets: 0 }
-                ]
-            });
-        } );
-    </g:javascript>
 </content>
 </body>
 </html>

@@ -19,8 +19,8 @@
             <table class="table table-sm table-striped" id="myProjectApplications">
                 <thead >
                 <tr>
-                    <th><g:message code="projectApplication.entryDate.label"/></th>
                     <th><g:message code="projectApplication.name.label"/></th>
+                    <th><g:message code="projectApplication.entryDate.label"/></th>
                     <th>Data d'entrega més propera</th>
                     <th>Temps estimat de les fites pendents</th>
                     <th><g:message code="projectApplication.applicant.label"/></th>
@@ -31,17 +31,9 @@
                 <tbody>
                     <g:each var="projectApplication" in="${projectApplicationList}">
                         <tr>
-                            <td>
-                               <b>
-                                   <g:link action="show" id="${projectApplication.id.toString()}">
-                                        <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
-                                   </g:link>
-                               </b>
-                            </td>
-                            <td>${projectApplication.name}</td>
-                            <td>
-                                <g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" />
-                            </td>
+                            <td><g:link action="show" id="${projectApplication.id.toString()}"><b>${projectApplication.name}</b></g:link></td>
+                            <td><g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" /></td>
+                            <td><g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" /></td>
                             <td>${projectApplication?.workPlan?.milestonesEstimatedTime}</td>
                             <td>${projectApplication.applicant}</td>
                             <td>
@@ -83,8 +75,8 @@
             <table class="table table-sm table-striped" id="otherProjectApplications">
                 <thead>
                 <tr>
-                    <th><g:message code="projectApplication.entryDate.label"/></th>
                     <th><g:message code="projectApplication.name.label"/></th>
+                    <th><g:message code="projectApplication.entryDate.label"/></th>
                     <th>Data d'entrega més propera</th>
                     <th>Temps estimat de les fites pendents</th>
                     <th><g:message code="projectApplication.applicant.label"/></th>
@@ -96,15 +88,9 @@
                 <tbody>
                 <g:each var="projectApplication" in="${projectApplicationOthers}">
                     <tr>
-                    <th scope="row">
-                        <g:link action="show" id="${projectApplication.id.toString()}">
-                            <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
-                        </g:link>
-                        <td>${projectApplication.name}</td>
-                        <td>
-                            <g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" />
-                        </td>
-                        <td>${projectApplication?.workPlan?.milestonesEstimatedTime}</td>
+                        <td><g:link action="show" id="${projectApplication.id.toString()}"><b>${projectApplication.name}</b></g:link></td>
+                        <td><g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" /></td>
+                        <td><g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" /></td>
                         <td>${projectApplication.applicant}</td>
                         <td><g:link controller="user" action="show" id="${projectApplication.headStatistician?.id?.toString()}">${projectApplication.headStatistician}</g:link></td>
                         <td>
@@ -130,6 +116,50 @@
 
 <content tag="footScripts">
     <g:javascript>
+        //Jquery Datatable date sorting pluggin
+        jQuery.extend( jQuery.fn.dataTableExt.oSort, {
+            "date-eu-pre": function ( date ) {
+                date = date.replace(" ", "");
+
+                if ( ! date ) {
+                    return 0;
+                }
+
+                var year;
+                var eu_date = date.split(/[\.\-\/]/);
+
+                /*year (optional)*/
+                if ( eu_date[2] ) {
+                    year = eu_date[2];
+                }
+                else {
+                    year = 0;
+                }
+
+                /*month*/
+                var month = eu_date[1];
+                if ( month.length == 1 ) {
+                    month = 0+month;
+                }
+
+                /*day*/
+                var day = eu_date[0];
+                if ( day.length == 1 ) {
+                    day = 0+day;
+                }
+
+                return (year + month + day) * 1;
+            },
+
+            "date-eu-asc": function ( a, b ) {
+                return ((a < b) ? -1 : ((a > b) ? 1 : 0));
+            },
+
+            "date-eu-desc": function ( a, b ) {
+                return ((a < b) ? 1 : ((a > b) ? -1 : 0));
+            }
+        } );
+
         $(document).ready(function() {
             $('#myProjectApplications').DataTable({
                 "language": {
@@ -145,7 +175,8 @@
                     }
                 },
                 "columnDefs": [
-                    { type: 'date-eu', targets: 0 }
+                    { type: 'date-eu', targets: 1 },
+                    { type: 'date-eu', targets: 2 }
                 ]
             });
 
@@ -163,7 +194,8 @@
                     }
                 },
                 "columnDefs": [
-                    { type: 'date-eu', targets: 0 }
+                    { type: 'date-eu', targets: 1 },
+                    { type: 'date-eu', targets: 2 }
                 ]
             });
         } );

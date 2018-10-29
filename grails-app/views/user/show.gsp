@@ -134,8 +134,8 @@
                     <table class="table table-sm table-striped" id="projectApplicationsTable">
                         <thead>
                         <tr>
-                            <th><g:message code="projectApplication.entryDate.label"/></th>
                             <th><g:message code="projectApplication.name.label"/></th>
+                            <th><g:message code="projectApplication.entryDate.label"/></th>
                             <th>Data d'entrega més propera</th>
                             <th>Temps estimat de les fites pendents</th>
                             <th><g:message code="projectApplication.applicant.label"/></th>
@@ -146,15 +146,9 @@
                         <tbody>
                         <g:each var="projectApplication" in="${projectApplicationList}">
                             <tr>
-                                <th scope="row">
-                                    <g:link controller="projectApplication" action="show" id="${projectApplication.id.toString()}">
-                                        <g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" />
-                                    </g:link>
-                                </th>
-                                <td>${projectApplication.name}</td>
-                                <td>
-                                    <g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" />
-                                </td>
+                                <td><g:link action="show" id="${projectApplication.id.toString()}"><b>${projectApplication.name}</b></g:link></td>
+                                <td><g:formatDate date="${projectApplication.entryDate}" format="dd/MM/yyyy" /></td>
+                                <td><g:formatDate date="${projectApplication?.workPlan?.closestMilestone?.deadline}" format="dd/MM/yyyy" /></td>
                                 <td>${projectApplication?.workPlan?.milestonesEstimatedTime}</td>
                                 <td>${projectApplication.applicant}</td>
                                 <td>
@@ -259,7 +253,8 @@
                     }
                 },
                 "columnDefs": [
-                    { type: 'date-eu', targets: 0 }
+                    { type: 'date-eu', targets: 1 },
+                    { type: 'date-eu', targets: 2 }
                 ]
             });
         } );
